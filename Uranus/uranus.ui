@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>752</width>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="takeoffBtn">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>240</y>
+      <x>50</x>
+      <y>130</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="landBtn">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>300</y>
+      <x>50</x>
+      <y>190</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -43,14 +43,40 @@
    <widget class="QPushButton" name="connect">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>170</y>
+      <x>50</x>
+      <y>70</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>Connect</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="streamonBtn">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>240</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>streamon</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="videoLabel">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>30</y>
+      <width>450</width>
+      <height>450</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
@@ -67,8 +93,8 @@
    <slot>on_connectBtn_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>269</x>
-     <y>182</y>
+     <x>59</x>
+     <y>82</y>
     </hint>
     <hint type="destinationlabel">
      <x>204</x>
@@ -83,8 +109,8 @@
    <slot>on_takeoffBtn_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>274</x>
-     <y>258</y>
+     <x>64</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>207</x>
@@ -99,12 +125,28 @@
    <slot>on_landBtn_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>278</x>
-     <y>310</y>
+     <x>68</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>202</x>
      <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>streamonBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>UranusClass</receiver>
+   <slot>on_streamonBtn_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>258</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
@@ -113,5 +155,6 @@
   <slot>on_connectBtn_clicked()</slot>
   <slot>on_takeoffBtn_clicked()</slot>
   <slot>on_landBtn_clicked()</slot>
+  <slot>on_streamonBtn_clicked()</slot>
  </slots>
 </ui>

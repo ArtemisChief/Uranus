@@ -22,9 +22,11 @@ public:
 private:
 	Ui::UranusClass ui;
 	Drone* drone_;
+	
 
 private slots:
 	void on_connectBtn_clicked();
 	void on_takeoffBtn_clicked();
 	void on_landBtn_clicked();
+	void on_streamonBtn_clicked();
 };
