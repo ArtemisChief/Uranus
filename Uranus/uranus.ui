@@ -14,56 +14,43 @@
    <string>Uranus</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label1">
+   <widget class="QPushButton" name="takeoffBtn">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>256</width>
-      <height>256</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Pic_Origin</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label2">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>50</y>
-      <width>256</width>
-      <height>256</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Pic_Target</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="startBtn">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>350</y>
+      <x>260</x>
+      <y>240</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Start</string>
+     <string>Takeoff</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="stopBtn">
+   <widget class="QPushButton" name="landBtn">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>350</y>
+      <x>260</x>
+      <y>300</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Stop</string>
+     <string>Land</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="connect">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>170</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Connect</string>
     </property>
    </widget>
   </widget>
@@ -74,40 +61,57 @@
  </resources>
  <connections>
   <connection>
-   <sender>startBtn</sender>
+   <sender>connect</sender>
    <signal>clicked()</signal>
    <receiver>UranusClass</receiver>
-   <slot>on_startBtn_clicked()</slot>
+   <slot>on_connectBtn_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>243</x>
-     <y>324</y>
+     <x>269</x>
+     <y>182</y>
     </hint>
     <hint type="destinationlabel">
-     <x>165</x>
-     <y>299</y>
+     <x>204</x>
+     <y>181</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>stopBtn</sender>
+   <sender>takeoffBtn</sender>
    <signal>clicked()</signal>
    <receiver>UranusClass</receiver>
-   <slot>on_stopBtn_clicked()</slot>
+   <slot>on_takeoffBtn_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>355</x>
-     <y>321</y>
+     <x>274</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
-     <x>431</x>
-     <y>296</y>
+     <x>207</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>landBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>UranusClass</receiver>
+   <slot>on_landBtn_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>278</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>202</x>
+     <y>308</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>on_startBtn_clicked()</slot>
-  <slot>on_stopBtn_clicked()</slot>
+  <slot>on_connectBtn_clicked()</slot>
+  <slot>on_takeoffBtn_clicked()</slot>
+  <slot>on_landBtn_clicked()</slot>
  </slots>
 </ui>

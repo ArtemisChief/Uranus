@@ -8,6 +8,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QTimer>
 #include "ui_uranus.h"
+#include "drone.h"
 
 using namespace cv;
 
@@ -18,18 +19,12 @@ class Uranus : public QMainWindow
 public:
 	Uranus(QWidget *parent = Q_NULLPTR);
 
-
 private:
 	Ui::UranusClass ui;
-
-	QImage pic_origin;
-	QImage pic_target;
-	Mat frame;
-	QTimer *timer;
-	VideoCapture capture;
+	Drone* drone_;
 
 private slots:
-	void on_startBtn_clicked();
-	void on_stopBtn_clicked();
-	void getFrame();
+	void on_connectBtn_clicked();
+	void on_takeoffBtn_clicked();
+	void on_landBtn_clicked();
 };

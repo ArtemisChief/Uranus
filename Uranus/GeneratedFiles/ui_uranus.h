@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
@@ -22,10 +21,9 @@ class Ui_UranusClass
 {
 public:
     QWidget *centralWidget;
-    QLabel *label1;
-    QLabel *label2;
-    QPushButton *startBtn;
-    QPushButton *stopBtn;
+    QPushButton *takeoffBtn;
+    QPushButton *landBtn;
+    QPushButton *connect;
 
     void setupUi(QMainWindow *UranusClass)
     {
@@ -34,23 +32,21 @@ public:
         UranusClass->resize(600, 400);
         centralWidget = new QWidget(UranusClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        label1 = new QLabel(centralWidget);
-        label1->setObjectName(QString::fromUtf8("label1"));
-        label1->setGeometry(QRect(10, 50, 256, 256));
-        label2 = new QLabel(centralWidget);
-        label2->setObjectName(QString::fromUtf8("label2"));
-        label2->setGeometry(QRect(320, 50, 256, 256));
-        startBtn = new QPushButton(centralWidget);
-        startBtn->setObjectName(QString::fromUtf8("startBtn"));
-        startBtn->setGeometry(QRect(200, 350, 75, 23));
-        stopBtn = new QPushButton(centralWidget);
-        stopBtn->setObjectName(QString::fromUtf8("stopBtn"));
-        stopBtn->setGeometry(QRect(280, 350, 75, 23));
+        takeoffBtn = new QPushButton(centralWidget);
+        takeoffBtn->setObjectName(QString::fromUtf8("takeoffBtn"));
+        takeoffBtn->setGeometry(QRect(260, 240, 75, 23));
+        landBtn = new QPushButton(centralWidget);
+        landBtn->setObjectName(QString::fromUtf8("landBtn"));
+        landBtn->setGeometry(QRect(260, 300, 75, 23));
+        connect = new QPushButton(centralWidget);
+        connect->setObjectName(QString::fromUtf8("connect"));
+        connect->setGeometry(QRect(260, 170, 75, 23));
         UranusClass->setCentralWidget(centralWidget);
 
         retranslateUi(UranusClass);
-        QObject::connect(startBtn, SIGNAL(clicked()), UranusClass, SLOT(on_startBtn_clicked()));
-        QObject::connect(stopBtn, SIGNAL(clicked()), UranusClass, SLOT(on_stopBtn_clicked()));
+        QObject::connect(connect, SIGNAL(clicked()), UranusClass, SLOT(on_connectBtn_clicked()));
+        QObject::connect(takeoffBtn, SIGNAL(clicked()), UranusClass, SLOT(on_takeoffBtn_clicked()));
+        QObject::connect(landBtn, SIGNAL(clicked()), UranusClass, SLOT(on_landBtn_clicked()));
 
         QMetaObject::connectSlotsByName(UranusClass);
     } // setupUi
@@ -58,10 +54,9 @@ public:
     void retranslateUi(QMainWindow *UranusClass)
     {
         UranusClass->setWindowTitle(QApplication::translate("UranusClass", "Uranus", nullptr));
-        label1->setText(QApplication::translate("UranusClass", "Pic_Origin", nullptr));
-        label2->setText(QApplication::translate("UranusClass", "Pic_Target", nullptr));
-        startBtn->setText(QApplication::translate("UranusClass", "Start", nullptr));
-        stopBtn->setText(QApplication::translate("UranusClass", "Stop", nullptr));
+        takeoffBtn->setText(QApplication::translate("UranusClass", "Takeoff", nullptr));
+        landBtn->setText(QApplication::translate("UranusClass", "Land", nullptr));
+        connect->setText(QApplication::translate("UranusClass", "Connect", nullptr));
     } // retranslateUi
 
 };

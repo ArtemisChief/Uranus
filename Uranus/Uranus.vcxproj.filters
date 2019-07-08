@@ -36,9 +36,15 @@
     <ClCompile Include="uranus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="drone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="uranus.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="drone.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
