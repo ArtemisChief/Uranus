@@ -32,24 +32,24 @@ public:
     {
         if (UranusClass->objectName().isEmpty())
             UranusClass->setObjectName(QString::fromUtf8("UranusClass"));
-        UranusClass->resize(752, 535);
+        UranusClass->resize(1440, 900);
         centralWidget = new QWidget(UranusClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         takeoffBtn = new QPushButton(centralWidget);
         takeoffBtn->setObjectName(QString::fromUtf8("takeoffBtn"));
-        takeoffBtn->setGeometry(QRect(50, 130, 75, 23));
+        takeoffBtn->setGeometry(QRect(1340, 90, 81, 23));
         landBtn = new QPushButton(centralWidget);
         landBtn->setObjectName(QString::fromUtf8("landBtn"));
-        landBtn->setGeometry(QRect(50, 190, 75, 23));
+        landBtn->setGeometry(QRect(1340, 120, 81, 23));
         connect = new QPushButton(centralWidget);
         connect->setObjectName(QString::fromUtf8("connect"));
-        connect->setGeometry(QRect(50, 70, 75, 23));
+        connect->setGeometry(QRect(1340, 60, 81, 23));
         streamonBtn = new QPushButton(centralWidget);
         streamonBtn->setObjectName(QString::fromUtf8("streamonBtn"));
-        streamonBtn->setGeometry(QRect(40, 240, 93, 28));
+        streamonBtn->setGeometry(QRect(1340, 150, 81, 28));
         videoLabel = new QLabel(centralWidget);
         videoLabel->setObjectName(QString::fromUtf8("videoLabel"));
-        videoLabel->setGeometry(QRect(220, 30, 450, 450));
+        videoLabel->setGeometry(QRect(10, 10, 1280, 720));
         UranusClass->setCentralWidget(centralWidget);
 
         retranslateUi(UranusClass);

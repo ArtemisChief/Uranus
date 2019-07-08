@@ -2,15 +2,10 @@
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgproc/types_c.h>
-#include <QtWidgets/QMainWindow>
 #include <QTimer>
 #include "ui_uranus.h"
 #include "drone.h"
-
-using namespace cv;
 
 class Uranus : public QMainWindow
 {
@@ -18,15 +13,24 @@ class Uranus : public QMainWindow
 
 public:
 	Uranus(QWidget *parent = Q_NULLPTR);
+	void SetImageBlack();
 
 private:
 	Ui::UranusClass ui;
-	Drone* drone_;
+	Drone drone_;
 	
+	char* url_drone_ = "udp://0.0.0.0:11111";
+	QTimer timer_;
+	cv::Mat frame_;
+	cv::VideoCapture* capture_;
+
+	cv::Mat black_;
 
 private slots:
+	void get_frame();
 	void on_connectBtn_clicked();
 	void on_takeoffBtn_clicked();
 	void on_landBtn_clicked();
 	void on_streamonBtn_clicked();
+	void on_streamoffBtn_clicked();
 };
