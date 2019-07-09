@@ -27,7 +27,7 @@ private:
 	char* url_drone_ = "udp://0.0.0.0:11111";
 	QTimer timer_;
 	cv::Mat frame_;
-	cv::VideoCapture* capture_;
+	cv::VideoCapture capture_;
 
 	cv::Mat black_;
 

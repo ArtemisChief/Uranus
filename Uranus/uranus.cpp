@@ -63,7 +63,7 @@ void Uranus::set_text() {
 }
 
 void Uranus::get_frame() {
-	*capture_ >> frame_;
+	capture_ >> frame_;
 	cv::resize(frame_, frame_, cv::Size(1280, 720));
 
 	cv::Mat rgb_img;
@@ -88,17 +88,14 @@ void Uranus::on_landBtn_clicked() {
 
 void Uranus::on_streamonBtn_clicked() {
 	drone_->OpenStream();
-	capture_ = new cv::VideoCapture(url_drone_);
-	capture_->open(0);
+	capture_.open(url_drone_);
 	timer_.start(20);
 }
 
 void Uranus::on_streamoffBtn_clicked() {
 	drone_->CloseStream();
 	timer_.stop();
-	capture_->release();
-	delete capture_;
-	capture_ = nullptr;
+	capture_.release();
 	SetImageBlack();
 }
 
