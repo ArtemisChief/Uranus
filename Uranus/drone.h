@@ -15,18 +15,23 @@ public:
 
 	bool Connect();
 
+	//起飞、降落
 	bool Takeoff();
 	bool Land();
+	//向一个方向直线移动，distance范围20-500（cm）
 	void MoveForward(const int distance) const;
 	void MoveBackward(const int distance) const;
 	void MoveLeft(const int distance) const;
 	void MoveRight(int distance) const;
 	void MoveUp(const int distance) const;
 	void MoveDown(const int distance) const;
+	//旋转方向，degree范围1-3600（度）
 	void RotateLeft(const int degree) const;
 	void RotateRight(const int degree) const;
+	//设置飞行速度，value范围10-100（cm/s）
 	bool SetSpeed(const int value) const;
 
+	//打开、关闭视频流
 	bool OpenStream();
 	bool CloseStream();
 
