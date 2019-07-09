@@ -11,12 +11,12 @@ class Drone : public QObject {
 	Q_OBJECT
 
 public:
-	Drone();
+	static Drone* GetInstance();
 
-	bool Connect() const;
+	bool Connect();
 
-	bool Takeoff() const;
-	bool Land() const;
+	bool Takeoff();
+	bool Land();
 	void MoveForward(const int distance) const;
 	void MoveBackward(const int distance) const;
 	void MoveLeft(const int distance) const;
@@ -27,8 +27,8 @@ public:
 	void RotateRight(const int degree) const;
 	bool SetSpeed(const int value) const;
 
-	bool OpenStream() const;
-	bool CloseStream() const;
+	bool OpenStream();
+	bool CloseStream();
 
 	int get_pitch() const;
 	int get_roll() const;
@@ -47,10 +47,19 @@ public:
 	int get_agy() const;
 	int get_agz() const;
 
+	bool get_is_connected() const;
+	bool get_is_takeoff() const;
+	bool get_is_streaming() const;
+
 private slots:
 	void receive_and_update_status();
 
 private:
+	Drone();
+
+	// 单例
+	static Drone* drone_;
+
 	// 限制编译器自动生成的拷贝构造函数和赋值构造函数
 	DISALLOW_COPY_AND_ASSIGN(Drone);
 
@@ -86,6 +95,10 @@ private:
 	// 13 - X轴加速度，厘米每二次方秒
 	// 14 - Y轴加速度，厘米每二次方秒
 	// 15 - Z轴加速度，厘米每二次方秒
-	int params_[16];
+	int params_[16] = { 0 };
 
+	// 状态布尔值
+	bool is_connected_;
+	bool is_takeoff_;
+	bool is_streaming_;
 };

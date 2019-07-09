@@ -27,6 +27,7 @@ public:
     QPushButton *connect;
     QPushButton *streamonBtn;
     QLabel *videoLabel;
+    QLabel *label;
 
     void setupUi(QMainWindow *UranusClass)
     {
@@ -49,7 +50,10 @@ public:
         streamonBtn->setGeometry(QRect(1340, 150, 81, 28));
         videoLabel = new QLabel(centralWidget);
         videoLabel->setObjectName(QString::fromUtf8("videoLabel"));
-        videoLabel->setGeometry(QRect(10, 10, 1280, 720));
+        videoLabel->setGeometry(QRect(20, 20, 1280, 720));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(50, 820, 1321, 41));
         UranusClass->setCentralWidget(centralWidget);
 
         retranslateUi(UranusClass);
@@ -69,6 +73,7 @@ public:
         connect->setText(QApplication::translate("UranusClass", "Connect", nullptr));
         streamonBtn->setText(QApplication::translate("UranusClass", "streamon", nullptr));
         videoLabel->setText(QApplication::translate("UranusClass", "TextLabel", nullptr));
+        label->setText(QApplication::translate("UranusClass", "TextLabel", nullptr));
     } // retranslateUi
 
 };
