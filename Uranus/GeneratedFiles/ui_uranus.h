@@ -49,7 +49,7 @@ public:
         streamonBtn->setGeometry(QRect(1340, 150, 81, 28));
         videoLabel = new QLabel(centralWidget);
         videoLabel->setObjectName(QString::fromUtf8("videoLabel"));
-        videoLabel->setGeometry(QRect(10, 10, 1280, 720));
+        videoLabel->setGeometry(QRect(20, 20, 1280, 720));
         UranusClass->setCentralWidget(centralWidget);
 
         retranslateUi(UranusClass);
