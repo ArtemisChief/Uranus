@@ -30,16 +30,16 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 	const auto key_value = key_event->key();
 	switch (key_value) {
 	case Qt::Key_W:
-		drone_->MoveForward(5);
+		drone_->MoveForward(20);
 		break;
 	case Qt::Key_A:
-		drone_->MoveLeft(5);
+		drone_->MoveLeft(20);
 		break;
 	case Qt::Key_S:
-		drone_->MoveBackward(5);
+		drone_->MoveBackward(20);
 		break;
 	case Qt::Key_D:
-		drone_->MoveRight(5);
+		drone_->MoveRight(20);
 		break;
 	case Qt::Key_Q:
 		drone_->RotateLeft(5);
@@ -48,10 +48,10 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 		drone_->RotateRight(5);
 		break;
 	case Qt::Key_Space:
-		drone_->MoveUp(5);
+		drone_->MoveUp(20);
 		break;
 	case Qt::Key_Shift:
-		drone_->MoveDown(5);
+		drone_->MoveDown(20);
 		break;
 	default:
 		break;

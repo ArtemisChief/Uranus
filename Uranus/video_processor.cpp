@@ -3,9 +3,13 @@
 
 void VideoProcessor::get_frame(char* url) {
 	capture_.open(url);
+	capture_.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
+	capture_.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
+	capture_.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
 
 	while (true) {
-		capture_.grab();
+		if(!capture_.grab())
+			continue;
 		capture_.retrieve(frame_);
 
 		resize(frame_, frame_, cv::Size(1280, 720));
