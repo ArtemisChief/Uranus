@@ -39,12 +39,18 @@
     <ClCompile Include="drone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="video_processor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="uranus.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="drone.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="video_processor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
