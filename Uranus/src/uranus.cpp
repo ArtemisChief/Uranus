@@ -1,4 +1,4 @@
-#include "uranus.h"
+#include "uranus.hpp"
 
 Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	drone_control_ = DroneControl::GetInstance();

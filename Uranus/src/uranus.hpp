@@ -3,8 +3,8 @@
 #include <QKeyEvent>
 #include <QThread>
 #include "ui_uranus.h"
-#include "video_processor.h"
-#include "Drone/drone_control.h"
+#include "video_processor.hpp"
+#include "Drone/drone_control.hpp"
 
 class Uranus : public QMainWindow {
 

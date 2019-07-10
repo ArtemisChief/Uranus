@@ -1,4 +1,4 @@
-#include "video_processor.h"
+#include "video_processor.hpp"
 #include <opencv2/imgproc/types_c.h>
 
 void VideoProcessor::get_frame(char* url) {

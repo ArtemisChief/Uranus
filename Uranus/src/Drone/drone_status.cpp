@@ -1,4 +1,4 @@
-#include "drone_status.h"
+#include "drone_status.hpp"
 
 DroneStatus* DroneStatus::drone_status_ = nullptr;
 

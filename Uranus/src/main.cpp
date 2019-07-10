@@ -1,4 +1,4 @@
-#include "uranus.h"
+#include "uranus.hpp"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
