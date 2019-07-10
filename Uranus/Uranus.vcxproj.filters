@@ -28,6 +28,12 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Header Files\Drone">
+      <UniqueIdentifier>{4aaa108d-f41b-46cc-98ba-3101540541b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drone">
+      <UniqueIdentifier>{62e45e08-367e-4cfe-8ef4-ac0051a7afc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,22 +42,34 @@
     <ClCompile Include="uranus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="drone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="video_processor.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drone\drone_status.cpp">
+      <Filter>Source Files\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="Drone\drone_steam.cpp">
+      <Filter>Source Files\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="Drone\drone_control.cpp">
+      <Filter>Source Files\Drone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="uranus.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="drone.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="video_processor.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Drone\drone_control.h">
+      <Filter>Header Files\Drone</Filter>
+    </QtMoc>
+    <QtMoc Include="Drone\drone_stream.h">
+      <Filter>Header Files\Drone</Filter>
+    </QtMoc>
+    <QtMoc Include="Drone\drone_status.h">
+      <Filter>Header Files\Drone</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
