@@ -37,7 +37,7 @@ private:
 	// 2 - throttle
 	// 3 - yaw
 	int rc_[4] = { 0 };
-	int stick_ = 0;
+	int stick_ = 50;
 
 	VideoProcessor video_processor_;
 	QThread video_processor_thread_;
