@@ -37,7 +37,7 @@ private:
 	// 2 - throttle
 	// 3 - yaw
 	int rc_[4] = { 0 };
-	int rc_factor_ = 1;
+	int stick_ = 0;
 
 	VideoProcessor video_processor_;
 	QThread video_processor_thread_;
@@ -45,7 +45,9 @@ private:
 	char* url_drone_ = "udp://0.0.0.0:11111";
 
 private slots:
-	void on_connectBtn_clicked();
+	void on_connect_btn_clicked();
+	void on_stick_slider_value_changed(const int value);
+	void on_speed_slider_value_changed(const int value);
 	void show_frame(QImage* frame);
 
 signals:
@@ -56,6 +58,7 @@ signals:
 	void stream_close_signal();
 	void rc_signal(const int roll, const int pitch, const int throttle, const int yaw);
 	void flip_signal(const char direction);
+	void speed_change_signal(const int value);
 	
 	void start_getting_frame(char* url);
 };
