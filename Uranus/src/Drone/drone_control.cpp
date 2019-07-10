@@ -3,6 +3,18 @@
 
 DroneControl* DroneControl::drone_control_ = nullptr;
 
+DroneControl* DroneControl::GetInstance() {
+	if (drone_control_ == nullptr)
+		drone_control_ = new DroneControl();
+	return drone_control_;
+}
+
+bool DroneControl::get_is_connected() const { return is_connected_; }
+
+bool DroneControl::get_is_takeoff() const { return is_takeoff_; }
+
+bool DroneControl::get_is_streaming() const { return is_streaming_; }
+
 DroneControl::DroneControl() {
 	socket_ = new QUdpSocket(this);
 	buffer_ = new char[10];
@@ -12,37 +24,25 @@ DroneControl::DroneControl() {
 	is_streaming_ = false;
 }
 
-DroneControl* DroneControl::GetInstance() {
-	if (drone_control_ == nullptr)
-		drone_control_ = new DroneControl();
-	return drone_control_;
-}
-
-bool DroneControl::Connect() {
+void DroneControl::Connect() {
 	socket_->writeDatagram("command", static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	if (!strcmp(buffer_, "ok"))
-		return false;
-	is_connected_ = true;
-	return true;
+	if (strcmp(buffer_, "ok"))
+		is_connected_ = true;
 }
 
-bool DroneControl::Takeoff() {
+void DroneControl::Takeoff() {
 	socket_->writeDatagram("takeoff", static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	if (!strcmp(buffer_, "ok"))
-		return false;
-	is_takeoff_ = true;
-	return true;
+	if (strcmp(buffer_, "ok"))
+		is_takeoff_ = true;
 }
 
-bool DroneControl::Land() {
+void DroneControl::Land() {
 	socket_->writeDatagram("land", static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	if (!strcmp(buffer_, "ok"))
-		return false;
-	is_takeoff_ = false;
-	return true;
+	if (strcmp(buffer_, "ok"))
+		is_takeoff_ = false;
 }
 
 void DroneControl::MoveForward(const int distance) const {
@@ -105,35 +105,23 @@ void DroneControl::SetRC(const int roll, const int pitch, const int throttle, co
 	socket_->readDatagram(buffer_, sizeof buffer_);
 }
 
-bool DroneControl::SetSpeed(const int value) const {
+void DroneControl::SetSpeed(const int value) const {
 	QString data = QString("speed  %1").arg(value);
 	socket_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	if (!strcmp(buffer_, "ok"))
-		return false;
-	return true;
 }
 
-bool DroneControl::OpenStream() {
+void DroneControl::OpenStream() {
 	socket_->writeDatagram("streamon", static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	if (!strcmp(buffer_, "ok"))
-		return false;
-	is_streaming_ = true;
-	return true;
+	if (strcmp(buffer_, "ok"))
+		is_streaming_ = true;
 }
 
-bool DroneControl::CloseStream() {
+void DroneControl::CloseStream() {
 	socket_->writeDatagram("streamoff", static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	if (!strcmp(buffer_, "ok"))
-		return false;
-	is_streaming_ = false;
-	return true;
+	if (strcmp(buffer_, "ok"))
+		is_streaming_ = false;
 }
 
-bool DroneControl::get_is_connected() const { return is_connected_; }
-
-bool DroneControl::get_is_takeoff() const { return is_takeoff_; }
-
-bool DroneControl::get_is_streaming() const { return is_streaming_; }

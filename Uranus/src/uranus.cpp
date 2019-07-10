@@ -2,6 +2,27 @@
 
 Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	drone_control_ = DroneControl::GetInstance();
+	drone_control_->moveToThread(&drone_control_thread_);
+	connect(&drone_control_thread_, &QThread::finished, drone_control_, &QObject::deleteLater);
+	connect(this, &Uranus::connect_signal, drone_control_, &DroneControl::Connect);
+	connect(this, &Uranus::takeoff_signal, drone_control_, &DroneControl::Takeoff);
+	connect(this, &Uranus::land_signal, drone_control_, &DroneControl::Land);
+	connect(this, &Uranus::stream_open_signal, drone_control_, &DroneControl::OpenStream);
+	connect(this, &Uranus::stream_close_signal, drone_control_, &DroneControl::CloseStream);
+	connect(this, &Uranus::rc_signal, drone_control_, &DroneControl::SetRC);
+	connect(this, &Uranus::flip_signal, drone_control_, &DroneControl::Flip);
+	drone_control_thread_.start();
+
+	//drone_status_ = DroneStatus::GetInstance();
+	//drone_status_->moveToThread(&drone_status_thread_);
+	//connect
+	//drone_status_thread_.start();
+
+	//drone_stream_ = DroneStream::GetInstance();
+	//drone_stream_->moveToThread(&drone_stream_thread_);
+	//connect
+	//drone_stream_thread_.start();
+
 	video_processor_.moveToThread(&video_processor_thread_);
 	connect(&video_processor_thread_, &QThread::finished, &video_processor_, &QObject::deleteLater);
 	connect(this, &Uranus::start_getting_frame, &video_processor_, &VideoProcessor::get_frame);
@@ -9,15 +30,18 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	video_processor_thread_.start();
 
 	ui.setupUi(this);
-	this->grabKeyboard();
 	ui.videoLabel->setScaledContents(true);
 
-	black_= cv::Mat(1280, 720, CV_8UC1,cv::Scalar(0));
-	SetImageBlack();
+	// 设置初始视频帧为纯黑单色图
+	SetFrameToBlack();
+
+	// 能获取键盘焦点
+	this->grabKeyboard();
 }
 
-void Uranus::SetImageBlack() const {
-	QImage image_rgb(static_cast<const uchar *>(black_.data), black_.cols, black_.rows, black_.step, QImage::Format_Grayscale8);
+void Uranus::SetFrameToBlack() const {
+	const auto black_image = cv::Mat(1280, 720, CV_8UC1, cv::Scalar(0));
+	QImage image_rgb(static_cast<const uchar *>(black_image.data), black_image.cols, black_image.rows, black_image.step, QImage::Format_Grayscale8);
 	image_rgb.bits();
 	ui.videoLabel->setPixmap(QPixmap::fromImage(image_rgb));
 }
@@ -56,39 +80,39 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 		rc_factor_ = 2;
 		break;
 	case Qt::Key_Up:
-		drone_control_->Flip('f');
+		emit flip_signal('f');
 		break;
 	case Qt::Key_Left:
-		drone_control_->Flip('l');
+		emit flip_signal('l');
 		break;
 	case Qt::Key_Right:
-		drone_control_->Flip('r');
+		emit flip_signal('r');
 		break;
 	case Qt::Key_Down:
-		drone_control_->Flip('b');
-		break;
-	case Qt::Key_R:
-		if (drone_control_->get_is_streaming()) {
-			drone_control_->CloseStream();
-			//emit stop_getting_frame();
-			SetImageBlack();
-		}
-		else {
-			drone_control_->OpenStream();
-			emit start_getting_frame(url_drone_);
-		}
+		emit flip_signal('b');
 		break;
 	case Qt::Key_Tab:
 		if (drone_control_->get_is_takeoff())
-			drone_control_->Land();
+			emit land_signal();
 		else
-			drone_control_->Takeoff();
+			emit takeoff_signal();
+		break;
+	case Qt::Key_R:
+		if (drone_control_->get_is_streaming()) {
+			emit stream_close_signal();
+			//emit stop_getting_frame();
+			SetFrameToBlack();
+		}
+		else {
+			emit stream_open_signal();
+			emit start_getting_frame(url_drone_);
+		}
 		break;
 	default:
 		break;
 	}
 
-	drone_control_->SetRC(rc_[0], rc_[1], rc_[2], rc_[3]);
+	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
 }
 
 void Uranus::keyReleaseEvent(QKeyEvent* key_event) {
@@ -128,14 +152,16 @@ void Uranus::keyReleaseEvent(QKeyEvent* key_event) {
 		break;
 	}
 
-	drone_control_->SetRC(rc_[0], rc_[1], rc_[2], rc_[3]);
+	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
+}
+
+void Uranus::on_connectBtn_clicked() {
+	emit connect_signal();
 }
 
 void Uranus::show_frame(QImage* frame) {
 	ui.videoLabel->setPixmap(QPixmap::fromImage(*frame));
 }
 
-void Uranus::on_connectBtn_clicked() {
-	drone_control_->Connect();
-}
+
 
