@@ -54,56 +54,68 @@ bool Drone::Land() {
 }
 
 void Drone::MoveForward(const int distance) const {
-	QString data = "forward " + distance;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("fordward %1").arg(distance);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 }
 
 void Drone::MoveBackward(const int distance) const {
-	QString data = "back " + distance;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("back %1").arg(distance);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 }
 
 void Drone::MoveLeft(const int distance) const {
-	QString data = "left " + distance;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("left  %1").arg(distance);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 }
 
 void Drone::MoveRight(const int distance) const {
-	QString data = "right " + distance;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("right  %1").arg(distance);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 }
 
 void Drone::MoveUp(const int distance) const {
-	QString data = "up " + distance;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("up  %1").arg(distance);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 }
 
 void Drone::MoveDown(const int distance) const {
-	QString data = "down " + distance;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("down  %1").arg(distance);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 }
 
 void Drone::RotateLeft(const int degree) const {
-	QString data = "ccw " + degree;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("ccw  %1").arg(degree);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 }
 
 void Drone::RotateRight(const int degree) const {
-	QString data = "cw " + degree;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("cw  %1").arg(degree);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
+}
+
+void Drone::Flip(const char direction) const {
+	QString data = QString("flip  %1").arg(direction);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
+}
+
+void Drone::SetRC(const int roll, const int pitch, const int throttle, const int yaw) const {
+	QString data = QString("rc %1 %2 %3 %4").arg(roll).arg(pitch).arg(throttle).arg(yaw);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 }
 
 bool Drone::SetSpeed(const int value) const {
-	QString data = "speed " + value;
-	socket_control_->writeDatagram(data.toStdString().c_str(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
+	QString data = QString("speed  %1").arg(value);
+	socket_control_->writeDatagram(data.toLocal8Bit(), static_cast<QHostAddress>(ip_drone_), remote_port_control_);
 	socket_control_->readDatagram(buf_control_, sizeof buf_control_);
 	if (!strcmp(buf_control_, "ok"))
 		return false;

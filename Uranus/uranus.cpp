@@ -24,43 +24,112 @@ void Uranus::SetImageBlack() const {
 }
 
 void Uranus::keyPressEvent(QKeyEvent* key_event) {
-	if(!drone_->get_is_connected())
+	if (!drone_->get_is_connected())
 		return;
 
 	const auto key_value = key_event->key();
 	switch (key_value) {
 	case Qt::Key_W:
-		drone_->MoveForward(20);
+		rc_[1] = 50 * rc_factor_;
 		break;
 	case Qt::Key_A:
-		drone_->MoveLeft(20);
+		rc_[0] = -50 * rc_factor_;
 		break;
 	case Qt::Key_S:
-		drone_->MoveBackward(20);
+		rc_[1] = -50 * rc_factor_;
 		break;
 	case Qt::Key_D:
-		drone_->MoveRight(20);
+		rc_[0] = 50 * rc_factor_;
 		break;
 	case Qt::Key_Q:
-		drone_->RotateLeft(5);
+		rc_[3] = -50 * rc_factor_;
 		break;
 	case Qt::Key_E:
-		drone_->RotateRight(5);
+		rc_[3] = 50 * rc_factor_;
 		break;
 	case Qt::Key_Space:
-		drone_->MoveUp(20);
+		rc_[2] = 50 * rc_factor_;
+		break;
+	case Qt::Key_Control:
+		rc_[2] = -50 * rc_factor_;
 		break;
 	case Qt::Key_Shift:
-		drone_->MoveDown(20);
+		rc_factor_ = 2;
+		break;
+	case Qt::Key_Up:
+		drone_->Flip('f');
+		break;
+	case Qt::Key_Left:
+		drone_->Flip('l');
+		break;
+	case Qt::Key_Right:
+		drone_->Flip('r');
+		break;
+	case Qt::Key_Down:
+		drone_->Flip('b');
+		break;
+	case Qt::Key_R:
+		if (drone_->get_is_streaming()) {
+			drone_->CloseStream();
+			//emit stop_getting_frame();
+			SetImageBlack();
+		}
+		else {
+			drone_->OpenStream();
+			emit start_getting_frame(url_drone_);
+		}
+		break;
+	case Qt::Key_Tab:
+		if (drone_->get_is_takeoff())
+			drone_->Land();
+		else
+			drone_->Takeoff();
 		break;
 	default:
 		break;
 	}
+
+	drone_->SetRC(rc_[0], rc_[1], rc_[2], rc_[3]);
 }
 
-void Uranus::keyReleaseEvent(QKeyEvent* key_event)
-{
+void Uranus::keyReleaseEvent(QKeyEvent* key_event) {
+	if (!drone_->get_is_connected())
+		return;
 
+	const auto key_value = key_event->key();
+	switch (key_value) {
+	case Qt::Key_W:
+		rc_[1] = 0;
+		break;
+	case Qt::Key_A:
+		rc_[0] = 0;
+		break;
+	case Qt::Key_S:
+		rc_[1] = 0;
+		break;
+	case Qt::Key_D:
+		rc_[0] =0;
+		break;
+	case Qt::Key_Q:
+		rc_[3] = 0;
+		break;
+	case Qt::Key_E:
+		rc_[3] = 0;
+		break;
+	case Qt::Key_Space:
+		rc_[2] = 0;
+		break;
+	case Qt::Key_Control:
+		rc_[2] = 0;
+		break;
+	case Qt::Key_Shift:
+		rc_factor_ = 1;
+		break;
+	default:
+		break;
+	}
+
+	drone_->SetRC(rc_[0], rc_[1], rc_[2], rc_[3]);
 }
 
 void Uranus::set_text() {
@@ -74,27 +143,4 @@ void Uranus::show_video(QImage* image) {
 void Uranus::on_connectBtn_clicked() {
 	drone_->Connect();
 }
-
-
-void Uranus::on_takeoffBtn_clicked() {
-	drone_->Takeoff();
-}
-
-void Uranus::on_landBtn_clicked() {
-	drone_->Land();
-}
-
-void Uranus::on_streamonBtn_clicked() {
-	drone_->OpenStream();
-	emit start_getting_frame(url_drone_);
-}
-
-void Uranus::on_streamoffBtn_clicked() {
-	drone_->CloseStream();
-	//emit stop_getting_frame();
-	SetImageBlack();
-}
-
-
-
 

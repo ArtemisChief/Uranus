@@ -22,10 +22,7 @@ class Ui_UranusClass
 {
 public:
     QWidget *centralWidget;
-    QPushButton *takeoffBtn;
-    QPushButton *landBtn;
     QPushButton *connect;
-    QPushButton *streamonBtn;
     QLabel *videoLabel;
     QLabel *label;
 
@@ -36,18 +33,9 @@ public:
         UranusClass->resize(1440, 900);
         centralWidget = new QWidget(UranusClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        takeoffBtn = new QPushButton(centralWidget);
-        takeoffBtn->setObjectName(QString::fromUtf8("takeoffBtn"));
-        takeoffBtn->setGeometry(QRect(1340, 90, 81, 23));
-        landBtn = new QPushButton(centralWidget);
-        landBtn->setObjectName(QString::fromUtf8("landBtn"));
-        landBtn->setGeometry(QRect(1340, 120, 81, 23));
         connect = new QPushButton(centralWidget);
         connect->setObjectName(QString::fromUtf8("connect"));
         connect->setGeometry(QRect(1340, 60, 81, 23));
-        streamonBtn = new QPushButton(centralWidget);
-        streamonBtn->setObjectName(QString::fromUtf8("streamonBtn"));
-        streamonBtn->setGeometry(QRect(1340, 150, 81, 28));
         videoLabel = new QLabel(centralWidget);
         videoLabel->setObjectName(QString::fromUtf8("videoLabel"));
         videoLabel->setGeometry(QRect(20, 20, 1280, 720));
@@ -58,9 +46,6 @@ public:
 
         retranslateUi(UranusClass);
         QObject::connect(connect, SIGNAL(clicked()), UranusClass, SLOT(on_connectBtn_clicked()));
-        QObject::connect(takeoffBtn, SIGNAL(clicked()), UranusClass, SLOT(on_takeoffBtn_clicked()));
-        QObject::connect(landBtn, SIGNAL(clicked()), UranusClass, SLOT(on_landBtn_clicked()));
-        QObject::connect(streamonBtn, SIGNAL(clicked()), UranusClass, SLOT(on_streamonBtn_clicked()));
 
         QMetaObject::connectSlotsByName(UranusClass);
     } // setupUi
@@ -68,10 +53,7 @@ public:
     void retranslateUi(QMainWindow *UranusClass)
     {
         UranusClass->setWindowTitle(QApplication::translate("UranusClass", "Uranus", nullptr));
-        takeoffBtn->setText(QApplication::translate("UranusClass", "Takeoff", nullptr));
-        landBtn->setText(QApplication::translate("UranusClass", "Land", nullptr));
         connect->setText(QApplication::translate("UranusClass", "Connect", nullptr));
-        streamonBtn->setText(QApplication::translate("UranusClass", "streamon", nullptr));
         videoLabel->setText(QApplication::translate("UranusClass", "TextLabel", nullptr));
         label->setText(QApplication::translate("UranusClass", "TextLabel", nullptr));
     } // retranslateUi

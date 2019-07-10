@@ -14,32 +14,6 @@
    <string>Uranus</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="takeoffBtn">
-    <property name="geometry">
-     <rect>
-      <x>1340</x>
-      <y>90</y>
-      <width>81</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Takeoff</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="landBtn">
-    <property name="geometry">
-     <rect>
-      <x>1340</x>
-      <y>120</y>
-      <width>81</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Land</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="connect">
     <property name="geometry">
      <rect>
@@ -51,19 +25,6 @@
     </property>
     <property name="text">
      <string>Connect</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="streamonBtn">
-    <property name="geometry">
-     <rect>
-      <x>1340</x>
-      <y>150</y>
-      <width>81</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>streamon</string>
     </property>
    </widget>
    <widget class="QLabel" name="videoLabel">
@@ -112,54 +73,6 @@
     <hint type="destinationlabel">
      <x>204</x>
      <y>181</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>takeoffBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>UranusClass</receiver>
-   <slot>on_takeoffBtn_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>64</x>
-     <y>148</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>207</x>
-     <y>247</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>landBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>UranusClass</receiver>
-   <slot>on_landBtn_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>68</x>
-     <y>200</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>202</x>
-     <y>308</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>streamonBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>UranusClass</receiver>
-   <slot>on_streamonBtn_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>96</x>
-     <y>258</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>244</x>
-     <y>367</y>
     </hint>
    </hints>
   </connection>

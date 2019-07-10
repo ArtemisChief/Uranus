@@ -21,6 +21,14 @@ protected:
 private:
 	Ui::UranusClass ui;
 	Drone* drone_;
+
+	// 0 - roll
+	// 1 - pitch
+	// 2 - throttle
+	// 3 - yaw
+	int rc_[4] = { 0 };
+	int rc_factor_ = 1;
+
 	VideoProcessor video_processor_;
 	QThread video_processor_thread_;
 
@@ -32,10 +40,6 @@ private slots:
 	void set_text();
 	void show_video(QImage* image);
 	void on_connectBtn_clicked();
-	void on_takeoffBtn_clicked();
-	void on_landBtn_clicked();
-	void on_streamonBtn_clicked();
-	void on_streamoffBtn_clicked();
 
 signals:
 	void start_getting_frame(char* url);
