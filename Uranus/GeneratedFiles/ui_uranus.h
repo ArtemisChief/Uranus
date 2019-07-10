@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QWidget>
@@ -24,12 +25,15 @@ class Ui_UranusClass
 public:
     QWidget *centralWidget;
     QLabel *frame_label;
-    QLabel *label;
+    QLabel *buffer_label;
     QPushButton *connect_btn;
     QSlider *rc_factor_slider;
     QSlider *speed_slider;
     QLabel *rc_factorlabel;
     QLabel *speed_factor;
+    QProgressBar *battery_bar;
+    QLabel *speed_label;
+    QLabel *height_label;
 
     void setupUi(QMainWindow *UranusClass)
     {
@@ -41,9 +45,9 @@ public:
         frame_label = new QLabel(centralWidget);
         frame_label->setObjectName(QString::fromUtf8("frame_label"));
         frame_label->setGeometry(QRect(30, 20, 960, 540));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(30, 610, 521, 41));
+        buffer_label = new QLabel(centralWidget);
+        buffer_label->setObjectName(QString::fromUtf8("buffer_label"));
+        buffer_label->setGeometry(QRect(30, 610, 521, 41));
         connect_btn = new QPushButton(centralWidget);
         connect_btn->setObjectName(QString::fromUtf8("connect_btn"));
         connect_btn->setGeometry(QRect(1020, 40, 158, 23));
@@ -67,6 +71,16 @@ public:
         speed_factor = new QLabel(centralWidget);
         speed_factor->setObjectName(QString::fromUtf8("speed_factor"));
         speed_factor->setGeometry(QRect(1110, 320, 31, 16));
+        battery_bar = new QProgressBar(centralWidget);
+        battery_bar->setObjectName(QString::fromUtf8("battery_bar"));
+        battery_bar->setGeometry(QRect(210, 30, 118, 23));
+        battery_bar->setValue(24);
+        speed_label = new QLabel(centralWidget);
+        speed_label->setObjectName(QString::fromUtf8("speed_label"));
+        speed_label->setGeometry(QRect(350, 30, 121, 16));
+        height_label = new QLabel(centralWidget);
+        height_label->setObjectName(QString::fromUtf8("height_label"));
+        height_label->setGeometry(QRect(480, 30, 111, 16));
         UranusClass->setCentralWidget(centralWidget);
 
         retranslateUi(UranusClass);
@@ -81,10 +95,12 @@ public:
     {
         UranusClass->setWindowTitle(QApplication::translate("UranusClass", "Uranus", nullptr));
         frame_label->setText(QApplication::translate("UranusClass", "TextLabel", nullptr));
-        label->setText(QApplication::translate("UranusClass", "TextLabel", nullptr));
+        buffer_label->setText(QApplication::translate("UranusClass", "TextLabel", nullptr));
         connect_btn->setText(QApplication::translate("UranusClass", "Connect to Tello", nullptr));
         rc_factorlabel->setText(QApplication::translate("UranusClass", "Stick", nullptr));
         speed_factor->setText(QApplication::translate("UranusClass", "Speed", nullptr));
+        speed_label->setText(QApplication::translate("UranusClass", "Speed: 0.0m/s", nullptr));
+        height_label->setText(QApplication::translate("UranusClass", "Height: 0.0m", nullptr));
     } // retranslateUi
 
 };

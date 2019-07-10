@@ -14,10 +14,14 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(this, &Uranus::speed_change_signal, drone_control_, &DroneControl::SetSpeed);
 	drone_control_thread_.start();
 
-	//drone_status_ = DroneStatus::GetInstance();
-	//drone_status_->moveToThread(&drone_status_thread_);
-	//connect
-	//drone_status_thread_.start();
+	//状态更新线程
+	drone_status_ = DroneStatus::GetInstance();
+	drone_status_->moveToThread(&drone_status_thread_);
+	connect(&drone_status_thread_, &QThread::finished, drone_status_, &QObject::deleteLater);
+
+	connect(drone_status_, &DroneStatus::show_buffer, this, &Uranus::show_all_status);
+	connect(drone_status_,&DroneStatus::update_states,this, &Uranus::show_status);
+	drone_status_thread_.start();
 
 	//drone_stream_ = DroneStream::GetInstance();
 	//drone_stream_->moveToThread(&drone_stream_thread_);
@@ -164,6 +168,17 @@ void Uranus::on_speed_slider_value_changed(const int value) {
 
 void Uranus::show_frame(QImage* frame) {
 	ui.frame_label->setPixmap(QPixmap::fromImage(*frame));
+}
+
+void Uranus::show_status(int* params_)
+{
+	
+}
+
+void Uranus::show_all_status(char* buff)
+{
+	//std::cout << buff << endl;
+	ui.buffer_label->setText(QString(buff));
 }
 
 

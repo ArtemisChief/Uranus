@@ -46,12 +46,10 @@ private:
 	// 返回值缓存区
 	char* buffer_;
 
-	// 无人机IP地址以及状态值本地接收端口地址
-	char* ip_drone_ = "192.168.10.1";
+	// 无人机状态值本地接收端口地址
 	int local_port_status_ = 8890;
 
-	void ReceiveStatus();
-	void UpdateStatus();
+
 
 	// 无人机状态参数数组
 	// 0 - 俯仰角度，度数
@@ -71,4 +69,12 @@ private:
 	// 14 - Y轴加速度，厘米每二次方秒
 	// 15 - Z轴加速度，厘米每二次方秒
 	int params_[16] = { 0 };
+
+private slots:
+	//从无人机获取状态信息，存入params_[]，并发出update_status信号
+	void ReceiveStatus();
+signals:
+	void update_states(int* params);
+	void show_buffer(char* buff);
+		
 };

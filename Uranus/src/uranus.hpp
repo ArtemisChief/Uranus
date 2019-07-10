@@ -26,8 +26,8 @@ private:
 	DroneControl* drone_control_;
 	QThread drone_control_thread_;
 
-	//DroneStatus* drone_status_;
-	//QThread drone_status_thread_;
+	DroneStatus* drone_status_;
+	QThread drone_status_thread_;
 
 	//DroneStream* drone_stream__;
 	//QThread drone_stream_thread_;
@@ -49,6 +49,8 @@ private slots:
 	void on_stick_slider_value_changed(const int value);
 	void on_speed_slider_value_changed(const int value);
 	void show_frame(QImage* frame);
+	void show_status(int* params_);
+	void show_all_status(char* buff);
 
 signals:
 	void connect_signal();
