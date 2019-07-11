@@ -30,13 +30,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(OPENCV_INCLUDE);$(IncludePath)</IncludePath>
-    <LibraryPath>$(OPENCV_VS2017_LIB);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(OPENCV_INCLUDE);$(FFMPEG_INCLUDE);$(IncludePath)</IncludePath>
+    <LibraryPath>$(OPENCV_VS2017_LIB);$(FFMPEG_LIB);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(OPENCV_INCLUDE);$(IncludePath)</IncludePath>
-    <LibraryPath>$(OPENCV_VS2017_LIB);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(FFMPEG_INCLUDE);$(OPENCV_INCLUDE);$(IncludePath)</IncludePath>
+    <LibraryPath>$(FFMPEG_LIB);$(OPENCV_VS2017_LIB);$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -70,7 +72,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;opencv_world410d.lib;ws2_32.lib;Qt5Networkd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;opencv_world410d.lib;ws2_32.lib;Qt5Networkd.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
@@ -101,7 +103,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;opencv_world410.lib;ws2_32.lib;Qt5Networkd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;opencv_world410.lib;ws2_32.lib;Qt5Networkd.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
@@ -136,7 +138,7 @@
   <ItemGroup>
     <ClCompile Include="src\Drone\drone_control.cpp" />
     <ClCompile Include="src\Drone\drone_status.cpp" />
-    <ClCompile Include="src\Drone\drone_steam.cpp" />
+    <ClCompile Include="src\Drone\drone_stream.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\uranus.cpp" />
     <ClCompile Include="src\video_processor.cpp" />

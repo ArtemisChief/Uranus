@@ -23,16 +23,18 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(drone_status_,&DroneStatus::update_states,this, &Uranus::show_status);
 	drone_status_thread_.start();
 
-	//drone_stream_ = DroneStream::GetInstance();
-	//drone_stream_->moveToThread(&drone_stream_thread_);
-	//connect
-	//drone_stream_thread_.start();
+	drone_stream_ = DroneStream::GetInstance();
+	drone_stream_->moveToThread(&drone_stream_thread_);
+	connect(&drone_stream_thread_, &QThread::finished, drone_stream_, &QObject::deleteLater);
+	// connect(this, &Uranus::start_getting_frame, drone_stream_, &DroneStream::GetFrame);
+	connect(drone_stream_, &DroneStream::frame_ready_signal, this, &Uranus::show_frame);
+	drone_stream_thread_.start();
 
-	video_processor_.moveToThread(&video_processor_thread_);
-	connect(&video_processor_thread_, &QThread::finished, &video_processor_, &QObject::deleteLater);
-	connect(this, &Uranus::start_getting_frame, &video_processor_, &VideoProcessor::get_frame);
-	connect(&video_processor_, &VideoProcessor::pass_frame, this, &Uranus::show_frame);
-	video_processor_thread_.start();
+	// video_processor_.moveToThread(&video_processor_thread_);
+	// connect(&video_processor_thread_, &QThread::finished, &video_processor_, &QObject::deleteLater);
+	// connect(this, &Uranus::start_getting_frame, &video_processor_, &VideoProcessor::get_frame);
+	// connect(&video_processor_, &VideoProcessor::pass_frame, this, &Uranus::show_frame);
+	// video_processor_thread_.start();
 
 	ui.setupUi(this);
 	ui.frame_label->setScaledContents(true);
@@ -107,7 +109,7 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 		}
 		else {
 			emit stream_open_signal();
-			emit start_getting_frame(url_drone_);
+			// emit start_getting_frame();
 		}
 		break;
 	default:

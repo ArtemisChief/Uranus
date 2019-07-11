@@ -69,9 +69,6 @@
     <ClCompile Include="src\Drone\drone_status.cpp">
       <Filter>Source Files\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="src\Drone\drone_steam.cpp">
-      <Filter>Source Files\Drone</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -80,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="src\video_processor.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Drone\drone_stream.cpp">
+      <Filter>Source Files\Drone</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
