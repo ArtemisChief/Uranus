@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>                   TextLabel</string>
     </property>
    </widget>
    <widget class="QLabel" name="buffer_label">
@@ -32,7 +32,7 @@
      <rect>
       <x>30</x>
       <y>610</y>
-      <width>521</width>
+      <width>1081</width>
       <height>41</height>
      </rect>
     </property>
@@ -123,44 +123,337 @@
      <string>Speed</string>
     </property>
    </widget>
-   <widget class="QProgressBar" name="battery_bar">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>30</y>
-      <width>118</width>
-      <height>23</height>
+      <x>860</x>
+      <y>140</y>
+      <width>130</width>
+      <height>240</height>
      </rect>
     </property>
-    <property name="value">
-     <number>24</number>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255, 20%);
+border: 0px solid;</string>
     </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QLabel" name="agz_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>agz: 0g</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="vgz_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>vgz: 0cm/s</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="vgy_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>vgy: 0cm/s</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="vgx_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>vgx: 0cm/s</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="agx_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>agx: 0g</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="agy_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>agy: 0g</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QLabel" name="speed_label">
+   <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>30</y>
-      <width>121</width>
-      <height>16</height>
+      <x>30</x>
+      <y>140</y>
+      <width>130</width>
+      <height>240</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Speed: 0.0m/s</string>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255, 20%);
+border: 0px solid;</string>
     </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QLabel" name="baro_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>baro: 0cm</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="time_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>200</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>time: 0s</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="templ_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>templ: 0°C</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="temph_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>temph: 0°C</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="h_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>h: 0cm</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="tof_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>tof: 0cm</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pitch_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>pitch: 0°</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="yaw_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>yaw: 0°</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="roll_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>roll: 0°</string>
+     </property>
+    </widget>
+    <zorder>baro_label</zorder>
+    <zorder>time_label</zorder>
+    <zorder>temph_label</zorder>
+    <zorder>h_label</zorder>
+    <zorder>tof_label</zorder>
+    <zorder>templ_label</zorder>
+    <zorder>pitch_label</zorder>
+    <zorder>yaw_label</zorder>
+    <zorder>roll_label</zorder>
    </widget>
-   <widget class="QLabel" name="height_label">
+   <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>30</y>
-      <width>111</width>
-      <height>16</height>
+      <x>340</x>
+      <y>20</y>
+      <width>351</width>
+      <height>61</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Height: 0.0m</string>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255, 20%);
+border: 0px solid;</string>
     </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QProgressBar" name="battery_bar">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>118</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="speed_label">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>20</y>
+       <width>141</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>Speed: 0.0m/s</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

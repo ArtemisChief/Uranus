@@ -22,19 +22,29 @@ DroneStatus* DroneStatus::GetInstance() {
 void DroneStatus::ReceiveStatus() {
 	while(socket_->hasPendingDatagrams())
 	{
-		std::cout << "调用receSta";
-
+		//读取socket中收到的状态信息，放入messages中
 		QByteArray arr;
 		arr.resize(socket_->pendingDatagramSize());
 		socket_->readDatagram(arr.data(), arr.size());
+		QString messages = QString(arr.data());
 
 		//分割buffer_字符串，放入params_[]中
-		std::cout << arr.constData() << endl;
-		////发出update_status信号
-		//emit update_states(params_);
-		//char* abcd = "test char";正常显示
+		QStringList list = messages.split(";");
+		for(int i = 5; i<21; i++)
+		{
+			QString content = list[i];
+			content = content.mid(content.indexOf(":") + 1);
+			if(i>12)
+			{
+				content = content.left(content.indexOf("."));
+			}
+			params_[i-5] = content.toInt();
+
+		}
+
+		//发出更新信号
+		emit update_states(params_);
 		emit show_buffer(arr.data());
-		//emit update_states(params_);
 	}
 }
 

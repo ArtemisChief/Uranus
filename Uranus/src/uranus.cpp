@@ -1,4 +1,5 @@
 #include "uranus.hpp"
+#include<math.h>
 
 Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	drone_control_ = DroneControl::GetInstance();
@@ -172,7 +173,30 @@ void Uranus::show_frame(QImage* frame) {
 
 void Uranus::show_status(int* params_)
 {
-	
+	const double recentSpeed = sqrt(params_[3] * params_[3] + params_[4] * params_[4] + params_[5] * params_[5]);
+	//更新速度
+	ui.speed_label->setText(QString("Speed: %1 cm/s").arg(QString::number(recentSpeed, 'f', 2)));
+	//更新俯仰角度、横滚角度、偏航角度
+	ui.pitch_label->setText(QString("pitch: %1 ").arg(params_[0]));
+	ui.roll_label->setText(QString("roll: %1 ").arg(params_[1]));
+	ui.yaw_label->setText(QString("yaw: %1 ").arg(params_[2]));
+	//更新x、y、z轴速度
+	ui.vgx_label->setText(QString("vgx: %1 cm/s").arg(params_[3]));
+	ui.vgy_label->setText(QString("vgy: %1 cm/s").arg(params_[4]));
+	ui.vgz_label->setText(QString("vgz: %1 cm/s").arg(params_[5]));
+	//更新主板最低/高温度
+	ui.templ_label->setText(QString("templ: %1").arg(params_[6]));
+	ui.temph_label->setText(QString("temph: %1 ").arg(params_[7]));
+	//ToF距离、相对起飞点高度、当前电量、气压计测量高度、电机运转时间
+	ui.tof_label->setText(QString("tof: %1 cm").arg(params_[8]));
+	ui.h_label->setText(QString("h: %1 cm").arg(params_[9]));
+	ui.battery_bar->setValue(params_[10]);
+	ui.baro_label->setText(QString("baro: %1 cm").arg(params_[11]));
+	ui.time_label->setText(QString("time: %1 s").arg(params_[12]));
+	//更新x、y、z轴加速度
+	ui.agx_label->setText(QString("agx: %1 mg").arg(params_[13]));
+	ui.agy_label->setText(QString("agy: %1 mg").arg(params_[14]));
+	ui.agz_label->setText(QString("agz: %1 mg").arg(params_[15]));
 }
 
 void Uranus::show_all_status(QString buff)
