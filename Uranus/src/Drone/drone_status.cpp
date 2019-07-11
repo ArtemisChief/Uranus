@@ -44,7 +44,6 @@ void DroneStatus::ReceiveStatus() {
 
 		//发出更新信号
 		emit update_states(params_);
-		emit show_buffer(arr.data());
 	}
 }
 

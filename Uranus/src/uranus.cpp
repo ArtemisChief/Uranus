@@ -20,7 +20,6 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	drone_status_->moveToThread(&drone_status_thread_);
 	connect(&drone_status_thread_, &QThread::finished, drone_status_, &QObject::deleteLater);
 
-	connect(drone_status_, &DroneStatus::show_buffer, this, &Uranus::show_all_status);
 	connect(drone_status_,&DroneStatus::update_states,this, &Uranus::show_status);
 	drone_status_thread_.start();
 
@@ -159,6 +158,16 @@ void Uranus::on_connect_btn_clicked() {
 	emit connect_signal();
 }
 
+void Uranus::on_connect_btn_pressed() {
+	std::cout << "pressed";
+	ui.connect_btn->setStyleSheet("background-color:red; border:10px solid; border-color: rgb(85, 255, 127, 50%); border-radius:50%;");
+}
+
+void Uranus::on_connect_btn_released() {
+	std::cout << "released";
+	ui.connect_btn->setStyleSheet("background-color: rgb(255, 85, 0); border:10px solid; border-color: rgb(85, 255, 127, 50%); border-radius:50%;");
+}
+
 void Uranus::on_stick_slider_value_changed(const int value) {
 	stick_ = value;
 }
@@ -199,11 +208,6 @@ void Uranus::show_status(int* params_)
 	ui.agz_label->setText(QString("agz: %1 mg").arg(params_[15]));
 }
 
-void Uranus::show_all_status(QString buff)
-{
-	//std::cout << buff << endl;
-	ui.buffer_label->setText(buff);
-}
 
 
 

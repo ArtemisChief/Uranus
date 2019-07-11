@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>675</height>
+    <width>1180</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,114 +19,43 @@
      <rect>
       <x>30</x>
       <y>20</y>
-      <width>960</width>
-      <height>540</height>
+      <width>1120</width>
+      <height>630</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>                   TextLabel</string>
     </property>
    </widget>
-   <widget class="QLabel" name="buffer_label">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>610</y>
-      <width>1081</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="connect_btn">
     <property name="geometry">
      <rect>
-      <x>1020</x>
-      <y>40</y>
-      <width>158</width>
-      <height>23</height>
+      <x>50</x>
+      <y>540</y>
+      <width>100</width>
+      <height>100</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 85, 0);
+border:10px solid;
+border-color: rgb(85, 255, 127, 50%);
+border-radius:50%;</string>
     </property>
     <property name="text">
-     <string>Connect to Tello</string>
+     <string>Connect</string>
     </property>
-   </widget>
-   <widget class="QSlider" name="rc_factor_slider">
-    <property name="geometry">
-     <rect>
-      <x>1050</x>
-      <y>150</y>
-      <width>22</width>
-      <height>160</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>100</number>
-    </property>
-    <property name="value">
-     <number>50</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-    <property name="tickPosition">
-     <enum>QSlider::NoTicks</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="speed_slider">
-    <property name="geometry">
-     <rect>
-      <x>1110</x>
-      <y>150</y>
-      <width>22</width>
-      <height>160</height>
-     </rect>
-    </property>
-    <property name="minimum">
-     <number>10</number>
-    </property>
-    <property name="maximum">
-     <number>100</number>
-    </property>
-    <property name="value">
-     <number>55</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="rc_factorlabel">
-    <property name="geometry">
-     <rect>
-      <x>1050</x>
-      <y>320</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Stick</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="speed_factor">
-    <property name="geometry">
-     <rect>
-      <x>1110</x>
-      <y>320</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Speed</string>
+    <property name="checkable">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>860</x>
+      <x>1020</x>
       <y>140</y>
       <width>130</width>
       <height>240</height>
@@ -134,7 +63,7 @@
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255, 20%);
-border: 0px solid;</string>
+border-radius:10px;</string>
     </property>
     <property name="title">
      <string/>
@@ -247,7 +176,7 @@ border: 0px solid;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255, 20%);
-border: 0px solid;</string>
+border-radius:10px;</string>
     </property>
     <property name="title">
      <string/>
@@ -409,15 +338,15 @@ border: 0px solid;</string>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>400</x>
       <y>20</y>
-      <width>351</width>
-      <height>61</height>
+      <width>360</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255, 20%);
-border: 0px solid;</string>
+border-radius:10px;</string>
     </property>
     <property name="title">
      <string/>
@@ -455,6 +384,111 @@ border: 0px solid;</string>
      </property>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>590</y>
+      <width>530</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(131, 131, 131, 80%);
+border-radius:10%</string>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QLabel" name="speed_factor">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>20</y>
+       <width>51</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>Speed</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="rc_factor_slider">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>20</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="value">
+      <number>50</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="tickPosition">
+      <enum>QSlider::NoTicks</enum>
+     </property>
+    </widget>
+    <widget class="QSlider" name="speed_slider">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>20</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(131, 131, 131, 0%);</string>
+     </property>
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="value">
+      <number>55</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="rc_factorlabel">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>51</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+     </property>
+     <property name="text">
+      <string>Stick</string>
+     </property>
+    </widget>
+   </widget>
+   <zorder>frame_label</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>groupBox_2</zorder>
+   <zorder>groupBox_3</zorder>
+   <zorder>connect_btn</zorder>
+   <zorder>groupBox_4</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -463,30 +497,14 @@ border: 0px solid;</string>
  </resources>
  <connections>
   <connection>
-   <sender>connect_btn</sender>
-   <signal>clicked()</signal>
-   <receiver>UranusClass</receiver>
-   <slot>on_connect_btn_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1046</x>
-     <y>54</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>996</x>
-     <y>76</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>rc_factor_slider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>UranusClass</receiver>
    <slot>on_stick_slider_value_changed(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1055</x>
-     <y>283</y>
+     <x>405</x>
+     <y>629</y>
     </hint>
     <hint type="destinationlabel">
      <x>999</x>
@@ -501,8 +519,8 @@ border: 0px solid;</string>
    <slot>on_speed_slider_value_changed(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1118</x>
-     <y>306</y>
+     <x>678</x>
+     <y>629</y>
     </hint>
     <hint type="destinationlabel">
      <x>999</x>

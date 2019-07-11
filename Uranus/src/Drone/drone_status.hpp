@@ -75,6 +75,5 @@ private slots:
 	void ReceiveStatus();
 signals:
 	void update_states(int* params);
-	void show_buffer(QString qs);
 		
 };

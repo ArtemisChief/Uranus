@@ -26,12 +26,7 @@ class Ui_UranusClass
 public:
     QWidget *centralWidget;
     QLabel *frame_label;
-    QLabel *buffer_label;
     QPushButton *connect_btn;
-    QSlider *rc_factor_slider;
-    QSlider *speed_slider;
-    QLabel *rc_factorlabel;
-    QLabel *speed_factor;
     QGroupBox *groupBox;
     QLabel *agz_label;
     QLabel *vgz_label;
@@ -52,48 +47,36 @@ public:
     QGroupBox *groupBox_3;
     QProgressBar *battery_bar;
     QLabel *speed_label;
+    QGroupBox *groupBox_4;
+    QLabel *speed_factor;
+    QSlider *rc_factor_slider;
+    QSlider *speed_slider;
+    QLabel *rc_factorlabel;
 
     void setupUi(QMainWindow *UranusClass)
     {
         if (UranusClass->objectName().isEmpty())
             UranusClass->setObjectName(QString::fromUtf8("UranusClass"));
-        UranusClass->resize(1200, 675);
+        UranusClass->resize(1180, 680);
         centralWidget = new QWidget(UranusClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         frame_label = new QLabel(centralWidget);
         frame_label->setObjectName(QString::fromUtf8("frame_label"));
-        frame_label->setGeometry(QRect(30, 20, 960, 540));
-        buffer_label = new QLabel(centralWidget);
-        buffer_label->setObjectName(QString::fromUtf8("buffer_label"));
-        buffer_label->setGeometry(QRect(30, 610, 1081, 41));
+        frame_label->setGeometry(QRect(30, 20, 1120, 630));
+        frame_label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0);"));
         connect_btn = new QPushButton(centralWidget);
         connect_btn->setObjectName(QString::fromUtf8("connect_btn"));
-        connect_btn->setGeometry(QRect(1020, 40, 158, 23));
-        rc_factor_slider = new QSlider(centralWidget);
-        rc_factor_slider->setObjectName(QString::fromUtf8("rc_factor_slider"));
-        rc_factor_slider->setGeometry(QRect(1050, 150, 22, 160));
-        rc_factor_slider->setMaximum(100);
-        rc_factor_slider->setValue(50);
-        rc_factor_slider->setOrientation(Qt::Vertical);
-        rc_factor_slider->setTickPosition(QSlider::NoTicks);
-        speed_slider = new QSlider(centralWidget);
-        speed_slider->setObjectName(QString::fromUtf8("speed_slider"));
-        speed_slider->setGeometry(QRect(1110, 150, 22, 160));
-        speed_slider->setMinimum(10);
-        speed_slider->setMaximum(100);
-        speed_slider->setValue(55);
-        speed_slider->setOrientation(Qt::Vertical);
-        rc_factorlabel = new QLabel(centralWidget);
-        rc_factorlabel->setObjectName(QString::fromUtf8("rc_factorlabel"));
-        rc_factorlabel->setGeometry(QRect(1050, 320, 31, 16));
-        speed_factor = new QLabel(centralWidget);
-        speed_factor->setObjectName(QString::fromUtf8("speed_factor"));
-        speed_factor->setGeometry(QRect(1110, 320, 31, 16));
+        connect_btn->setGeometry(QRect(50, 540, 100, 100));
+        connect_btn->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 85, 0);\n"
+"border:10px solid;\n"
+"border-color: rgb(85, 255, 127, 50%);\n"
+"border-radius:50%;"));
+        connect_btn->setCheckable(false);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(860, 140, 130, 240));
+        groupBox->setGeometry(QRect(1020, 140, 130, 240));
         groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
-"border: 0px solid;"));
+"border-radius:10px;"));
         agz_label = new QLabel(groupBox);
         agz_label->setObjectName(QString::fromUtf8("agz_label"));
         agz_label->setGeometry(QRect(10, 120, 111, 16));
@@ -122,7 +105,7 @@ public:
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setGeometry(QRect(30, 140, 130, 240));
         groupBox_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
-"border: 0px solid;"));
+"border-radius:10px;"));
         baro_label = new QLabel(groupBox_2);
         baro_label->setObjectName(QString::fromUtf8("baro_label"));
         baro_label->setGeometry(QRect(10, 130, 111, 16));
@@ -170,9 +153,9 @@ public:
         roll_label->raise();
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(320, 20, 401, 61));
+        groupBox_3->setGeometry(QRect(400, 20, 360, 60));
         groupBox_3->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
-"border: 0px solid;"));
+"border-radius:10px;"));
         battery_bar = new QProgressBar(groupBox_3);
         battery_bar->setObjectName(QString::fromUtf8("battery_bar"));
         battery_bar->setGeometry(QRect(60, 20, 118, 23));
@@ -182,10 +165,44 @@ public:
         speed_label->setObjectName(QString::fromUtf8("speed_label"));
         speed_label->setGeometry(QRect(200, 20, 141, 16));
         speed_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        groupBox_4 = new QGroupBox(centralWidget);
+        groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
+        groupBox_4->setGeometry(QRect(320, 590, 530, 60));
+        groupBox_4->setStyleSheet(QString::fromUtf8("background-color: rgb(131, 131, 131, 80%);\n"
+"border-radius:10%"));
+        speed_factor = new QLabel(groupBox_4);
+        speed_factor->setObjectName(QString::fromUtf8("speed_factor"));
+        speed_factor->setGeometry(QRect(290, 20, 51, 16));
+        speed_factor->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        rc_factor_slider = new QSlider(groupBox_4);
+        rc_factor_slider->setObjectName(QString::fromUtf8("rc_factor_slider"));
+        rc_factor_slider->setGeometry(QRect(80, 20, 161, 20));
+        rc_factor_slider->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        rc_factor_slider->setMaximum(100);
+        rc_factor_slider->setValue(50);
+        rc_factor_slider->setOrientation(Qt::Horizontal);
+        rc_factor_slider->setTickPosition(QSlider::NoTicks);
+        speed_slider = new QSlider(groupBox_4);
+        speed_slider->setObjectName(QString::fromUtf8("speed_slider"));
+        speed_slider->setGeometry(QRect(350, 20, 161, 20));
+        speed_slider->setStyleSheet(QString::fromUtf8("background-color: rgb(131, 131, 131, 0%);"));
+        speed_slider->setMinimum(10);
+        speed_slider->setMaximum(100);
+        speed_slider->setValue(55);
+        speed_slider->setOrientation(Qt::Horizontal);
+        rc_factorlabel = new QLabel(groupBox_4);
+        rc_factorlabel->setObjectName(QString::fromUtf8("rc_factorlabel"));
+        rc_factorlabel->setGeometry(QRect(20, 20, 51, 20));
+        rc_factorlabel->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         UranusClass->setCentralWidget(centralWidget);
+        frame_label->raise();
+        groupBox->raise();
+        groupBox_2->raise();
+        groupBox_3->raise();
+        connect_btn->raise();
+        groupBox_4->raise();
 
         retranslateUi(UranusClass);
-        QObject::connect(connect_btn, SIGNAL(clicked()), UranusClass, SLOT(on_connect_btn_clicked()));
         QObject::connect(rc_factor_slider, SIGNAL(valueChanged(int)), UranusClass, SLOT(on_stick_slider_value_changed(int)));
         QObject::connect(speed_slider, SIGNAL(valueChanged(int)), UranusClass, SLOT(on_speed_slider_value_changed(int)));
 
@@ -196,10 +213,7 @@ public:
     {
         UranusClass->setWindowTitle(QApplication::translate("UranusClass", "Uranus", nullptr));
         frame_label->setText(QApplication::translate("UranusClass", "                   TextLabel", nullptr));
-        buffer_label->setText(QApplication::translate("UranusClass", "TextLabel", nullptr));
-        connect_btn->setText(QApplication::translate("UranusClass", "Connect to Tello", nullptr));
-        rc_factorlabel->setText(QApplication::translate("UranusClass", "Stick", nullptr));
-        speed_factor->setText(QApplication::translate("UranusClass", "Speed", nullptr));
+        connect_btn->setText(QApplication::translate("UranusClass", "Connect", nullptr));
         groupBox->setTitle(QString());
         agz_label->setText(QApplication::translate("UranusClass", "agz: 0g", nullptr));
         vgz_label->setText(QApplication::translate("UranusClass", "vgz: 0cm/s", nullptr));
@@ -219,6 +233,9 @@ public:
         roll_label->setText(QApplication::translate("UranusClass", "roll: 0\302\260", nullptr));
         groupBox_3->setTitle(QString());
         speed_label->setText(QApplication::translate("UranusClass", "Speed: 0.0m/s", nullptr));
+        groupBox_4->setTitle(QString());
+        speed_factor->setText(QApplication::translate("UranusClass", "Speed", nullptr));
+        rc_factorlabel->setText(QApplication::translate("UranusClass", "Stick", nullptr));
     } // retranslateUi
 
 };

@@ -46,12 +46,13 @@ private:
 
 private slots:
 	void on_connect_btn_clicked();
+	void on_connect_btn_pressed();
+	void on_connect_btn_released();
 	void on_stick_slider_value_changed(const int value);
 	void on_speed_slider_value_changed(const int value);
 	void show_frame(QImage* frame);
 
 	void show_status(int* params_);
-	void show_all_status(QString buff);
 
 signals:
 	void connect_signal();
