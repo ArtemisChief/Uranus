@@ -14,10 +14,10 @@ DroneStream::DroneStream() {
 	codec = avcodec_find_decoder(AV_CODEC_ID_H264);
 	codec_context = avcodec_alloc_context3(codec);
 	parser = av_parser_init(AV_CODEC_ID_H264);
-	avcodec_open2(codec_context, codec, nullptr);
 	avcodec_open2(codec_context, codec, NULL);
 	// video_data.resize(2920);
-	video_data = new char[2920];
+	//video_data = new char[2920];
+	video_data = "";
 }
 
 DroneStream* DroneStream::GetInstance() {
@@ -33,20 +33,24 @@ void DroneStream::GetFrame()
 	socket_->readDatagram(buffer_, size);
 	if (*buffer_ == '\0')
 		return;
-	strcat_s(video_data, 2920, buffer_);
+	string temp(buffer_,size);
+	video_data +=temp;
 	delete buffer_;
 	if (size == 1460)
 		return;
 	frame = av_frame_alloc();
 	frame_rgb = av_frame_alloc();
 
-	av_new_packet(&packet, strlen(video_data));
+	av_new_packet(&packet, video_data.size());
 
-	memcpy_s(packet.data, strlen(video_data), video_data, strlen(video_data));
+	input_buffer = (uint8_t *)av_malloc(video_data.size());
+	memcpy_s(input_buffer, video_data.size(), video_data.data(), video_data.size());
 
-	delete video_data;
-	video_data = new char[2920];
+	av_parser_parse2(parser, codec_context, &packet.data, &packet.size,
+		input_buffer, sizeof input_buffer,
+		0, 0, AV_NOPTS_VALUE);
 
+	video_data = "";
 
 	int ret, got_picture;
 	ret = avcodec_decode_video2(codec_context, frame, &got_picture, &packet);
@@ -60,11 +64,8 @@ void DroneStream::GetFrame()
 
 		int numBytes = avpicture_get_size(AV_PIX_FMT_RGB32, codec_context->width, codec_context->height);
 
-		out_buffer = (uint8_t *)av_malloc(numBytes * sizeof(uint8_t));
+		uint8_t* out_buffer = (uint8_t *)av_malloc(numBytes * sizeof(uint8_t));
 
-		av_parser_parse2(parser, codec_context, &packet.data, &packet.size,
-			out_buffer, sizeof out_buffer,
-			0, 0, AV_NOPTS_VALUE);
 
 		avpicture_fill((AVPicture *)frame_rgb, out_buffer, AV_PIX_FMT_RGB32,
 			codec_context->width, codec_context->height);

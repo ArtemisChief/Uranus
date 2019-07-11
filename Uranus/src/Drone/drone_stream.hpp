@@ -22,7 +22,7 @@ extern "C"
 #pragma comment(lib, "postproc.lib")  
 #pragma comment(lib, "swresample.lib")  
 #pragma comment(lib, "swscale.lib")  
-
+using namespace std;
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
@@ -68,7 +68,7 @@ private:
 	AVFrame *frame, *frame_rgb;
 	AVPacket packet;
 	static struct SwsContext *img_convert_ctx;
-	uint8_t *out_buffer;
-	char* video_data;
+	uint8_t *input_buffer;
+	std::string video_data;
 
 };
