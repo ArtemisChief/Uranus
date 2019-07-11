@@ -1,5 +1,6 @@
 #pragma once
 #include <qobject.h>
+#include <QImage>
 #include <qudpsocket.h>
 #include <stddef.h>
 
@@ -18,14 +19,10 @@ class DroneStream : public QObject {
 	Q_OBJECT
 
 public:
+
 	static DroneStream* GetInstance();
 
-public slots:
-	void GetFrame();
-
-signals:
-	void frame_ready_signal(QImage *image);
-
+	QImage* ConsturctFrame(QByteArray& bytes);
 
 private:
 
@@ -40,20 +37,30 @@ private:
 	// 收发视频流的UDP Socket
 	QUdpSocket* socket_;
 
-	// 返回值缓存区
-	char* buffer_;
-	// QByteArray buffer_;
-
 	// 无人机视频流本地接收端口地址
 	int local_port_stream_ = 11111;
 
-	AVCodec *codec;
-	AVCodecContext *codec_context;
-	AVCodecParserContext  *parser;
-	AVFrame *frame, *frame_rgb;
-	AVPacket *packet;
-	static struct SwsContext *img_convert_ctx;
-	uint8_t *input_buffer;
-	std::string video_data;
+	// 用于存储一个包的缓存
+	QByteArray datagram_buffer_;
+
+	// 用于缓存一帧的缓存区
+	QByteArray frame_buffer_;
+
+	// 
+	AVCodec *codec_;
+	AVCodecContext *codec_context_;
+	AVCodecParserContext *parser_context_;
+	AVFrame *frame_;
+	AVPacket *packet_;
+	SwsContext *sws_context_;
+	AVFrame *rgb_frame_;
+
+private slots:
+
+	void ReceiveDatagram();
+
+signals:
+
+	void frame_ready_signal(QImage image);
 
 };

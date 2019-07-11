@@ -3,22 +3,48 @@
 #include <iostream>
 
 DroneStream* DroneStream::drone_stream_ = nullptr;
-SwsContext* DroneStream::img_convert_ctx = nullptr;
 
 DroneStream::DroneStream() {
 	socket_ = new QUdpSocket(this);
-	socket_->bind(local_port_stream_);
-	// buffer_ = new char[10240];
-	// buffer_ = new QByteArray(10240,Qt::Initialization());
-	connect(socket_, SIGNAL(readyRead()), this, SLOT(GetFrame()));
-	av_register_all();
-	codec = avcodec_find_decoder(AV_CODEC_ID_H264);
-	codec_context = avcodec_alloc_context3(codec);
-	parser = av_parser_init(AV_CODEC_ID_H264);
-	avcodec_open2(codec_context, codec, NULL);
-	// video_data.resize(2920);
-	//video_data = new char[2920];
-	video_data = "";
+	socket_->bind(QHostAddress("0.0.0.0"), local_port_stream_);
+	connect(socket_, SIGNAL(readyRead()), this, SLOT(ReceiveDatagram()));
+
+	avcodec_register_all();
+
+	codec_ = avcodec_find_decoder(AV_CODEC_ID_H264);
+	if (!codec_)
+		std::cout << "cannot find decoder" << std::endl;
+
+	codec_context_ = avcodec_alloc_context3(codec_);
+	if (!codec_context_)
+		std::cout << "cannot allocate context" << std::endl;
+
+	if (codec_->capabilities & AV_CODEC_CAP_TRUNCATED) {
+		codec_context_->flags |= AV_CODEC_CAP_TRUNCATED;
+	}
+
+	if (avcodec_open2(codec_context_, codec_, nullptr) < 0)
+		std::cout << "cannot open context" << std::endl;
+
+	parser_context_ = av_parser_init(AV_CODEC_ID_H264);
+	if (!parser_context_)
+		std::cout << "cannot init parser" << std::endl;
+
+	frame_ = av_frame_alloc();
+	if (!frame_)
+		std::cout << "cannot allocate frame" << std::endl;
+
+	packet_ = new AVPacket;
+	if (!packet_)
+		std::cout << "cannot allocate packet" << std::endl;
+
+	av_init_packet(packet_);
+
+	sws_context_ = nullptr;
+
+	rgb_frame_ = av_frame_alloc();
+	if (!rgb_frame_)
+		std::cout << "cannot allocate rgb_frame" << std::endl;
 }
 
 DroneStream* DroneStream::GetInstance() {
@@ -27,79 +53,76 @@ DroneStream* DroneStream::GetInstance() {
 	return drone_stream_;
 }
 
-void DroneStream::GetFrame()
-{
-	while (socket_->hasPendingDatagrams())
-	{
-		int size = socket_->pendingDatagramSize();
-		buffer_ = new char[size];
-		socket_->readDatagram(buffer_, size);
-		if (*buffer_ == '\0')
-			continue;
-		std::string temp(buffer_, size);
-		video_data += temp;
-		delete buffer_;
-		std::cout << size << std::endl;;
-		if (size == 1460)
-			continue;
-		frame = av_frame_alloc();
-		frame_rgb = av_frame_alloc();
+QImage* DroneStream::ConsturctFrame(QByteArray& bytes) {
+	auto length = bytes.length();
+	auto data_in = new uchar[length];
+	memcpy(data_in, bytes.data(), length);
 
-		packet = new AVPacket;
-		av_init_packet(packet);
+	while (length > 0) {
+		size_t num_consumed = av_parser_parse2(parser_context_, codec_context_,
+											   &packet_->data, &packet_->size,
+											   data_in, length,
+											   0, 0, AV_NOPTS_VALUE);
+		
+		bool is_frame_available = packet_->size > 0;
 
+		if(is_frame_available)
+		{
+			int got_picture = 0;
+			int nread = avcodec_decode_video2(codec_context_, frame_, &got_picture, packet_);
+			if (nread < 0 || got_picture == 0) {
+				std::cout << "error decoding frame" << std::endl;
+				break;
+			}
+		
+			
+			auto width = frame_->width;
+			auto height = frame_->height;
+			auto output_size= avpicture_fill((AVPicture*)rgb_frame_, nullptr, AV_PIX_FMT_RGB32, width, height);
+			uint8_t* out_buffer = static_cast<uint8_t *>(av_malloc(avpicture_get_size(AV_PIX_FMT_RGB32,width, height) * sizeof(uint8_t)));
+			sws_context_ = sws_getCachedContext(sws_context_,
+												width, height, static_cast<AVPixelFormat>(frame_->format),
+												width, height, AV_PIX_FMT_RGB32, SWS_BILINEAR,
+												nullptr, nullptr, nullptr);
+			if (!sws_context_)
+				std::cout << "can't allocate sws_context" << std::endl;
 
-		input_buffer = (uint8_t *)av_malloc(video_data.size());
-		memcpy_s(input_buffer, video_data.size(), video_data.data(), video_data.size());
+			avpicture_fill(reinterpret_cast<AVPicture*>(rgb_frame_), out_buffer, AV_PIX_FMT_RGB32, width, height);
+			sws_scale(sws_context_, frame_->data, frame_->linesize, 0, height,
+					  rgb_frame_->data, rgb_frame_->linesize);
+			rgb_frame_->width = width;
+			rgb_frame_->height = height;
 
-		int len = video_data.size();
-		int used;
-		while (len) {
-			used=av_parser_parse2(parser, codec_context, &packet->data, &packet->size,
-				input_buffer, len,
-				0, 0, AV_NOPTS_VALUE);
-			input_buffer += used;
-			len -= used;
+			QImage tempImage(static_cast<uchar*>(out_buffer), width, height, QImage::Format_RGB32);
+			QImage image = tempImage.copy();
+			
+			emit frame_ready_signal(image);
 		}
-		std::cout << packet->size << std::endl;	
-
-		video_data = "";
-
-		int ret;
-		int got_picture;
-		std::cout << codec_context->width << "   " << codec_context->height << std::endl;
-		ret = avcodec_decode_video2(codec_context, frame, &got_picture, packet);
-
-		if (ret < 0) {
-			printf("decode error.\n");
-			return;
-		}
-
-		if (got_picture) {
-
-			int numBytes = avpicture_get_size(AV_PIX_FMT_RGB32, codec_context->width, codec_context->height);
-
-			uint8_t* out_buffer = (uint8_t *)av_malloc(numBytes * sizeof(uint8_t));
-
-
-			avpicture_fill((AVPicture *)frame_rgb, out_buffer, AV_PIX_FMT_RGB32,
-				codec_context->width, codec_context->height);
-
-			img_convert_ctx = sws_getContext(
-				codec_context->width, codec_context->height, codec_context->pix_fmt,
-				codec_context->width, codec_context->height, AV_PIX_FMT_RGB32, SWS_BICUBIC,
-				nullptr, nullptr, nullptr);
-
-			sws_scale(img_convert_ctx, frame->data, frame->linesize, 0, frame->height,
-				frame_rgb->data, frame_rgb->linesize);
-
-			QImage image((uchar *)out_buffer, codec_context->width, codec_context->height, QImage::Format_RGB32);
-
-			emit frame_ready_signal(&image);
-		}
-		av_free_packet(packet);
-
+		length -= num_consumed;
+		data_in += num_consumed;
 	}
 
-	
+	return nullptr;
+}
+
+void DroneStream::ReceiveDatagram() {
+	while (socket_->hasPendingDatagrams()) {
+
+		std::cout << std::endl << "PendingDatagramSize: " << socket_->pendingDatagramSize() << std::endl;
+
+		const auto datagram_size = socket_->pendingDatagramSize();
+		datagram_buffer_.resize(datagram_size);
+		socket_->readDatagram(datagram_buffer_.data(), datagram_size);
+		frame_buffer_.append(datagram_buffer_);
+
+		std::cout << "Datagram Length: " << datagram_buffer_.length() << std::endl << "Frame Length: " << frame_buffer_.length() << std::endl;
+
+		// 收到一帧的最后一个包
+		if (datagram_buffer_.length() != 1460) {
+			ConsturctFrame(frame_buffer_);
+			//emit frame_ready_signal(ConsturctFrame(frame_buffer_));
+			std::cout << "----Frame complete----" << std::endl;
+			frame_buffer_.clear();
+		}
+	}
 }
