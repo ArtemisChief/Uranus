@@ -11,12 +11,17 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(this, &Uranus::stream_close_signal, drone_control_, &DroneControl::CloseStream);
 	connect(this, &Uranus::rc_signal, drone_control_, &DroneControl::SetRC);
 	connect(this, &Uranus::flip_signal, drone_control_, &DroneControl::Flip);
+	connect(this, &Uranus::speed_change_signal, drone_control_, &DroneControl::SetSpeed);
 	drone_control_thread_.start();
 
-	//drone_status_ = DroneStatus::GetInstance();
-	//drone_status_->moveToThread(&drone_status_thread_);
-	//connect
-	//drone_status_thread_.start();
+	//状态更新线程
+	drone_status_ = DroneStatus::GetInstance();
+	drone_status_->moveToThread(&drone_status_thread_);
+	connect(&drone_status_thread_, &QThread::finished, drone_status_, &QObject::deleteLater);
+
+	connect(drone_status_, &DroneStatus::show_buffer, this, &Uranus::show_all_status);
+	connect(drone_status_,&DroneStatus::update_states,this, &Uranus::show_status);
+	drone_status_thread_.start();
 
 	drone_stream_ = DroneStream::GetInstance();
 	drone_stream_->moveToThread(&drone_stream_thread_);
@@ -32,7 +37,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	// video_processor_thread_.start();
 
 	ui.setupUi(this);
-	ui.videoLabel->setScaledContents(true);
+	ui.frame_label->setScaledContents(true);
 
 	// 设置初始视频帧为纯黑单色图
 	SetFrameToBlack();
@@ -45,7 +50,7 @@ void Uranus::SetFrameToBlack() const {
 	const auto black_image = cv::Mat(1280, 720, CV_8UC1, cv::Scalar(0));
 	QImage image_rgb(static_cast<const uchar *>(black_image.data), black_image.cols, black_image.rows, black_image.step, QImage::Format_Grayscale8);
 	image_rgb.bits();
-	ui.videoLabel->setPixmap(QPixmap::fromImage(image_rgb));
+	ui.frame_label->setPixmap(QPixmap::fromImage(image_rgb));
 }
 
 void Uranus::keyPressEvent(QKeyEvent* key_event) {
@@ -55,31 +60,28 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 	const auto key_value = key_event->key();
 	switch (key_value) {
 	case Qt::Key_W:
-		rc_[1] = 50 * rc_factor_;
+		rc_[1] = stick_;
 		break;
 	case Qt::Key_A:
-		rc_[0] = -50 * rc_factor_;
+		rc_[0] = -stick_;
 		break;
 	case Qt::Key_S:
-		rc_[1] = -50 * rc_factor_;
+		rc_[1] = -stick_;
 		break;
 	case Qt::Key_D:
-		rc_[0] = 50 * rc_factor_;
+		rc_[0] = stick_;
 		break;
 	case Qt::Key_Q:
-		rc_[3] = -50 * rc_factor_;
+		rc_[3] = -stick_;
 		break;
 	case Qt::Key_E:
-		rc_[3] = 50 * rc_factor_;
+		rc_[3] = stick_;
 		break;
 	case Qt::Key_Space:
-		rc_[2] = 50 * rc_factor_;
-		break;
-	case Qt::Key_Control:
-		rc_[2] = -50 * rc_factor_;
+		rc_[2] = stick_;
 		break;
 	case Qt::Key_Shift:
-		rc_factor_ = 2;
+		rc_[2] = -stick_;
 		break;
 	case Qt::Key_Up:
 		emit flip_signal('f');
@@ -93,7 +95,7 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 	case Qt::Key_Down:
 		emit flip_signal('b');
 		break;
-	case Qt::Key_Tab:
+	case Qt::Key_CapsLock:
 		if (drone_control_->get_is_takeoff())
 			emit land_signal();
 		else
@@ -144,11 +146,8 @@ void Uranus::keyReleaseEvent(QKeyEvent* key_event) {
 	case Qt::Key_Space:
 		rc_[2] = 0;
 		break;
-	case Qt::Key_Control:
-		rc_[2] = 0;
-		break;
 	case Qt::Key_Shift:
-		rc_factor_ = 1;
+		rc_[2] = 0;
 		break;
 	default:
 		break;
@@ -157,12 +156,31 @@ void Uranus::keyReleaseEvent(QKeyEvent* key_event) {
 	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
 }
 
-void Uranus::on_connectBtn_clicked() {
+void Uranus::on_connect_btn_clicked() {
 	emit connect_signal();
 }
 
+void Uranus::on_stick_slider_value_changed(const int value) {
+	stick_ = value;
+}
+
+void Uranus::on_speed_slider_value_changed(const int value) {
+	emit speed_change_signal(value);
+}
+
 void Uranus::show_frame(QImage* frame) {
-	ui.videoLabel->setPixmap(QPixmap::fromImage(*frame));
+	ui.frame_label->setPixmap(QPixmap::fromImage(*frame));
+}
+
+void Uranus::show_status(int* params_)
+{
+	
+}
+
+void Uranus::show_all_status(QString buff)
+{
+	//std::cout << buff << endl;
+	ui.buffer_label->setText(buff);
 }
 
 

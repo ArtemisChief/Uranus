@@ -1,10 +1,16 @@
 #include "drone_status.hpp"
+#include <iostream>
 
 DroneStatus* DroneStatus::drone_status_ = nullptr;
 
 DroneStatus::DroneStatus() {
 	socket_ = new QUdpSocket(this);
-	buffer_ = new char[256];
+	socket_->bind(QHostAddress("0.0.0.0"),local_port_status_);
+	buffer_ = new char[4096];
+
+	//每当socket收到信息时调用ReceiveStatus
+	connect(socket_, SIGNAL(readyRead()), this, SLOT(ReceiveStatus()));
+	
 }
 
 DroneStatus* DroneStatus::GetInstance() {
@@ -12,6 +18,26 @@ DroneStatus* DroneStatus::GetInstance() {
 		drone_status_ = new DroneStatus();
 	return drone_status_;
 }
+
+void DroneStatus::ReceiveStatus() {
+	while(socket_->hasPendingDatagrams())
+	{
+		std::cout << "调用receSta";
+
+		QByteArray arr;
+		arr.resize(socket_->pendingDatagramSize());
+		socket_->readDatagram(arr.data(), arr.size());
+
+		//分割buffer_字符串，放入params_[]中
+		std::cout << arr.constData() << endl;
+		////发出update_status信号
+		//emit update_states(params_);
+		//char* abcd = "test char";正常显示
+		emit show_buffer(arr.data());
+		//emit update_states(params_);
+	}
+}
+
 
 int DroneStatus::get_pitch() const { return params_[0]; }
 
