@@ -1,6 +1,7 @@
 #pragma once
 #include <qobject.h>
 #include <qudpsocket.h>
+#include <stddef.h>
 
 extern "C"
 {
@@ -50,9 +51,9 @@ private:
 	AVCodecContext *codec_context;
 	AVCodecParserContext  *parser;
 	AVFrame *frame, *frame_rgb;
-	AVPacket packet;
+	AVPacket *packet;
 	static struct SwsContext *img_convert_ctx;
-	uint8_t *out_buffer;
-	char* video_data;
+	uint8_t *input_buffer;
+	std::string video_data;
 
 };
