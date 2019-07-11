@@ -1,28 +1,12 @@
 #pragma once
 #include <qobject.h>
 #include <qudpsocket.h>
+
 extern "C"
 {
-#include "libavcodec\avcodec.h"  
 #include "libavformat\avformat.h"  
-#include "libavutil\channel_layout.h"  
-#include "libavutil\common.h"  
-#include "libavutil\imgutils.h"  
-#include "libswscale\swscale.h"   
-#include "libavutil\imgutils.h"      
-#include "libavutil\opt.h"         
-#include "libavutil\mathematics.h"      
-#include "libavutil\samplefmt.h"   
+#include "libswscale\swscale.h"      
 };
-#pragma comment(lib, "avcodec.lib")  
-#pragma comment(lib, "avformat.lib")  
-#pragma comment(lib, "avdevice.lib")  
-#pragma comment(lib, "avfilter.lib")  
-#pragma comment(lib, "avutil.lib")  
-#pragma comment(lib, "postproc.lib")  
-#pragma comment(lib, "swresample.lib")  
-#pragma comment(lib, "swscale.lib")  
-using namespace std;
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
@@ -68,7 +52,7 @@ private:
 	AVFrame *frame, *frame_rgb;
 	AVPacket packet;
 	static struct SwsContext *img_convert_ctx;
-	uint8_t *input_buffer;
-	std::string video_data;
+	uint8_t *out_buffer;
+	char* video_data;
 
 };
