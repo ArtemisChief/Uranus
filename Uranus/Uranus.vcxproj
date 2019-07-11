@@ -30,8 +30,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(OPENCV_INCLUDE);$(IncludePath)</IncludePath>
-    <LibraryPath>$(OPENCV_VS2017_LIB);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(OPENCV_INCLUDE);$(FFMPEG_INCLUDE);$(IncludePath)</IncludePath>
+    <LibraryPath>$(OPENCV_VS2017_LIB);$(FFMPEG_LIB);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -136,7 +136,7 @@
   <ItemGroup>
     <ClCompile Include="src\Drone\drone_control.cpp" />
     <ClCompile Include="src\Drone\drone_status.cpp" />
-    <ClCompile Include="src\Drone\drone_steam.cpp" />
+    <ClCompile Include="src\Drone\drone_stream.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\uranus.cpp" />
     <ClCompile Include="src\video_processor.cpp" />

@@ -29,8 +29,8 @@ private:
 	//DroneStatus* drone_status_;
 	//QThread drone_status_thread_;
 
-	//DroneStream* drone_stream__;
-	//QThread drone_stream_thread_;
+	DroneStream* drone_stream_;
+	QThread drone_stream_thread_;
 
 	// 0 - roll
 	// 1 - pitch
@@ -57,5 +57,5 @@ signals:
 	void rc_signal(const int roll, const int pitch, const int throttle, const int yaw);
 	void flip_signal(const char direction);
 	
-	void start_getting_frame(char* url);
+	void start_getting_frame();
 };
