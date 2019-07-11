@@ -57,13 +57,13 @@ public:
     {
         if (UranusClass->objectName().isEmpty())
             UranusClass->setObjectName(QString::fromUtf8("UranusClass"));
-        UranusClass->resize(1217, 684);
-        UranusClass->setStyleSheet(QString::fromUtf8(""));
+        UranusClass->resize(1217, 685);
+        UranusClass->setStyleSheet(QString::fromUtf8("background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.077, fx:0.5, fy:0.5, stop:0 rgba(0, 169, 255, 147), stop:0.497326 rgba(0, 0, 0, 147), stop:1 rgba(0, 169, 255, 147));"));
         centralWidget = new QWidget(UranusClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         frame_label = new QLabel(centralWidget);
         frame_label->setObjectName(QString::fromUtf8("frame_label"));
-        frame_label->setGeometry(QRect(0, 0, 1217, 685));
+        frame_label->setGeometry(QRect(0, 0, 1216, 684));
         frame_label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0);"));
         connect_btn = new QPushButton(centralWidget);
         connect_btn->setObjectName(QString::fromUtf8("connect_btn"));
@@ -75,7 +75,7 @@ public:
         connect_btn->setCheckable(false);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(1090, 190, 141, 151));
+        groupBox->setGeometry(QRect(1070, 190, 130, 151));
         groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
 "border-radius:10px;"));
         agz_label = new QLabel(groupBox);
