@@ -159,12 +159,9 @@ void Uranus::on_connect_btn_clicked() {
 }
 
 void Uranus::on_connect_btn_pressed() {
-	std::cout << "pressed";
 	ui.connect_btn->setStyleSheet("background-color:red; border:10px solid; border-color: rgb(85, 255, 127, 50%); border-radius:50%;");
 }
-
 void Uranus::on_connect_btn_released() {
-	std::cout << "released";
 	ui.connect_btn->setStyleSheet("background-color: rgb(255, 85, 0); border:10px solid; border-color: rgb(85, 255, 127, 50%); border-radius:50%;");
 }
 

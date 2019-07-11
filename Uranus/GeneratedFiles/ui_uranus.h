@@ -57,16 +57,17 @@ public:
     {
         if (UranusClass->objectName().isEmpty())
             UranusClass->setObjectName(QString::fromUtf8("UranusClass"));
-        UranusClass->resize(1180, 680);
+        UranusClass->resize(1217, 684);
+        UranusClass->setStyleSheet(QString::fromUtf8(""));
         centralWidget = new QWidget(UranusClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         frame_label = new QLabel(centralWidget);
         frame_label->setObjectName(QString::fromUtf8("frame_label"));
-        frame_label->setGeometry(QRect(30, 20, 1120, 630));
+        frame_label->setGeometry(QRect(0, 0, 1217, 685));
         frame_label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0);"));
         connect_btn = new QPushButton(centralWidget);
         connect_btn->setObjectName(QString::fromUtf8("connect_btn"));
-        connect_btn->setGeometry(QRect(50, 540, 100, 100));
+        connect_btn->setGeometry(QRect(40, 560, 100, 100));
         connect_btn->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 85, 0);\n"
 "border:10px solid;\n"
 "border-color: rgb(85, 255, 127, 50%);\n"
@@ -74,7 +75,7 @@ public:
         connect_btn->setCheckable(false);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(1020, 140, 130, 240));
+        groupBox->setGeometry(QRect(1090, 190, 141, 151));
         groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
 "border-radius:10px;"));
         agz_label = new QLabel(groupBox);
@@ -103,44 +104,44 @@ public:
         agy_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(30, 140, 130, 240));
+        groupBox_2->setGeometry(QRect(-10, 160, 141, 240));
         groupBox_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
 "border-radius:10px;"));
         baro_label = new QLabel(groupBox_2);
         baro_label->setObjectName(QString::fromUtf8("baro_label"));
-        baro_label->setGeometry(QRect(10, 130, 111, 16));
+        baro_label->setGeometry(QRect(20, 130, 111, 16));
         baro_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         time_label = new QLabel(groupBox_2);
         time_label->setObjectName(QString::fromUtf8("time_label"));
-        time_label->setGeometry(QRect(10, 200, 111, 16));
+        time_label->setGeometry(QRect(20, 200, 111, 16));
         time_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         templ_label = new QLabel(groupBox_2);
         templ_label->setObjectName(QString::fromUtf8("templ_label"));
-        templ_label->setGeometry(QRect(10, 180, 111, 16));
+        templ_label->setGeometry(QRect(20, 180, 111, 16));
         templ_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         temph_label = new QLabel(groupBox_2);
         temph_label->setObjectName(QString::fromUtf8("temph_label"));
-        temph_label->setGeometry(QRect(10, 160, 111, 16));
+        temph_label->setGeometry(QRect(20, 160, 111, 16));
         temph_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         h_label = new QLabel(groupBox_2);
         h_label->setObjectName(QString::fromUtf8("h_label"));
-        h_label->setGeometry(QRect(10, 90, 111, 16));
+        h_label->setGeometry(QRect(20, 90, 111, 16));
         h_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         tof_label = new QLabel(groupBox_2);
         tof_label->setObjectName(QString::fromUtf8("tof_label"));
-        tof_label->setGeometry(QRect(10, 110, 111, 16));
+        tof_label->setGeometry(QRect(20, 110, 111, 16));
         tof_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         pitch_label = new QLabel(groupBox_2);
         pitch_label->setObjectName(QString::fromUtf8("pitch_label"));
-        pitch_label->setGeometry(QRect(10, 20, 111, 16));
+        pitch_label->setGeometry(QRect(20, 20, 111, 16));
         pitch_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         yaw_label = new QLabel(groupBox_2);
         yaw_label->setObjectName(QString::fromUtf8("yaw_label"));
-        yaw_label->setGeometry(QRect(10, 60, 111, 16));
+        yaw_label->setGeometry(QRect(20, 60, 111, 16));
         yaw_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         roll_label = new QLabel(groupBox_2);
         roll_label->setObjectName(QString::fromUtf8("roll_label"));
-        roll_label->setGeometry(QRect(10, 40, 111, 16));
+        roll_label->setGeometry(QRect(20, 40, 111, 16));
         roll_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         baro_label->raise();
         time_label->raise();
@@ -153,7 +154,7 @@ public:
         roll_label->raise();
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(400, 20, 360, 60));
+        groupBox_3->setGeometry(QRect(420, -10, 360, 60));
         groupBox_3->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
 "border-radius:10px;"));
         battery_bar = new QProgressBar(groupBox_3);
@@ -167,7 +168,7 @@ public:
         speed_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         groupBox_4 = new QGroupBox(centralWidget);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
-        groupBox_4->setGeometry(QRect(320, 590, 530, 60));
+        groupBox_4->setGeometry(QRect(330, 630, 530, 60));
         groupBox_4->setStyleSheet(QString::fromUtf8("background-color: rgb(131, 131, 131, 80%);\n"
 "border-radius:10%"));
         speed_factor = new QLabel(groupBox_4);

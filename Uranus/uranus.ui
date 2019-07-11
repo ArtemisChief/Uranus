@@ -6,21 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1180</width>
-    <height>680</height>
+    <width>1217</width>
+    <height>685</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Uranus</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.077, fx:0.5, fy:0.5, stop:0 rgba(0, 169, 255, 147), stop:0.497326 rgba(0, 0, 0, 147), stop:1 rgba(0, 169, 255, 147));</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="frame_label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>1120</width>
-      <height>630</height>
+      <x>0</x>
+      <y>0</y>
+      <width>1216</width>
+      <height>684</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -33,8 +36,8 @@
    <widget class="QPushButton" name="connect_btn">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>540</y>
+      <x>40</x>
+      <y>560</y>
       <width>100</width>
       <height>100</height>
      </rect>
@@ -55,10 +58,10 @@ border-radius:50%;</string>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>1020</x>
-      <y>140</y>
+      <x>1070</x>
+      <y>190</y>
       <width>130</width>
-      <height>240</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -168,9 +171,9 @@ border-radius:10px;</string>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>140</y>
-      <width>130</width>
+      <x>-10</x>
+      <y>160</y>
+      <width>141</width>
       <height>240</height>
      </rect>
     </property>
@@ -184,7 +187,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="baro_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>130</y>
        <width>111</width>
        <height>16</height>
@@ -200,7 +203,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="time_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>200</y>
        <width>111</width>
        <height>16</height>
@@ -216,7 +219,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="templ_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>180</y>
        <width>111</width>
        <height>16</height>
@@ -232,7 +235,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="temph_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>160</y>
        <width>111</width>
        <height>16</height>
@@ -248,7 +251,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="h_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>90</y>
        <width>111</width>
        <height>16</height>
@@ -264,7 +267,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="tof_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>110</y>
        <width>111</width>
        <height>16</height>
@@ -280,7 +283,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="pitch_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>20</y>
        <width>111</width>
        <height>16</height>
@@ -296,7 +299,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="yaw_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>60</y>
        <width>111</width>
        <height>16</height>
@@ -312,7 +315,7 @@ border-radius:10px;</string>
     <widget class="QLabel" name="roll_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>40</y>
        <width>111</width>
        <height>16</height>
@@ -338,8 +341,8 @@ border-radius:10px;</string>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>20</y>
+      <x>420</x>
+      <y>-10</y>
       <width>360</width>
       <height>60</height>
      </rect>
@@ -387,8 +390,8 @@ border-radius:10px;</string>
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>590</y>
+      <x>330</x>
+      <y>630</y>
       <width>530</width>
       <height>60</height>
      </rect>
