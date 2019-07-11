@@ -175,10 +175,10 @@ void Uranus::show_status(int* params_)
 	
 }
 
-void Uranus::show_all_status(char* buff)
+void Uranus::show_all_status(QString buff)
 {
 	//std::cout << buff << endl;
-	ui.buffer_label->setText(QString(buff));
+	ui.buffer_label->setText(buff);
 }
 
 

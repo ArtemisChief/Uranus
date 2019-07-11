@@ -25,11 +25,11 @@ void DroneStatus::ReceiveStatus() {
 		std::cout << "调用receSta";
 
 		QByteArray arr;
-		arr.resize((socket_->bytesAvailable())+1);
+		arr.resize(socket_->pendingDatagramSize());
 		socket_->readDatagram(arr.data(), arr.size());
 
 		//分割buffer_字符串，放入params_[]中
-		std::cout << arr.data() << endl;
+		std::cout << arr.constData() << endl;
 		////发出update_status信号
 		//emit update_states(params_);
 		//char* abcd = "test char";正常显示
