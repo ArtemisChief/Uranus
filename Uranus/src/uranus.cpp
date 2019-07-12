@@ -43,6 +43,8 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 
 	// 能获取键盘焦点
 	this->grabKeyboard();
+
+	emit connect_signal();
 }
 
 Uranus::~Uranus() {
