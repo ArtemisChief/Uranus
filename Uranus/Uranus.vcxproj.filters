@@ -58,7 +58,7 @@
     <QtMoc Include="src\uranus.hpp">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="src\video_processor.hpp">
+    <QtMoc Include="src\frame_processor.hpp">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -75,11 +75,11 @@
     <ClCompile Include="src\uranus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\video_processor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Drone\drone_stream.cpp">
       <Filter>Source Files\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="src\frame_processor.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -48,10 +48,10 @@ public:
     QProgressBar *battery_bar;
     QLabel *speed_label;
     QGroupBox *groupBox_4;
-    QLabel *speed_factor;
+    QLabel *speed_slider_label;
     QSlider *rc_factor_slider;
     QSlider *speed_slider;
-    QLabel *rc_factorlabel;
+    QLabel *rc_factor_slider_label;
 
     void setupUi(QMainWindow *UranusClass)
     {
@@ -171,10 +171,10 @@ public:
         groupBox_4->setGeometry(QRect(350, 660, 530, 60));
         groupBox_4->setStyleSheet(QString::fromUtf8("background-color: rgb(131, 131, 131, 80%);\n"
 "border-radius:10%"));
-        speed_factor = new QLabel(groupBox_4);
-        speed_factor->setObjectName(QString::fromUtf8("speed_factor"));
-        speed_factor->setGeometry(QRect(290, 20, 51, 16));
-        speed_factor->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        speed_slider_label = new QLabel(groupBox_4);
+        speed_slider_label->setObjectName(QString::fromUtf8("speed_slider_label"));
+        speed_slider_label->setGeometry(QRect(290, 20, 51, 16));
+        speed_slider_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         rc_factor_slider = new QSlider(groupBox_4);
         rc_factor_slider->setObjectName(QString::fromUtf8("rc_factor_slider"));
         rc_factor_slider->setGeometry(QRect(80, 20, 161, 20));
@@ -191,10 +191,10 @@ public:
         speed_slider->setMaximum(100);
         speed_slider->setValue(55);
         speed_slider->setOrientation(Qt::Horizontal);
-        rc_factorlabel = new QLabel(groupBox_4);
-        rc_factorlabel->setObjectName(QString::fromUtf8("rc_factorlabel"));
-        rc_factorlabel->setGeometry(QRect(20, 20, 51, 20));
-        rc_factorlabel->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        rc_factor_slider_label = new QLabel(groupBox_4);
+        rc_factor_slider_label->setObjectName(QString::fromUtf8("rc_factor_slider_label"));
+        rc_factor_slider_label->setGeometry(QRect(20, 20, 51, 20));
+        rc_factor_slider_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         UranusClass->setCentralWidget(centralWidget);
         frame_label->raise();
         groupBox->raise();
@@ -204,8 +204,6 @@ public:
         groupBox_4->raise();
 
         retranslateUi(UranusClass);
-        QObject::connect(rc_factor_slider, SIGNAL(valueChanged(int)), UranusClass, SLOT(on_stick_slider_value_changed(int)));
-        QObject::connect(speed_slider, SIGNAL(valueChanged(int)), UranusClass, SLOT(on_speed_slider_value_changed(int)));
 
         QMetaObject::connectSlotsByName(UranusClass);
     } // setupUi
@@ -235,8 +233,8 @@ public:
         groupBox_3->setTitle(QString());
         speed_label->setText(QApplication::translate("UranusClass", "Speed: 0.0m/s", nullptr));
         groupBox_4->setTitle(QString());
-        speed_factor->setText(QApplication::translate("UranusClass", "Speed", nullptr));
-        rc_factorlabel->setText(QApplication::translate("UranusClass", "Stick", nullptr));
+        speed_slider_label->setText(QApplication::translate("UranusClass", "Speed", nullptr));
+        rc_factor_slider_label->setText(QApplication::translate("UranusClass", "Stick", nullptr));
     } // retranslateUi
 
 };

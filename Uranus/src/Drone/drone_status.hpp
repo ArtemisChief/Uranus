@@ -46,9 +46,6 @@ private:
 	// 收发状态值的UDP Socket
 	QUdpSocket* socket_;
 
-	// 返回值缓存区
-	char* buffer_;
-
 	// 无人机状态参数数组
 	// 0 - 俯仰角度，度数
 	// 1 - 横滚角度，度数
@@ -69,9 +66,13 @@ private:
 	int params_[16] = { 0 };
 
 private slots:
-	//从无人机获取状态信息，存入params_[]，并发出update_status信号
+
+	// 从无人机获取状态信息，存入params_[]，并发出update_status信号
 	void ReceiveStatus();
+
 signals:
-	void update_states(int* params);
+
+	// 更新状态信号
+	void update_states_signal(int* params);
 		
 };

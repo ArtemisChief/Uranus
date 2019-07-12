@@ -3,13 +3,6 @@
 #include <QImage>
 #include <qudpsocket.h>
 
-extern "C"
-{
-#include "libavcodec\avcodec.h"
-#include "libswscale\swscale.h"
-#include "libavutil\imgutils.h"
-}
-
 #define LOCAL_PORT_STREAM 11111
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
@@ -23,8 +16,6 @@ class DroneStream : public QObject {
 public:
 
 	static DroneStream* GetInstance();
-
-	void ConsturctFrame(QByteArray& bytes);
 
 private:
 
@@ -46,21 +37,12 @@ private:
 	// 用于缓存一帧的缓存区
 	QByteArray frame_buffer_;
 
-	// 
-	AVCodec *codec_;
-	AVCodecContext *codec_context_;
-	AVCodecParserContext *parser_context_;
-	AVFrame *frame_;
-	AVPacket *packet_;
-	SwsContext *sws_context_;
-	AVFrame *rgb_frame_;
-
 private slots:
 
 	void ReceiveDatagram();
 
 signals:
 
-	void frame_ready_signal(QImage image);
+	void construct_frame_signal(QByteArray& bytes);
 
 };

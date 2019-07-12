@@ -141,13 +141,13 @@
     <ClCompile Include="src\Drone\drone_stream.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\uranus.cpp" />
-    <ClCompile Include="src\video_processor.cpp" />
+    <ClCompile Include="src\frame_processor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\uranus.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="src\video_processor.hpp" />
+    <QtMoc Include="src\frame_processor.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

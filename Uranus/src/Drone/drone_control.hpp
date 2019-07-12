@@ -3,7 +3,6 @@
 #include <qudpsocket.h>
 
 #define IP_DRONE "192.168.10.1"
-
 #define REMOTE_PORT_CONTROL 8889
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \

@@ -403,7 +403,7 @@ border-radius:10%</string>
     <property name="title">
      <string/>
     </property>
-    <widget class="QLabel" name="speed_factor">
+    <widget class="QLabel" name="speed_slider_label">
      <property name="geometry">
       <rect>
        <x>290</x>
@@ -469,7 +469,7 @@ border-radius:10%</string>
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="rc_factorlabel">
+    <widget class="QLabel" name="rc_factor_slider_label">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -498,40 +498,7 @@ border-radius:10%</string>
  <resources>
   <include location="uranus.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>rc_factor_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>UranusClass</receiver>
-   <slot>on_stick_slider_value_changed(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>405</x>
-     <y>629</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>999</x>
-     <y>335</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>speed_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>UranusClass</receiver>
-   <slot>on_speed_slider_value_changed(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>678</x>
-     <y>629</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>999</x>
-     <y>371</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>on_connect_btn_clicked()</slot>
   <slot>on_stick_slider_value_changed(int)</slot>

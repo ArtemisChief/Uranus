@@ -2,11 +2,12 @@
 
 #include <QKeyEvent>
 #include <QThread>
+#include <opencv2/opencv.hpp>
 #include "ui_uranus.h"
-#include "video_processor.hpp"
 #include "Drone/drone_control.hpp"
 #include "Drone/drone_status.hpp"
 #include "Drone/drone_stream.hpp"
+#include "frame_processor.hpp"
 
 class Uranus : public QMainWindow {
 
@@ -32,6 +33,9 @@ private:
 	DroneStream* drone_stream_;
 	QThread drone_stream_thread_;
 
+	FrameProcessor* frame_processor_;
+	QThread frame_processor_thread_;
+
 	// 0 - roll
 	// 1 - pitch
 	// 2 - throttle
@@ -39,20 +43,15 @@ private:
 	int rc_[4] = { 0 };
 	int stick_ = 50;
 
-	VideoProcessor video_processor_;
-	QThread video_processor_thread_;
-
-	char* url_drone_ = "udp://0.0.0.0:11111";
-
 private slots:
 	void on_connect_btn_clicked();
-	void on_connect_btn_pressed();
-	void on_connect_btn_released();
-	void on_stick_slider_value_changed(const int value);
-	void on_speed_slider_value_changed(const int value);
-	void show_frame(QImage frame);
+	void on_connect_btn_pressed() const;
+	void on_connect_btn_released() const;
+	void on_rc_factor_slider_valueChanged(const int value);
+	void on_speed_slider_valueChanged(const int value);
+	void show_frame(QImage frame) const;
 
-	void show_status(int* params_);
+	void show_status(int* params_) const;
 
 signals:
 	void connect_signal();
@@ -63,6 +62,4 @@ signals:
 	void rc_signal(const int roll, const int pitch, const int throttle, const int yaw);
 	void flip_signal(const char direction);
 	void speed_change_signal(const int value);
-	
-	void start_getting_frame();
 };
