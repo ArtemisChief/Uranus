@@ -78,4 +78,8 @@ public slots:
 	void OpenStream();
 	void CloseStream();
 
+signals:
+
+	void stream_closed_signal();
+
 };

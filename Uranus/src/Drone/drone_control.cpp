@@ -1,4 +1,3 @@
-#include <iostream>
 #include "drone_control.hpp"
 
 DroneControl* DroneControl::drone_control_ = nullptr;
@@ -127,7 +126,9 @@ void DroneControl::OpenStream() {
 void DroneControl::CloseStream() {
 	socket_->writeDatagram("streamoff", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	if (strcmp(buffer_, "ok"))
+	if (strcmp(buffer_, "ok")) {
 		is_streaming_ = false;
+		emit stream_closed_signal();
+	}
 }
 

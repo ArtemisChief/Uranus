@@ -4,8 +4,6 @@ FrameProcessor* FrameProcessor::frame_processor_ = nullptr;
 
 FrameProcessor::FrameProcessor() {
 
-	connect(DroneStream::GetInstance(), &DroneStream::construct_frame_signal, this, &FrameProcessor::ConsturctFrame);
-
 	// Ê¹ÓÃH264½âÂëÆ÷
 	codec_ = avcodec_find_decoder(AV_CODEC_ID_H264);
 

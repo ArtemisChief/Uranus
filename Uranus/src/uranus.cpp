@@ -13,6 +13,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(this, &Uranus::rc_signal, drone_control_, &DroneControl::SetRC);
 	connect(this, &Uranus::flip_signal, drone_control_, &DroneControl::Flip);
 	connect(this, &Uranus::speed_change_signal, drone_control_, &DroneControl::SetSpeed);
+	connect(drone_control_, &DroneControl::stream_closed_signal, this, &Uranus::set_frame_to_black);
 	drone_control_thread_.start();
 
 	// 状态接收更新线程
@@ -30,6 +31,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	frame_processor_ = FrameProcessor::GetInstance();
 	frame_processor_->moveToThread(&frame_processor_thread_);
 	connect(frame_processor_, &FrameProcessor::frame_ready_signal, this, &Uranus::show_frame);
+	connect(drone_stream_, &DroneStream::construct_frame_signal, frame_processor_, &FrameProcessor::ConsturctFrame);
 	frame_processor_thread_.start();
 
 	// GUI
@@ -37,7 +39,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	ui.frame_label->setScaledContents(true);
 
 	// 设置初始视频帧为纯黑单色图
-	SetFrameToBlack();
+	set_frame_to_black();
 
 	// 能获取键盘焦点
 	this->grabKeyboard();
@@ -61,13 +63,6 @@ Uranus::~Uranus() {
 	frame_processor_->deleteLater();
 	frame_processor_thread_.quit();
 	frame_processor_thread_.wait();
-}
-
-void Uranus::SetFrameToBlack() const {
-	const auto black_image = cv::Mat(1280, 720, CV_8UC1, cv::Scalar(0));
-	QImage image_rgb(static_cast<const uchar *>(black_image.data), black_image.cols, black_image.rows, black_image.step, QImage::Format_Grayscale8);
-	image_rgb.bits();
-	ui.frame_label->setPixmap(QPixmap::fromImage(image_rgb));
 }
 
 void Uranus::keyPressEvent(QKeyEvent* key_event) {
@@ -119,13 +114,10 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 			emit takeoff_signal();
 		break;
 	case Qt::Key_R:
-		if (drone_control_->get_is_streaming()) {
+		if (drone_control_->get_is_streaming())
 			emit stream_close_signal();
-			SetFrameToBlack();
-		}
-		else {
+		else
 			emit stream_open_signal();
-		}
 		break;
 	default:
 		break;
@@ -229,5 +221,10 @@ void Uranus::show_status(int* params) const {
 	ui.agz_label->setText(QString("agz: %1 mg").arg(params[15]));
 }
 
+void Uranus::set_frame_to_black() const {
+	const auto black_image = cv::Mat(1280, 720, CV_8UC1, cv::Scalar(0));
+	const QImage image_rgb(static_cast<const uchar *>(black_image.data), black_image.cols, black_image.rows, black_image.step, QImage::Format_Grayscale8);
+	ui.frame_label->setPixmap(QPixmap::fromImage(image_rgb));
+}
 
 

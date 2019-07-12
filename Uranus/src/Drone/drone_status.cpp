@@ -1,5 +1,4 @@
 #include "drone_status.hpp"
-#include <iostream>
 
 DroneStatus* DroneStatus::drone_status_ = nullptr;
 

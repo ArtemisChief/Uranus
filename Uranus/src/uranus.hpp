@@ -14,16 +14,17 @@ class Uranus : public QMainWindow {
 	Q_OBJECT
 
 public:
+
 	Uranus(QWidget *parent = Q_NULLPTR);
 	~Uranus();
 
-	void SetFrameToBlack() const;
-
 protected:
+
 	void keyPressEvent(QKeyEvent *key_event) override;
 	void keyReleaseEvent(QKeyEvent *key_event) override;
 
 private:
+
 	Ui::UranusClass ui;
 
 	DroneControl* drone_control_;
@@ -46,16 +47,18 @@ private:
 	int stick_ = 50;
 
 private slots:
+
 	void on_connect_btn_clicked();
 	void on_connect_btn_pressed() const;
 	void on_connect_btn_released() const;
 	void on_rc_factor_slider_valueChanged(const int value);
 	void on_speed_slider_valueChanged(const int value);
 	void show_frame(QImage frame) const;
-
 	void show_status(int* params_) const;
+	void set_frame_to_black() const;
 
 signals:
+
 	void connect_signal();
 	void takeoff_signal();
 	void land_signal();
@@ -64,4 +67,5 @@ signals:
 	void rc_signal(const int roll, const int pitch, const int throttle, const int yaw);
 	void flip_signal(const char direction);
 	void speed_change_signal(const int value);
+
 };
