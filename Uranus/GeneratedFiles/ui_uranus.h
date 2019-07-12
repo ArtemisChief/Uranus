@@ -57,17 +57,17 @@ public:
     {
         if (UranusClass->objectName().isEmpty())
             UranusClass->setObjectName(QString::fromUtf8("UranusClass"));
-        UranusClass->resize(1217, 685);
-        UranusClass->setStyleSheet(QString::fromUtf8("background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.077, fx:0.5, fy:0.5, stop:0 rgba(0, 169, 255, 147), stop:0.497326 rgba(0, 0, 0, 147), stop:1 rgba(0, 169, 255, 147));"));
+        UranusClass->resize(1280, 720);
+        UranusClass->setStyleSheet(QString::fromUtf8(""));
         centralWidget = new QWidget(UranusClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         frame_label = new QLabel(centralWidget);
         frame_label->setObjectName(QString::fromUtf8("frame_label"));
-        frame_label->setGeometry(QRect(0, 0, 1216, 684));
+        frame_label->setGeometry(QRect(0, 0, 1280, 720));
         frame_label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0);"));
         connect_btn = new QPushButton(centralWidget);
         connect_btn->setObjectName(QString::fromUtf8("connect_btn"));
-        connect_btn->setGeometry(QRect(40, 560, 100, 100));
+        connect_btn->setGeometry(QRect(10, 610, 100, 100));
         connect_btn->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 85, 0);\n"
 "border:10px solid;\n"
 "border-color: rgb(85, 255, 127, 50%);\n"
@@ -75,7 +75,7 @@ public:
         connect_btn->setCheckable(false);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(1070, 190, 130, 151));
+        groupBox->setGeometry(QRect(1150, 190, 130, 151));
         groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
 "border-radius:10px;"));
         agz_label = new QLabel(groupBox);
@@ -154,7 +154,7 @@ public:
         roll_label->raise();
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(420, -10, 360, 60));
+        groupBox_3->setGeometry(QRect(440, 0, 360, 60));
         groupBox_3->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
 "border-radius:10px;"));
         battery_bar = new QProgressBar(groupBox_3);
@@ -168,7 +168,7 @@ public:
         speed_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         groupBox_4 = new QGroupBox(centralWidget);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
-        groupBox_4->setGeometry(QRect(330, 630, 530, 60));
+        groupBox_4->setGeometry(QRect(350, 660, 530, 60));
         groupBox_4->setStyleSheet(QString::fromUtf8("background-color: rgb(131, 131, 131, 80%);\n"
 "border-radius:10%"));
         speed_factor = new QLabel(groupBox_4);

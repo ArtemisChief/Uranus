@@ -2,13 +2,12 @@
 #include <qobject.h>
 #include <QImage>
 #include <qudpsocket.h>
-#include <stddef.h>
 
 extern "C"
 {
-#include "libavformat\avformat.h"  
-#include "libswscale\swscale.h"      
-};
+#include "libavformat\avformat.h"
+#include "libswscale\swscale.h"
+}
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
@@ -22,7 +21,7 @@ public:
 
 	static DroneStream* GetInstance();
 
-	QImage* ConsturctFrame(QByteArray& bytes);
+	void ConsturctFrame(QByteArray& bytes);
 
 private:
 

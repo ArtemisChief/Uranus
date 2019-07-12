@@ -1,7 +1,8 @@
 #include "uranus.hpp"
-#include<math.h>
 
 Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
+
+	// 控制命令收发线程
 	drone_control_ = DroneControl::GetInstance();
 	drone_control_->moveToThread(&drone_control_thread_);
 	connect(&drone_control_thread_, &QThread::finished, drone_control_, &QObject::deleteLater);
@@ -15,18 +16,17 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(this, &Uranus::speed_change_signal, drone_control_, &DroneControl::SetSpeed);
 	drone_control_thread_.start();
 
-	//状态更新线程
+	// 状态接收更新线程
 	drone_status_ = DroneStatus::GetInstance();
 	drone_status_->moveToThread(&drone_status_thread_);
 	connect(&drone_status_thread_, &QThread::finished, drone_status_, &QObject::deleteLater);
-
 	connect(drone_status_,&DroneStatus::update_states,this, &Uranus::show_status);
 	drone_status_thread_.start();
 
+	// 视频流接收线程
 	drone_stream_ = DroneStream::GetInstance();
 	drone_stream_->moveToThread(&drone_stream_thread_);
 	connect(&drone_stream_thread_, &QThread::finished, drone_stream_, &QObject::deleteLater);
-	// connect(this, &Uranus::start_getting_frame, drone_stream_, &DroneStream::GetFrame);
 	connect(drone_stream_, &DroneStream::frame_ready_signal, this, &Uranus::show_frame);
 	drone_stream_thread_.start();
 
@@ -175,15 +175,14 @@ void Uranus::on_speed_slider_value_changed(const int value) {
 	emit speed_change_signal(value);
 }
 
-void Uranus::show_frame(QImage* frame) {
-	ui.frame_label->setPixmap(QPixmap::fromImage(*frame));
+void Uranus::show_frame(QImage image) {
+	ui.frame_label->setPixmap(QPixmap::fromImage(image));
 }
 
-void Uranus::show_status(int* params_)
-{
-	const double recentSpeed = sqrt(params_[3] * params_[3] + params_[4] * params_[4] + params_[5] * params_[5]);
+void Uranus::show_status(int* params_) {
+	const auto recent_speed = sqrt(params_[3] * params_[3] + params_[4] * params_[4] + params_[5] * params_[5]);
 	//更新速度
-	ui.speed_label->setText(QString("Speed: %1 cm/s").arg(QString::number(recentSpeed, 'f', 2)));
+	ui.speed_label->setText(QString("Speed: %1 cm/s").arg(QString::number(recent_speed, 'f', 2)));
 	//更新俯仰角度、横滚角度、偏航角度
 	ui.pitch_label->setText(QString("pitch: %1 ").arg(params_[0]));
 	ui.roll_label->setText(QString("roll: %1 ").arg(params_[1]));
@@ -206,7 +205,6 @@ void Uranus::show_status(int* params_)
 	ui.agy_label->setText(QString("agy: %1 mg").arg(params_[14]));
 	ui.agz_label->setText(QString("agz: %1 mg").arg(params_[15]));
 }
-
 
 
 

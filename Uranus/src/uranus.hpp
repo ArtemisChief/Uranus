@@ -50,7 +50,7 @@ private slots:
 	void on_connect_btn_released();
 	void on_stick_slider_value_changed(const int value);
 	void on_speed_slider_value_changed(const int value);
-	void show_frame(QImage* frame);
+	void show_frame(QImage frame);
 
 	void show_status(int* params_);
 

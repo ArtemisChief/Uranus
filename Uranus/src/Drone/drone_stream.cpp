@@ -1,5 +1,4 @@
 #include "drone_stream.hpp"
-#include <qimage.h>
 #include <iostream>
 
 DroneStream* DroneStream::drone_stream_ = nullptr;
@@ -53,56 +52,60 @@ DroneStream* DroneStream::GetInstance() {
 	return drone_stream_;
 }
 
-QImage* DroneStream::ConsturctFrame(QByteArray& bytes) {
+void DroneStream::ConsturctFrame(QByteArray& bytes) {
 	auto length = bytes.length();
 	auto data_in = new uchar[length];
 	memcpy(data_in, bytes.data(), length);
+	size_t total_num_consumed = 0;
 
 	while (length > 0) {
-		size_t num_consumed = av_parser_parse2(parser_context_, codec_context_,
-											   &packet_->data, &packet_->size,
-											   data_in, length,
-											   0, 0, AV_NOPTS_VALUE);
-		
-		bool is_frame_available = packet_->size > 0;
 
-		if(is_frame_available)
-		{
-			int got_picture = 0;
-			int nread = avcodec_decode_video2(codec_context_, frame_, &got_picture, packet_);
+		const size_t num_consumed = av_parser_parse2(parser_context_, codec_context_,
+						 &packet_->data, &packet_->size,
+						 data_in, length,
+						 0, 0, AV_NOPTS_VALUE);
+
+		const auto is_frame_available = packet_->size > 0;
+
+		if (is_frame_available) {
+			auto got_picture = 0;
+			const auto nread = avcodec_decode_video2(codec_context_, frame_, &got_picture, packet_);
 			if (nread < 0 || got_picture == 0) {
 				std::cout << "error decoding frame" << std::endl;
-				break;
 			}
-		
-			
-			auto width = frame_->width;
-			auto height = frame_->height;
-			auto output_size= avpicture_fill((AVPicture*)rgb_frame_, nullptr, AV_PIX_FMT_RGB32, width, height);
-			uint8_t* out_buffer = static_cast<uint8_t *>(av_malloc(avpicture_get_size(AV_PIX_FMT_RGB32,width, height) * sizeof(uint8_t)));
-			sws_context_ = sws_getCachedContext(sws_context_,
-												width, height, static_cast<AVPixelFormat>(frame_->format),
-												width, height, AV_PIX_FMT_RGB32, SWS_BILINEAR,
-												nullptr, nullptr, nullptr);
-			if (!sws_context_)
-				std::cout << "can't allocate sws_context" << std::endl;
+			else {
 
-			avpicture_fill(reinterpret_cast<AVPicture*>(rgb_frame_), out_buffer, AV_PIX_FMT_RGB32, width, height);
-			sws_scale(sws_context_, frame_->data, frame_->linesize, 0, height,
-					  rgb_frame_->data, rgb_frame_->linesize);
-			rgb_frame_->width = width;
-			rgb_frame_->height = height;
+				const auto width = frame_->width;
+				const auto height = frame_->height;
+				const auto out_buffer = static_cast<uint8_t *>(av_malloc(avpicture_get_size(AV_PIX_FMT_RGB32, width, height) * sizeof(uint8_t)));
 
-			QImage tempImage(static_cast<uchar*>(out_buffer), width, height, QImage::Format_RGB32);
-			QImage image = tempImage.copy();
-			
-			emit frame_ready_signal(image);
+				sws_context_ = sws_getCachedContext(sws_context_,
+													width, height, static_cast<AVPixelFormat>(frame_->format),
+													width, height, AV_PIX_FMT_RGB32, SWS_BILINEAR,
+													nullptr, nullptr, nullptr);
+				if (!sws_context_)
+					std::cout << "can't allocate sws_context" << std::endl;
+
+				avpicture_fill(reinterpret_cast<AVPicture*>(rgb_frame_), out_buffer, AV_PIX_FMT_RGB32, width, height);
+
+				sws_scale(sws_context_, frame_->data, frame_->linesize, 0, height,
+						  rgb_frame_->data, rgb_frame_->linesize);
+				rgb_frame_->width = width;
+				rgb_frame_->height = height;
+
+				QImage *tempImage = new QImage(static_cast<uchar*>(out_buffer), width, height, QImage::Format_RGB32);
+				const auto image = tempImage->copy();
+				av_free(out_buffer);
+
+				emit frame_ready_signal(image);
+			}
 		}
 		length -= num_consumed;
 		data_in += num_consumed;
+		total_num_consumed += num_consumed;
 	}
 
-	return nullptr;
+	av_packet_unref(packet_);
 }
 
 void DroneStream::ReceiveDatagram() {
@@ -120,7 +123,6 @@ void DroneStream::ReceiveDatagram() {
 		// 收到一帧的最后一个包
 		if (datagram_buffer_.length() != 1460) {
 			ConsturctFrame(frame_buffer_);
-			//emit frame_ready_signal(ConsturctFrame(frame_buffer_));
 			std::cout << "----Frame complete----" << std::endl;
 			frame_buffer_.clear();
 		}

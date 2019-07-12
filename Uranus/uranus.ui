@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1217</width>
-    <height>685</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Uranus</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.077, fx:0.5, fy:0.5, stop:0 rgba(0, 169, 255, 147), stop:0.497326 rgba(0, 0, 0, 147), stop:1 rgba(0, 169, 255, 147));</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="frame_label">
@@ -22,8 +22,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1216</width>
-      <height>684</height>
+      <width>1280</width>
+      <height>720</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -36,8 +36,8 @@
    <widget class="QPushButton" name="connect_btn">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>560</y>
+      <x>10</x>
+      <y>610</y>
       <width>100</width>
       <height>100</height>
      </rect>
@@ -58,7 +58,7 @@ border-radius:50%;</string>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>1070</x>
+      <x>1150</x>
       <y>190</y>
       <width>130</width>
       <height>151</height>
@@ -341,8 +341,8 @@ border-radius:10px;</string>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>-10</y>
+      <x>440</x>
+      <y>0</y>
       <width>360</width>
       <height>60</height>
      </rect>
@@ -390,8 +390,8 @@ border-radius:10px;</string>
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>630</y>
+      <x>350</x>
+      <y>660</y>
       <width>530</width>
       <height>60</height>
      </rect>
