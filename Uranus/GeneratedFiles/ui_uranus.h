@@ -15,7 +15,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QProgressBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QWidget>
 
@@ -26,7 +25,6 @@ class Ui_UranusClass
 public:
     QWidget *centralWidget;
     QLabel *frame_label;
-    QPushButton *connect_btn;
     QGroupBox *groupBox;
     QLabel *agz_label;
     QLabel *vgz_label;
@@ -65,84 +63,106 @@ public:
         frame_label->setObjectName(QString::fromUtf8("frame_label"));
         frame_label->setGeometry(QRect(0, 0, 1280, 720));
         frame_label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0);"));
-        connect_btn = new QPushButton(centralWidget);
-        connect_btn->setObjectName(QString::fromUtf8("connect_btn"));
-        connect_btn->setGeometry(QRect(10, 610, 100, 100));
-        connect_btn->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 85, 0);\n"
-"border:10px solid;\n"
-"border-color: rgb(85, 255, 127, 50%);\n"
-"border-radius:50%;"));
-        connect_btn->setCheckable(false);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(1150, 190, 130, 151));
-        groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
-"border-radius:10px;"));
+        groupBox->setGeometry(QRect(1169, 190, 110, 150));
+        groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
+"border-radius:6px;"));
         agz_label = new QLabel(groupBox);
         agz_label->setObjectName(QString::fromUtf8("agz_label"));
         agz_label->setGeometry(QRect(10, 120, 111, 16));
-        agz_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        agz_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         vgz_label = new QLabel(groupBox);
         vgz_label->setObjectName(QString::fromUtf8("vgz_label"));
         vgz_label->setGeometry(QRect(10, 50, 111, 16));
-        vgz_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        vgz_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         vgy_label = new QLabel(groupBox);
         vgy_label->setObjectName(QString::fromUtf8("vgy_label"));
         vgy_label->setGeometry(QRect(10, 30, 111, 16));
-        vgy_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        vgy_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         vgx_label = new QLabel(groupBox);
         vgx_label->setObjectName(QString::fromUtf8("vgx_label"));
         vgx_label->setGeometry(QRect(10, 10, 111, 16));
-        vgx_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        vgx_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"font: 9pt \"Microsoft YaHei UI\";\n"
+"color: rgb(255, 255, 255);"));
         agx_label = new QLabel(groupBox);
         agx_label->setObjectName(QString::fromUtf8("agx_label"));
         agx_label->setGeometry(QRect(10, 80, 111, 16));
-        agx_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        agx_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         agy_label = new QLabel(groupBox);
         agy_label->setObjectName(QString::fromUtf8("agy_label"));
         agy_label->setGeometry(QRect(10, 100, 111, 16));
-        agy_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        agy_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(-10, 160, 141, 240));
-        groupBox_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
-"border-radius:10px;"));
+        groupBox_2->setGeometry(QRect(-10, 160, 140, 240));
+        groupBox_2->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
+"border-radius:6px;"));
         baro_label = new QLabel(groupBox_2);
         baro_label->setObjectName(QString::fromUtf8("baro_label"));
         baro_label->setGeometry(QRect(20, 130, 111, 16));
-        baro_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        baro_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         time_label = new QLabel(groupBox_2);
         time_label->setObjectName(QString::fromUtf8("time_label"));
         time_label->setGeometry(QRect(20, 200, 111, 16));
-        time_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        time_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         templ_label = new QLabel(groupBox_2);
         templ_label->setObjectName(QString::fromUtf8("templ_label"));
         templ_label->setGeometry(QRect(20, 180, 111, 16));
-        templ_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        templ_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         temph_label = new QLabel(groupBox_2);
         temph_label->setObjectName(QString::fromUtf8("temph_label"));
         temph_label->setGeometry(QRect(20, 160, 111, 16));
-        temph_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        temph_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         h_label = new QLabel(groupBox_2);
         h_label->setObjectName(QString::fromUtf8("h_label"));
         h_label->setGeometry(QRect(20, 90, 111, 16));
-        h_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        h_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         tof_label = new QLabel(groupBox_2);
         tof_label->setObjectName(QString::fromUtf8("tof_label"));
         tof_label->setGeometry(QRect(20, 110, 111, 16));
-        tof_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        tof_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         pitch_label = new QLabel(groupBox_2);
         pitch_label->setObjectName(QString::fromUtf8("pitch_label"));
         pitch_label->setGeometry(QRect(20, 20, 111, 16));
-        pitch_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        pitch_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         yaw_label = new QLabel(groupBox_2);
         yaw_label->setObjectName(QString::fromUtf8("yaw_label"));
         yaw_label->setGeometry(QRect(20, 60, 111, 16));
-        yaw_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        yaw_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         roll_label = new QLabel(groupBox_2);
         roll_label->setObjectName(QString::fromUtf8("roll_label"));
         roll_label->setGeometry(QRect(20, 40, 111, 16));
-        roll_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        roll_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         baro_label->raise();
         time_label->raise();
         temph_label->raise();
@@ -154,30 +174,35 @@ public:
         roll_label->raise();
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(440, 0, 360, 60));
-        groupBox_3->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 20%);\n"
-"border-radius:10px;"));
+        groupBox_3->setGeometry(QRect(500, 0, 251, 61));
+        groupBox_3->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
+"border-radius:6px;"));
         battery_bar = new QProgressBar(groupBox_3);
         battery_bar->setObjectName(QString::fromUtf8("battery_bar"));
-        battery_bar->setGeometry(QRect(60, 20, 118, 23));
+        battery_bar->setGeometry(QRect(50, 10, 155, 20));
         battery_bar->setStyleSheet(QString::fromUtf8(""));
-        battery_bar->setValue(0);
+        battery_bar->setValue(100);
+        battery_bar->setTextVisible(false);
         speed_label = new QLabel(groupBox_3);
         speed_label->setObjectName(QString::fromUtf8("speed_label"));
-        speed_label->setGeometry(QRect(200, 20, 141, 16));
-        speed_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        speed_label->setGeometry(QRect(80, 40, 121, 16));
+        speed_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         groupBox_4 = new QGroupBox(centralWidget);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
-        groupBox_4->setGeometry(QRect(350, 660, 530, 60));
-        groupBox_4->setStyleSheet(QString::fromUtf8("background-color: rgb(131, 131, 131, 80%);\n"
-"border-radius:10%"));
+        groupBox_4->setGeometry(QRect(390, 680, 501, 41));
+        groupBox_4->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
+"border-radius:6px"));
         speed_slider_label = new QLabel(groupBox_4);
         speed_slider_label->setObjectName(QString::fromUtf8("speed_slider_label"));
-        speed_slider_label->setGeometry(QRect(290, 20, 51, 16));
-        speed_slider_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        speed_slider_label->setGeometry(QRect(260, 10, 51, 16));
+        speed_slider_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         rc_factor_slider = new QSlider(groupBox_4);
         rc_factor_slider->setObjectName(QString::fromUtf8("rc_factor_slider"));
-        rc_factor_slider->setGeometry(QRect(80, 20, 161, 20));
+        rc_factor_slider->setGeometry(QRect(60, 10, 161, 20));
         rc_factor_slider->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         rc_factor_slider->setMaximum(100);
         rc_factor_slider->setValue(50);
@@ -185,7 +210,7 @@ public:
         rc_factor_slider->setTickPosition(QSlider::NoTicks);
         speed_slider = new QSlider(groupBox_4);
         speed_slider->setObjectName(QString::fromUtf8("speed_slider"));
-        speed_slider->setGeometry(QRect(350, 20, 161, 20));
+        speed_slider->setGeometry(QRect(310, 10, 161, 20));
         speed_slider->setStyleSheet(QString::fromUtf8("background-color: rgb(131, 131, 131, 0%);"));
         speed_slider->setMinimum(10);
         speed_slider->setMaximum(100);
@@ -193,15 +218,11 @@ public:
         speed_slider->setOrientation(Qt::Horizontal);
         rc_factor_slider_label = new QLabel(groupBox_4);
         rc_factor_slider_label->setObjectName(QString::fromUtf8("rc_factor_slider_label"));
-        rc_factor_slider_label->setGeometry(QRect(20, 20, 51, 20));
-        rc_factor_slider_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
+        rc_factor_slider_label->setGeometry(QRect(20, 10, 51, 16));
+        rc_factor_slider_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 9pt \"Microsoft YaHei UI\";"));
         UranusClass->setCentralWidget(centralWidget);
-        frame_label->raise();
-        groupBox->raise();
-        groupBox_2->raise();
-        groupBox_3->raise();
-        connect_btn->raise();
-        groupBox_4->raise();
 
         retranslateUi(UranusClass);
 
@@ -212,7 +233,6 @@ public:
     {
         UranusClass->setWindowTitle(QApplication::translate("UranusClass", "Uranus", nullptr));
         frame_label->setText(QApplication::translate("UranusClass", "                   TextLabel", nullptr));
-        connect_btn->setText(QApplication::translate("UranusClass", "Connect", nullptr));
         groupBox->setTitle(QString());
         agz_label->setText(QApplication::translate("UranusClass", "agz: 0g", nullptr));
         vgz_label->setText(QApplication::translate("UranusClass", "vgz: 0cm/s", nullptr));

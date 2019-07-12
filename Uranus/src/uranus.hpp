@@ -2,6 +2,7 @@
 
 #include <QKeyEvent>
 #include <QThread>
+#include <QtConcurrent\QtConcurrent>
 #include <opencv2/opencv.hpp>
 #include "ui_uranus.h"
 #include "Drone/drone_control.hpp"
@@ -17,6 +18,8 @@ public:
 
 	Uranus(QWidget *parent = Q_NULLPTR);
 	~Uranus();
+
+	void AutoConnect();
 
 protected:
 
@@ -39,6 +42,8 @@ private:
 	FrameProcessor* frame_processor_;
 	QThread frame_processor_thread_;
 
+	bool should_auto_connect_;
+
 	// 0 - roll
 	// 1 - pitch
 	// 2 - throttle
@@ -48,9 +53,6 @@ private:
 
 private slots:
 
-	void on_connect_btn_clicked();
-	void on_connect_btn_pressed() const;
-	void on_connect_btn_released() const;
 	void on_rc_factor_slider_valueChanged(const int value);
 	void on_speed_slider_valueChanged(const int value);
 	void show_frame(QImage frame) const;

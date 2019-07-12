@@ -2,6 +2,20 @@
 
 Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 
+	// GUI
+	ui.setupUi(this);
+	ui.frame_label->setScaledContents(true);
+	ui.battery_bar->setStyleSheet("QProgressBar{border:2px solid grey;"
+								  "border-radius:4px;text-align:center;}"
+								  "QProgressBar::chunk{background-color:skyblue;"
+								  "width:8px;margin:0.5px;}");
+	
+	// 设置初始视频帧为纯黑单色图
+	set_frame_to_black();
+
+	// 能获取键盘焦点
+	this->grabKeyboard();
+
 	// 控制命令收发线程
 	drone_control_ = DroneControl::GetInstance();
 	drone_control_->moveToThread(&drone_control_thread_);
@@ -13,13 +27,12 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(this, &Uranus::rc_signal, drone_control_, &DroneControl::SetRC);
 	connect(this, &Uranus::flip_signal, drone_control_, &DroneControl::Flip);
 	connect(this, &Uranus::speed_change_signal, drone_control_, &DroneControl::SetSpeed);
-	connect(drone_control_, &DroneControl::stream_closed_signal, this, &Uranus::set_frame_to_black);
 	drone_control_thread_.start();
 
 	// 状态接收更新线程
 	drone_status_ = DroneStatus::GetInstance();
 	drone_status_->moveToThread(&drone_status_thread_);
-	connect(drone_status_,&DroneStatus::update_states_signal,this, &Uranus::show_status);
+	connect(drone_status_, &DroneStatus::update_states_signal, this, &Uranus::show_status);
 	drone_status_thread_.start();
 
 	// 视频流接收线程
@@ -34,22 +47,23 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(drone_stream_, &DroneStream::construct_frame_signal, frame_processor_, &FrameProcessor::ConsturctFrame);
 	frame_processor_thread_.start();
 
-	// GUI
-	ui.setupUi(this);
-	ui.frame_label->setScaledContents(true);
+	should_auto_connect_ = true;
 
-	// 设置初始视频帧为纯黑单色图
-	set_frame_to_black();
+	// 单独一个线程进行自动连接，防止启动时卡住界面
+	QtConcurrent::run(this, &Uranus::AutoConnect);
 
-	// 能获取键盘焦点
-	this->grabKeyboard();
-
-	emit connect_signal();
 }
 
 Uranus::~Uranus() {
-	emit stream_close_signal();
 
+	should_auto_connect_ = false;
+
+	// 确保已经关闭视频流
+	while (drone_control_->get_is_streaming()) {
+		emit stream_close_signal();
+		QThread::msleep(500);
+	}
+	
 	drone_control_->deleteLater();
 	drone_control_thread_.quit();
 	drone_control_thread_.wait();
@@ -65,6 +79,22 @@ Uranus::~Uranus() {
 	frame_processor_->deleteLater();
 	frame_processor_thread_.quit();
 	frame_processor_thread_.wait();
+}
+
+void Uranus::AutoConnect() {
+
+	// 自动连接
+	while (!drone_control_->get_is_connected() && should_auto_connect_) {
+		emit connect_signal();
+		QThread::msleep(500);
+	}
+
+	// 自动开启视频流
+	while (!drone_control_->get_is_streaming() && should_auto_connect_) {
+		emit stream_open_signal();
+		QThread::msleep(500);
+	}
+
 }
 
 void Uranus::keyPressEvent(QKeyEvent* key_event) {
@@ -115,12 +145,6 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 		else
 			emit takeoff_signal();
 		break;
-	case Qt::Key_R:
-		if (drone_control_->get_is_streaming())
-			emit stream_close_signal();
-		else
-			emit stream_open_signal();
-		break;
 	default:
 		break;
 	}
@@ -163,18 +187,6 @@ void Uranus::keyReleaseEvent(QKeyEvent* key_event) {
 	}
 
 	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
-}
-
-void Uranus::on_connect_btn_clicked() {
-	emit connect_signal();
-}
-
-void Uranus::on_connect_btn_pressed() const {
-	ui.connect_btn->setStyleSheet("background-color:red; border:10px solid; border-color: rgb(85, 255, 127, 50%); border-radius:50%;");
-}
-
-void Uranus::on_connect_btn_released() const {
-	ui.connect_btn->setStyleSheet("background-color: rgb(255, 85, 0); border:10px solid; border-color: rgb(85, 255, 127, 50%); border-radius:50%;");
 }
 
 void Uranus::on_rc_factor_slider_valueChanged(const int value) {

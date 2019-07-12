@@ -33,15 +33,11 @@ DroneControl::~DroneControl() {
 }
 
 void DroneControl::Connect() {
-	while (!is_connected_) {
-		QThread::msleep(1000);
-		socket_->writeDatagram("command", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
-		socket_->readDatagram(buffer_, sizeof buffer_);
-		if (!strcmp(buffer_, "ok"))
-			is_connected_ = true;
-		memset(buffer_, 0, 10);
-	}
-	OpenStream();
+	socket_->writeDatagram("command", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
+	socket_->readDatagram(buffer_, sizeof buffer_);
+	if (!strcmp(buffer_, "ok"))
+		is_connected_ = true;
+	memset(buffer_, 0, 10);
 }
 
 void DroneControl::Takeoff() {
@@ -138,24 +134,19 @@ void DroneControl::SetSpeed(const int value) const {
 }
 
 void DroneControl::OpenStream() {
-	while (!is_streaming_) {
-		QThread::msleep(1000);
-		socket_->writeDatagram("streamon", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
-		socket_->readDatagram(buffer_, sizeof buffer_);
-		std::cout << buffer_ << std::endl;
-		if (!strcmp(buffer_, "ok"))
-			is_streaming_ = true;
-		memset(buffer_, 0, 10);
-	}
+	socket_->writeDatagram("streamon", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
+	socket_->readDatagram(buffer_, sizeof buffer_);
+	std::cout << buffer_ << std::endl;
+	if (!strcmp(buffer_, "ok"))
+		is_streaming_ = true;
+	memset(buffer_, 0, 10);
 }
 
 void DroneControl::CloseStream() {
 	socket_->writeDatagram("streamoff", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	if (!strcmp(buffer_, "ok")) {
+	if (!strcmp(buffer_, "ok"))
 		is_streaming_ = false;
-		emit stream_closed_signal();
-	}
 	memset(buffer_, 0, 10);
 }
 

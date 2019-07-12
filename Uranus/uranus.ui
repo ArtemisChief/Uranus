@@ -33,40 +33,18 @@
      <string>                   TextLabel</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="connect_btn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>610</y>
-      <width>100</width>
-      <height>100</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 85, 0);
-border:10px solid;
-border-color: rgb(85, 255, 127, 50%);
-border-radius:50%;</string>
-    </property>
-    <property name="text">
-     <string>Connect</string>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>1150</x>
-      <y>190</y>
-      <width>130</width>
-      <height>151</height>
+      <x>1169</x>
+      <y>250</y>
+      <width>110</width>
+      <height>150</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255, 20%);
-border-radius:10px;</string>
+     <string notr="true">background-color: rgb(200, 235, 255, 30%);
+border-radius:6px;</string>
     </property>
     <property name="title">
      <string/>
@@ -81,7 +59,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>agz: 0g</string>
@@ -97,7 +77,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>vgz: 0cm/s</string>
@@ -113,7 +95,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>vgy: 0cm/s</string>
@@ -129,7 +113,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+font: 9pt &quot;Microsoft YaHei UI&quot;;
+color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>vgx: 0cm/s</string>
@@ -145,7 +131,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>agx: 0g</string>
@@ -161,7 +149,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>agy: 0g</string>
@@ -172,14 +162,14 @@ border-radius:10px;</string>
     <property name="geometry">
      <rect>
       <x>-10</x>
-      <y>160</y>
-      <width>141</width>
+      <y>220</y>
+      <width>140</width>
       <height>240</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255, 20%);
-border-radius:10px;</string>
+     <string notr="true">background-color: rgb(200, 235, 255, 30%);
+border-radius:6px;</string>
     </property>
     <property name="title">
      <string/>
@@ -194,7 +184,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>baro: 0cm</string>
@@ -210,7 +202,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>time: 0s</string>
@@ -226,7 +220,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>templ: 0°C</string>
@@ -242,7 +238,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>temph: 0°C</string>
@@ -258,7 +256,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>h: 0cm</string>
@@ -274,7 +274,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>tof: 0cm</string>
@@ -290,7 +292,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>pitch: 0°</string>
@@ -306,7 +310,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>yaw: 0°</string>
@@ -322,7 +328,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>roll: 0°</string>
@@ -341,15 +349,15 @@ border-radius:10px;</string>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>510</x>
       <y>0</y>
-      <width>360</width>
-      <height>60</height>
+      <width>251</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255, 20%);
-border-radius:10px;</string>
+     <string notr="true">background-color: rgb(200, 235, 255, 30%);
+border-radius:6px;</string>
     </property>
     <property name="title">
      <string/>
@@ -357,30 +365,35 @@ border-radius:10px;</string>
     <widget class="QProgressBar" name="battery_bar">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>20</y>
-       <width>118</width>
-       <height>23</height>
+       <x>50</x>
+       <y>10</y>
+       <width>155</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="value">
-      <number>0</number>
+      <number>100</number>
+     </property>
+     <property name="textVisible">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QLabel" name="speed_label">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>20</y>
-       <width>141</width>
+       <x>80</x>
+       <y>40</y>
+       <width>121</width>
        <height>16</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>Speed: 0.0m/s</string>
@@ -390,15 +403,15 @@ border-radius:10px;</string>
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>660</y>
-      <width>530</width>
-      <height>60</height>
+      <x>390</x>
+      <y>680</y>
+      <width>501</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(131, 131, 131, 80%);
-border-radius:10%</string>
+     <string notr="true">background-color: rgb(200, 235, 255, 30%);
+border-radius:6px</string>
     </property>
     <property name="title">
      <string/>
@@ -406,14 +419,16 @@ border-radius:10%</string>
     <widget class="QLabel" name="speed_slider_label">
      <property name="geometry">
       <rect>
-       <x>290</x>
-       <y>20</y>
+       <x>270</x>
+       <y>10</y>
        <width>51</width>
-       <height>16</height>
+       <height>15</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>Speed</string>
@@ -422,10 +437,10 @@ border-radius:10%</string>
     <widget class="QSlider" name="rc_factor_slider">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>20</y>
-       <width>161</width>
-       <height>20</height>
+       <x>60</x>
+       <y>10</y>
+       <width>160</width>
+       <height>15</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -447,10 +462,10 @@ border-radius:10%</string>
     <widget class="QSlider" name="speed_slider">
      <property name="geometry">
       <rect>
-       <x>350</x>
-       <y>20</y>
-       <width>161</width>
-       <height>20</height>
+       <x>320</x>
+       <y>10</y>
+       <width>160</width>
+       <height>15</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -473,25 +488,21 @@ border-radius:10%</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>20</y>
+       <y>10</y>
        <width>51</width>
-       <height>20</height>
+       <height>15</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255, 0%);</string>
+      <string notr="true">background-color: rgb(255, 255, 255, 0%);
+color: rgb(255, 255, 255);
+font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      </property>
      <property name="text">
       <string>Stick</string>
      </property>
     </widget>
    </widget>
-   <zorder>frame_label</zorder>
-   <zorder>groupBox</zorder>
-   <zorder>groupBox_2</zorder>
-   <zorder>groupBox_3</zorder>
-   <zorder>connect_btn</zorder>
-   <zorder>groupBox_4</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
