@@ -8,8 +8,9 @@ extern "C"
 #include "libavcodec\avcodec.h"
 #include "libswscale\swscale.h"
 #include "libavutil\imgutils.h"
-#include "libavformat\avformat.h"
 }
+
+#define LOCAL_PORT_STREAM 11111
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
@@ -38,9 +39,6 @@ private:
 
 	// 收发视频流的UDP Socket
 	QUdpSocket* socket_;
-
-	// 无人机视频流本地接收端口地址
-	int local_port_stream_ = 11111;
 
 	// 用于存储一个包的缓存
 	QByteArray datagram_buffer_;

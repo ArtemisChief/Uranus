@@ -2,6 +2,10 @@
 #include <qobject.h>
 #include <qudpsocket.h>
 
+#define IP_DRONE "192.168.10.1"
+
+#define REMOTE_PORT_CONTROL 8889
+
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
     TypeName& operator=(const TypeName&)
@@ -34,10 +38,6 @@ private:
 
 	// 返回值缓存区
 	char* buffer_;
-
-	// 无人机IP地址以及控制命令远程端口地址
-	char* ip_drone_ = "192.168.10.1";
-	int remote_port_control_ = 8889;
 
 	// 状态布尔值
 	bool is_connected_;

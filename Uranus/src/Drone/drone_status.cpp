@@ -5,7 +5,7 @@ DroneStatus* DroneStatus::drone_status_ = nullptr;
 
 DroneStatus::DroneStatus() {
 	socket_ = new QUdpSocket(this);
-	socket_->bind(QHostAddress("0.0.0.0"),local_port_status_);
+	socket_->bind(LOCAL_PORT_STATUS);
 	buffer_ = new char[4096];
 
 	//每当socket收到信息时调用ReceiveStatus

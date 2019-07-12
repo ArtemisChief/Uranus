@@ -2,6 +2,8 @@
 #include <qobject.h>
 #include <qudpsocket.h>
 
+#define LOCAL_PORT_STATUS 8890
+
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
     TypeName& operator=(const TypeName&)
@@ -46,11 +48,6 @@ private:
 
 	// 返回值缓存区
 	char* buffer_;
-
-	// 无人机状态值本地接收端口地址
-	int local_port_status_ = 8890;
-
-
 
 	// 无人机状态参数数组
 	// 0 - 俯仰角度，度数

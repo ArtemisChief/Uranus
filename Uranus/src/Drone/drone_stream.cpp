@@ -4,7 +4,7 @@ DroneStream* DroneStream::drone_stream_ = nullptr;
 
 DroneStream::DroneStream() {
 	socket_ = new QUdpSocket(this);
-	socket_->bind(QHostAddress("0.0.0.0"), local_port_stream_);
+	socket_->bind(LOCAL_PORT_STREAM);
 	connect(socket_, SIGNAL(readyRead()), this, SLOT(ReceiveDatagram()));
 
 	// Ê¹ÓÃH264½âÂëÆ÷
