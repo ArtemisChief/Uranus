@@ -65,7 +65,7 @@ public:
         frame_label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0);"));
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(1169, 190, 110, 150));
+        groupBox->setGeometry(QRect(1169, 250, 110, 150));
         groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px;"));
         agz_label = new QLabel(groupBox);
@@ -106,7 +106,7 @@ public:
 "font: 9pt \"Microsoft YaHei UI\";"));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(-10, 160, 140, 240));
+        groupBox_2->setGeometry(QRect(-10, 220, 140, 240));
         groupBox_2->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px;"));
         baro_label = new QLabel(groupBox_2);
@@ -174,7 +174,7 @@ public:
         roll_label->raise();
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(500, 0, 251, 61));
+        groupBox_3->setGeometry(QRect(510, 0, 251, 61));
         groupBox_3->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px;"));
         battery_bar = new QProgressBar(groupBox_3);
@@ -196,13 +196,13 @@ public:
 "border-radius:6px"));
         speed_slider_label = new QLabel(groupBox_4);
         speed_slider_label->setObjectName(QString::fromUtf8("speed_slider_label"));
-        speed_slider_label->setGeometry(QRect(260, 10, 51, 16));
+        speed_slider_label->setGeometry(QRect(270, 10, 51, 15));
         speed_slider_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 9pt \"Microsoft YaHei UI\";"));
         rc_factor_slider = new QSlider(groupBox_4);
         rc_factor_slider->setObjectName(QString::fromUtf8("rc_factor_slider"));
-        rc_factor_slider->setGeometry(QRect(60, 10, 161, 20));
+        rc_factor_slider->setGeometry(QRect(60, 10, 160, 15));
         rc_factor_slider->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);"));
         rc_factor_slider->setMaximum(100);
         rc_factor_slider->setValue(50);
@@ -210,7 +210,7 @@ public:
         rc_factor_slider->setTickPosition(QSlider::NoTicks);
         speed_slider = new QSlider(groupBox_4);
         speed_slider->setObjectName(QString::fromUtf8("speed_slider"));
-        speed_slider->setGeometry(QRect(310, 10, 161, 20));
+        speed_slider->setGeometry(QRect(320, 10, 160, 15));
         speed_slider->setStyleSheet(QString::fromUtf8("background-color: rgb(131, 131, 131, 0%);"));
         speed_slider->setMinimum(10);
         speed_slider->setMaximum(100);
@@ -218,7 +218,7 @@ public:
         speed_slider->setOrientation(Qt::Horizontal);
         rc_factor_slider_label = new QLabel(groupBox_4);
         rc_factor_slider_label->setObjectName(QString::fromUtf8("rc_factor_slider_label"));
-        rc_factor_slider_label->setGeometry(QRect(20, 10, 51, 16));
+        rc_factor_slider_label->setGeometry(QRect(20, 10, 51, 15));
         rc_factor_slider_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 9pt \"Microsoft YaHei UI\";"));
