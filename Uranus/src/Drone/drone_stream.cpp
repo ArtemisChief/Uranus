@@ -56,14 +56,13 @@ void DroneStream::ConsturctFrame(QByteArray& bytes) {
 	auto length = bytes.length();
 	auto data_in = new uchar[length];
 	memcpy(data_in, bytes.data(), length);
-	size_t total_num_consumed = 0;
 
 	while (length > 0) {
 
 		const size_t num_consumed = av_parser_parse2(parser_context_, codec_context_,
-						 &packet_->data, &packet_->size,
-						 data_in, length,
-						 0, 0, AV_NOPTS_VALUE);
+													 &packet_->data, &packet_->size,
+													 data_in, length,
+													 0, 0, AV_NOPTS_VALUE);
 
 		const auto is_frame_available = packet_->size > 0;
 
@@ -102,7 +101,6 @@ void DroneStream::ConsturctFrame(QByteArray& bytes) {
 		}
 		length -= num_consumed;
 		data_in += num_consumed;
-		total_num_consumed += num_consumed;
 	}
 
 	av_packet_unref(packet_);
