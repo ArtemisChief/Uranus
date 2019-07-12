@@ -161,7 +161,7 @@ public:
         battery_bar->setObjectName(QString::fromUtf8("battery_bar"));
         battery_bar->setGeometry(QRect(60, 20, 118, 23));
         battery_bar->setStyleSheet(QString::fromUtf8(""));
-        battery_bar->setValue(24);
+        battery_bar->setValue(0);
         speed_label = new QLabel(groupBox_3);
         speed_label->setObjectName(QString::fromUtf8("speed_label"));
         speed_label->setGeometry(QRect(200, 20, 141, 16));

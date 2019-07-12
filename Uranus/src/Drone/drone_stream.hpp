@@ -5,8 +5,10 @@
 
 extern "C"
 {
-#include "libavformat\avformat.h"
+#include "libavcodec\avcodec.h"
 #include "libswscale\swscale.h"
+#include "libavutil\imgutils.h"
+#include "libavformat\avformat.h"
 }
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
@@ -25,13 +27,14 @@ public:
 
 private:
 
+	// 限制编译器自动生成的拷贝构造函数和赋值构造函数
+	DISALLOW_COPY_AND_ASSIGN(DroneStream);
+
+	// 构造函数
 	DroneStream();
 
 	// 单例
 	static DroneStream* drone_stream_;
-
-	// 限制编译器自动生成的拷贝构造函数和赋值构造函数
-	DISALLOW_COPY_AND_ASSIGN(DroneStream);
 
 	// 收发视频流的UDP Socket
 	QUdpSocket* socket_;

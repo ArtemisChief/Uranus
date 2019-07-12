@@ -20,13 +20,14 @@ public:
 
 private:
 
+	// 限制编译器自动生成的拷贝构造函数和赋值构造函数
+	DISALLOW_COPY_AND_ASSIGN(DroneControl);
+
+	// 构造函数
 	DroneControl();
 
 	// 单例
 	static DroneControl* drone_control_;
-
-	// 限制编译器自动生成的拷贝构造函数和赋值构造函数
-	DISALLOW_COPY_AND_ASSIGN(DroneControl);
 
 	// 收发控制命令的UDP Socket
 	QUdpSocket* socket_;
