@@ -11,6 +11,12 @@ DroneStatus::DroneStatus() {
 	connect(socket_, SIGNAL(readyRead()), this, SLOT(ReceiveStatus()));
 }
 
+DroneStatus::~DroneStatus() {
+	socket_->close();
+	delete socket_;
+}
+
+
 DroneStatus* DroneStatus::GetInstance() {
 	if (drone_status_ == nullptr)
 		drone_status_ = new DroneStatus();

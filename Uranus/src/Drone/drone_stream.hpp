@@ -22,8 +22,9 @@ private:
 	// 限制编译器自动生成的拷贝构造函数和赋值构造函数
 	DISALLOW_COPY_AND_ASSIGN(DroneStream);
 
-	// 构造函数
+	// 构造与析构函数
 	DroneStream();
+	~DroneStream();
 
 	// 单例
 	static DroneStream* drone_stream_;

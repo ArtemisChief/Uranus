@@ -5,7 +5,6 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	// 控制命令收发线程
 	drone_control_ = DroneControl::GetInstance();
 	drone_control_->moveToThread(&drone_control_thread_);
-	connect(&drone_control_thread_, &QThread::finished, drone_control_, &QObject::deleteLater);
 	connect(this, &Uranus::connect_signal, drone_control_, &DroneControl::Connect);
 	connect(this, &Uranus::takeoff_signal, drone_control_, &DroneControl::Takeoff);
 	connect(this, &Uranus::land_signal, drone_control_, &DroneControl::Land);
@@ -19,20 +18,17 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	// 状态接收更新线程
 	drone_status_ = DroneStatus::GetInstance();
 	drone_status_->moveToThread(&drone_status_thread_);
-	connect(&drone_status_thread_, &QThread::finished, drone_status_, &QObject::deleteLater);
 	connect(drone_status_,&DroneStatus::update_states_signal,this, &Uranus::show_status);
 	drone_status_thread_.start();
 
 	// 视频流接收线程
 	drone_stream_ = DroneStream::GetInstance();
 	drone_stream_->moveToThread(&drone_stream_thread_);
-	connect(&drone_stream_thread_, &QThread::finished, drone_stream_, &QObject::deleteLater);
 	drone_stream_thread_.start();
 
 	// 帧处理线程
 	frame_processor_ = FrameProcessor::GetInstance();
 	frame_processor_->moveToThread(&frame_processor_thread_);
-	connect(&frame_processor_thread_, &QThread::finished, frame_processor_, &QObject::deleteLater);
 	connect(frame_processor_, &FrameProcessor::frame_ready_signal, this, &Uranus::show_frame);
 	frame_processor_thread_.start();
 
@@ -45,6 +41,26 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 
 	// 能获取键盘焦点
 	this->grabKeyboard();
+}
+
+Uranus::~Uranus() {
+	emit stream_close_signal();
+
+	drone_control_->deleteLater();
+	drone_control_thread_.quit();
+	drone_control_thread_.wait();
+
+	drone_status_->deleteLater();
+	drone_status_thread_.quit();
+	drone_status_thread_.wait();
+
+	drone_stream_->deleteLater();
+	drone_stream_thread_.quit();
+	drone_stream_thread_.wait();
+
+	frame_processor_->deleteLater();
+	frame_processor_thread_.quit();
+	frame_processor_thread_.wait();
 }
 
 void Uranus::SetFrameToBlack() const {

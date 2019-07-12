@@ -36,6 +36,12 @@ FrameProcessor::FrameProcessor() {
 	rgb_frame_ = av_frame_alloc();
 }
 
+FrameProcessor::~FrameProcessor() {
+	av_free(frame_);
+	av_free(rgb_frame_);
+	avcodec_close(codec_context_);
+}
+
 FrameProcessor* FrameProcessor::GetInstance() {
 	if (frame_processor_ == nullptr)
 		frame_processor_ = new FrameProcessor();

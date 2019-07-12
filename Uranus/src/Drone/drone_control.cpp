@@ -24,6 +24,12 @@ DroneControl::DroneControl() {
 	is_streaming_ = false;
 }
 
+DroneControl::~DroneControl() {
+	socket_->close();
+	delete[] buffer_;
+	delete socket_;
+}
+
 void DroneControl::Connect() {
 	socket_->writeDatagram("command", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
 	socket_->readDatagram(buffer_, sizeof buffer_);

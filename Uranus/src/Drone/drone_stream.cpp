@@ -5,8 +5,16 @@ DroneStream* DroneStream::drone_stream_ = nullptr;
 DroneStream::DroneStream() {
 	socket_ = new QUdpSocket(this);
 	socket_->bind(LOCAL_PORT_STREAM);
+
+	// 每当socket收到信息时调用ReceiveDatagram
 	connect(socket_, SIGNAL(readyRead()), this, SLOT(ReceiveDatagram()));
 }
+
+DroneStream::~DroneStream() {
+	socket_->close();
+	delete socket_;
+}
+
 
 DroneStream* DroneStream::GetInstance() {
 	if (drone_stream_ == nullptr)

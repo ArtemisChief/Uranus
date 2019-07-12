@@ -15,6 +15,8 @@ class Uranus : public QMainWindow {
 
 public:
 	Uranus(QWidget *parent = Q_NULLPTR);
+	~Uranus();
+
 	void SetFrameToBlack() const;
 
 protected:
