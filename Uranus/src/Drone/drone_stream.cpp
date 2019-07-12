@@ -46,6 +46,7 @@ DroneStream* DroneStream::GetInstance() {
 void DroneStream::ConsturctFrame(QByteArray& bytes) {
 	auto length = bytes.length();
 	auto data_in = new uchar[length];
+	auto *data_in_ptr = data_in;
 
 	// 这里不使用强制类型转换，否则char类型的强制类型转换遇到\0直接停止，导致丢失数据
 	memcpy(data_in, bytes.data(), length);
@@ -85,6 +86,9 @@ void DroneStream::ConsturctFrame(QByteArray& bytes) {
 		data_in += num_consumed;
 	}
 
+	data_in = data_in_ptr;
+	delete[] data_in;
+	data_in_ptr = nullptr;
 	av_packet_unref(packet_);
 }
 
