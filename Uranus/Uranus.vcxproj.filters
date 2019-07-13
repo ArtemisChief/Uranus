@@ -34,6 +34,12 @@
     <Filter Include="Source Files\Drone">
       <UniqueIdentifier>{62e45e08-367e-4cfe-8ef4-ac0051a7afc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ImageProcess">
+      <UniqueIdentifier>{176925f9-3021-43a3-a2f6-d1c83435da95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ImageProcess">
+      <UniqueIdentifier>{c08b1fe6-e503-41f3-baa2-a93214898dca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="uranus.ui">
@@ -58,8 +64,11 @@
     <QtMoc Include="src\uranus.hpp">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="src\frame_processor.hpp">
-      <Filter>Header Files</Filter>
+    <QtMoc Include="src\ImageProcess\frame_processor.hpp">
+      <Filter>Header Files\ImageProcess</Filter>
+    </QtMoc>
+    <QtMoc Include="object_tracker.hpp">
+      <Filter>Header Files\ImageProcess</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -78,8 +87,11 @@
     <ClCompile Include="src\Drone\drone_stream.cpp">
       <Filter>Source Files\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="src\frame_processor.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\ImageProcess\frame_processor.cpp">
+      <Filter>Source Files\ImageProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="object_tracker.cpp">
+      <Filter>Source Files\ImageProcess</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

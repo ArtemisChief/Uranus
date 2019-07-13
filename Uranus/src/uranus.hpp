@@ -2,13 +2,13 @@
 
 #include <QKeyEvent>
 #include <QThread>
-#include <QtConcurrent\QtConcurrent>
+#include <QtConcurrent/QtConcurrent>
 #include <opencv2/opencv.hpp>
 #include "ui_uranus.h"
 #include "Drone/drone_control.hpp"
 #include "Drone/drone_status.hpp"
 #include "Drone/drone_stream.hpp"
-#include "frame_processor.hpp"
+#include "ImageProcess/frame_processor.hpp"
 
 class Uranus : public QMainWindow {
 

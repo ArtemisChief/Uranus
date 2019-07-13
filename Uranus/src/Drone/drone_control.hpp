@@ -1,6 +1,6 @@
 #pragma once
-#include <qobject.h>
-#include <qudpsocket.h>
+#include <QObject>
+#include <QUdpSocket>
 
 #define IP_DRONE "192.168.10.1"
 #define REMOTE_PORT_CONTROL 8889

@@ -1,7 +1,7 @@
 #pragma once
-#include <qobject.h>
+#include <QObject>
 #include <QImage>
-#include <qudpsocket.h>
+#include <QUdpSocket>
 
 #define LOCAL_PORT_STREAM 11111
 

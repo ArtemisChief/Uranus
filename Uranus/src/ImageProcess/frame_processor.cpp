@@ -2,6 +2,12 @@
 
 FrameProcessor* FrameProcessor::frame_processor_ = nullptr;
 
+FrameProcessor* FrameProcessor::GetInstance() {
+	if (frame_processor_ == nullptr)
+		frame_processor_ = new FrameProcessor();
+	return frame_processor_;
+}
+
 FrameProcessor::FrameProcessor() {
 
 	// Ê¹ÓÃH264½âÂëÆ÷
@@ -38,12 +44,6 @@ FrameProcessor::~FrameProcessor() {
 	av_free(frame_);
 	av_free(rgb_frame_);
 	avcodec_close(codec_context_);
-}
-
-FrameProcessor* FrameProcessor::GetInstance() {
-	if (frame_processor_ == nullptr)
-		frame_processor_ = new FrameProcessor();
-	return frame_processor_;
 }
 
 void FrameProcessor::ConsturctFrame(QByteArray& bytes) {

@@ -1,6 +1,6 @@
 #pragma once
-#include <qobject.h>
-#include <qudpsocket.h>
+#include <QObject>
+#include <QUdpSocket>
 
 #define LOCAL_PORT_STATUS 8890
 
