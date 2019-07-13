@@ -1,6 +1,8 @@
 #pragma once
 #include <qobject.h>
-#include "Drone/drone_stream.hpp"
+#include <opencv2\opencv.hpp>
+#include <opencv2\imgproc\types_c.h>
+#include "Drone\drone_stream.hpp"
 
 extern "C"
 {

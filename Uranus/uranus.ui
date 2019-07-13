@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>960</width>
     <height>720</height>
    </rect>
   </property>
@@ -22,7 +22,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1280</width>
+      <width>960</width>
       <height>720</height>
      </rect>
     </property>
@@ -36,8 +36,8 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>1169</x>
-      <y>250</y>
+      <x>850</x>
+      <y>240</y>
       <width>110</width>
       <height>150</height>
      </rect>
@@ -163,7 +163,7 @@ font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      <rect>
       <x>-10</x>
       <y>220</y>
-      <width>140</width>
+      <width>110</width>
       <height>240</height>
      </rect>
     </property>
@@ -349,10 +349,10 @@ font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>350</x>
       <y>0</y>
-      <width>251</width>
-      <height>61</height>
+      <width>260</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -367,7 +367,7 @@ border-radius:6px;</string>
       <rect>
        <x>50</x>
        <y>10</y>
-       <width>155</width>
+       <width>160</width>
        <height>20</height>
       </rect>
      </property>
@@ -384,9 +384,9 @@ border-radius:6px;</string>
     <widget class="QLabel" name="speed_label">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>40</y>
-       <width>121</width>
+       <x>90</x>
+       <y>30</y>
+       <width>111</width>
        <height>16</height>
       </rect>
      </property>
@@ -403,7 +403,7 @@ font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>230</x>
       <y>680</y>
       <width>501</width>
       <height>41</height>
