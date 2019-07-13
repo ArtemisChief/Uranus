@@ -185,7 +185,7 @@ public:
         battery_bar->setTextVisible(false);
         speed_label = new QLabel(groupBox_3);
         speed_label->setObjectName(QString::fromUtf8("speed_label"));
-        speed_label->setGeometry(QRect(80, 40, 121, 16));
+        speed_label->setGeometry(QRect(60, 40, 141, 16));
         speed_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 9pt \"Microsoft YaHei UI\";"));

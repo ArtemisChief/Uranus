@@ -209,9 +209,9 @@ void Uranus::show_status(int* params) const {
 	ui.speed_label->setText(QString("Speed: %1 cm/s").arg(QString::number(recent_speed, 'f', 2)));
 
 	// 更新俯仰角度、横滚角度、偏航角度
-	ui.pitch_label->setText(QString("pitch: %1 ").arg(params[0]));
-	ui.roll_label->setText(QString("roll: %1 ").arg(params[1]));
-	ui.yaw_label->setText(QString("yaw: %1 ").arg(params[2]));
+	ui.pitch_label->setText(QString::fromLocal8Bit("pitch: %1 °").arg(params[0]));
+	ui.roll_label->setText(QString::fromLocal8Bit("roll: %1 °").arg(params[1]));
+	ui.yaw_label->setText(QString::fromLocal8Bit("yaw: %1 °").arg(params[2]));
 
 	// 更新x、y、z轴速度
 	ui.vgx_label->setText(QString("vgx: %1 cm/s").arg(params[3]));
@@ -219,8 +219,8 @@ void Uranus::show_status(int* params) const {
 	ui.vgz_label->setText(QString("vgz: %1 cm/s").arg(params[5]));
 
 	// 更新主板最低/高温度
-	ui.templ_label->setText(QString("templ: %1").arg(params[6]));
-	ui.temph_label->setText(QString("temph: %1 ").arg(params[7]));
+	ui.templ_label->setText(QString::fromLocal8Bit("templ: %1 °C").arg(params[6]));
+	ui.temph_label->setText(QString::fromLocal8Bit("temph: %1 °C").arg(params[7]));
 
 	// ToF距离、相对起飞点高度、当前电量、气压计测量高度、电机运转时间
 	ui.tof_label->setText(QString("tof: %1 cm").arg(params[8]));
