@@ -2,6 +2,12 @@
 
 DroneStatus* DroneStatus::drone_status_ = nullptr;
 
+DroneStatus* DroneStatus::GetInstance() {
+	if (drone_status_ == nullptr)
+		drone_status_ = new DroneStatus();
+	return drone_status_;
+}
+
 DroneStatus::DroneStatus() {
 	socket_ = new QUdpSocket(this);
 	socket_->bind(LOCAL_PORT_STATUS);
@@ -13,13 +19,6 @@ DroneStatus::DroneStatus() {
 DroneStatus::~DroneStatus() {
 	socket_->close();
 	delete socket_;
-}
-
-
-DroneStatus* DroneStatus::GetInstance() {
-	if (drone_status_ == nullptr)
-		drone_status_ = new DroneStatus();
-	return drone_status_;
 }
 
 void DroneStatus::ReceiveStatus() {

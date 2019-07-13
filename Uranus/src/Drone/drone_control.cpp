@@ -1,6 +1,4 @@
 #include "drone_control.hpp"
-#include <iostream>
-#include <QThread>
 
 DroneControl* DroneControl::drone_control_ = nullptr;
 
@@ -136,7 +134,6 @@ void DroneControl::SetSpeed(const int value) const {
 void DroneControl::OpenStream() {
 	socket_->writeDatagram("streamon", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
 	socket_->readDatagram(buffer_, sizeof buffer_);
-	std::cout << buffer_ << std::endl;
 	if (!strcmp(buffer_, "ok"))
 		is_streaming_ = true;
 	memset(buffer_, 0, 10);
@@ -149,4 +146,3 @@ void DroneControl::CloseStream() {
 		is_streaming_ = false;
 	memset(buffer_, 0, 10);
 }
-

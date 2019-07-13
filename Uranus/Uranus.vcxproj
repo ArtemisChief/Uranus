@@ -136,18 +136,22 @@
     <QtMoc Include="src\Drone\drone_stream.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="object_tracker.cpp" />
     <ClCompile Include="src\Drone\drone_control.cpp" />
     <ClCompile Include="src\Drone\drone_status.cpp" />
     <ClCompile Include="src\Drone\drone_stream.cpp" />
+    <ClCompile Include="src\ImageProcess\frame_processor.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\uranus.cpp" />
-    <ClCompile Include="src\frame_processor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\uranus.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="src\frame_processor.hpp" />
+    <QtMoc Include="src\ImageProcess\frame_processor.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="object_tracker.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

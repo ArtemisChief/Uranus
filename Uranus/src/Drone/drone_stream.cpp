@@ -2,6 +2,12 @@
 
 DroneStream* DroneStream::drone_stream_ = nullptr;
 
+DroneStream* DroneStream::GetInstance() {
+	if (drone_stream_ == nullptr)
+		drone_stream_ = new DroneStream();
+	return drone_stream_;
+}
+
 DroneStream::DroneStream() {
 	socket_ = new QUdpSocket(this);
 	socket_->bind(LOCAL_PORT_STREAM);
@@ -13,13 +19,6 @@ DroneStream::DroneStream() {
 DroneStream::~DroneStream() {
 	socket_->close();
 	delete socket_;
-}
-
-
-DroneStream* DroneStream::GetInstance() {
-	if (drone_stream_ == nullptr)
-		drone_stream_ = new DroneStream();
-	return drone_stream_;
 }
 
 void DroneStream::ReceiveDatagram() {

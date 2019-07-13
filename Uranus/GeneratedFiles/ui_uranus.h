@@ -55,17 +55,17 @@ public:
     {
         if (UranusClass->objectName().isEmpty())
             UranusClass->setObjectName(QString::fromUtf8("UranusClass"));
-        UranusClass->resize(1280, 720);
+        UranusClass->resize(960, 720);
         UranusClass->setStyleSheet(QString::fromUtf8(""));
         centralWidget = new QWidget(UranusClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         frame_label = new QLabel(centralWidget);
         frame_label->setObjectName(QString::fromUtf8("frame_label"));
-        frame_label->setGeometry(QRect(0, 0, 1280, 720));
+        frame_label->setGeometry(QRect(0, 0, 960, 720));
         frame_label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0);"));
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(1169, 250, 110, 150));
+        groupBox->setGeometry(QRect(850, 240, 110, 150));
         groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px;"));
         agz_label = new QLabel(groupBox);
@@ -106,7 +106,7 @@ public:
 "font: 9pt \"Microsoft YaHei UI\";"));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(-10, 220, 140, 240));
+        groupBox_2->setGeometry(QRect(-10, 220, 110, 240));
         groupBox_2->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px;"));
         baro_label = new QLabel(groupBox_2);
@@ -174,24 +174,24 @@ public:
         roll_label->raise();
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(510, 0, 251, 61));
+        groupBox_3->setGeometry(QRect(350, 0, 260, 50));
         groupBox_3->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px;"));
         battery_bar = new QProgressBar(groupBox_3);
         battery_bar->setObjectName(QString::fromUtf8("battery_bar"));
-        battery_bar->setGeometry(QRect(50, 10, 155, 20));
+        battery_bar->setGeometry(QRect(50, 10, 160, 20));
         battery_bar->setStyleSheet(QString::fromUtf8(""));
         battery_bar->setValue(100);
         battery_bar->setTextVisible(false);
         speed_label = new QLabel(groupBox_3);
         speed_label->setObjectName(QString::fromUtf8("speed_label"));
-        speed_label->setGeometry(QRect(60, 40, 141, 16));
+        speed_label->setGeometry(QRect(90, 30, 111, 16));
         speed_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 9pt \"Microsoft YaHei UI\";"));
         groupBox_4 = new QGroupBox(centralWidget);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
-        groupBox_4->setGeometry(QRect(390, 680, 501, 41));
+        groupBox_4->setGeometry(QRect(230, 680, 501, 41));
         groupBox_4->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px"));
         speed_slider_label = new QLabel(groupBox_4);
