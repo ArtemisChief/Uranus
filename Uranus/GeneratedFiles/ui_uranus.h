@@ -65,12 +65,12 @@ public:
         frame_label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0);"));
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(850, 240, 110, 150));
+        groupBox->setGeometry(QRect(850, 240, 110, 151));
         groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px;"));
         agz_label = new QLabel(groupBox);
         agz_label->setObjectName(QString::fromUtf8("agz_label"));
-        agz_label->setGeometry(QRect(10, 120, 111, 16));
+        agz_label->setGeometry(QRect(10, 120, 111, 21));
         agz_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 9pt \"Microsoft YaHei UI\";"));
@@ -94,19 +94,19 @@ public:
 "color: rgb(255, 255, 255);"));
         agx_label = new QLabel(groupBox);
         agx_label->setObjectName(QString::fromUtf8("agx_label"));
-        agx_label->setGeometry(QRect(10, 80, 111, 16));
+        agx_label->setGeometry(QRect(10, 80, 111, 21));
         agx_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 9pt \"Microsoft YaHei UI\";"));
         agy_label = new QLabel(groupBox);
         agy_label->setObjectName(QString::fromUtf8("agy_label"));
-        agy_label->setGeometry(QRect(10, 100, 111, 16));
+        agy_label->setGeometry(QRect(10, 100, 111, 21));
         agy_label->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255, 0%);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 9pt \"Microsoft YaHei UI\";"));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(-10, 220, 110, 240));
+        groupBox_2->setGeometry(QRect(-10, 220, 121, 240));
         groupBox_2->setStyleSheet(QString::fromUtf8("background-color: rgb(200, 235, 255, 30%);\n"
 "border-radius:6px;"));
         baro_label = new QLabel(groupBox_2);

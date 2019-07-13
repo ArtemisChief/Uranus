@@ -39,7 +39,7 @@
       <x>850</x>
       <y>240</y>
       <width>110</width>
-      <height>150</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -55,7 +55,7 @@ border-radius:6px;</string>
        <x>10</x>
        <y>120</y>
        <width>111</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -127,7 +127,7 @@ color: rgb(255, 255, 255);</string>
        <x>10</x>
        <y>80</y>
        <width>111</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -145,7 +145,7 @@ font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
        <x>10</x>
        <y>100</y>
        <width>111</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -163,7 +163,7 @@ font: 9pt &quot;Microsoft YaHei UI&quot;;</string>
      <rect>
       <x>-10</x>
       <y>220</y>
-      <width>110</width>
+      <width>121</width>
       <height>240</height>
      </rect>
     </property>
