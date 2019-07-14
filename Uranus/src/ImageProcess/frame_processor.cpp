@@ -45,13 +45,6 @@ FrameProcessor::FrameProcessor() {
 	rgb_frame_ = av_frame_alloc();
 }
 
-FrameProcessor::~FrameProcessor() {
-	av_free(frame_);
-	av_free(rgb_frame_);
-	avcodec_close(codec_context_);
-	delete frame_processor_;
-}
-
 void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 	auto length = bytes.length();
 	auto data_in = new uchar[length];
@@ -91,11 +84,18 @@ void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 
 				auto image_raw = cv::Mat(height, width, CV_8UC3, out_buffer);
 
+				//cv::Mat image_resize;
+				//resize(image_raw, image_resize, cv::Size(width*0.5, height*0.5));
+
 				if (is_ready_to_select_target_) {
 					double target_width = mouse_start_point_.x() - mouse_end_point_.x();
 					double target_height = mouse_start_point_.y() - mouse_end_point_.y();
 					target_width = target_width > 0 ? target_width : -target_width;
 					target_height = target_height > 0 ? target_height : -target_height;
+
+					if (is_ready_to_track_target_)
+						target_tracker_->ClearTarget();
+
 					target_tracker_->SelectTarget(image_raw, mouse_start_point_.x(), mouse_start_point_.y(), target_width, target_height);
 					is_ready_to_select_target_ = false;
 					is_ready_to_track_target_ = true;

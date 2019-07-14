@@ -9,6 +9,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 								  "border-radius:4px;text-align:center;}"
 								  "QProgressBar::chunk{background-color:skyblue;"
 								  "width:8px;margin:0.5px;}");
+	setCursor(Qt::CrossCursor);
 
 	// 鼠标变量初始化
 	is_mouse_down_ = false;
@@ -56,7 +57,6 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 }
 
 Uranus::~Uranus() {
-
 	should_auto_connect_ = false;
 
 	// 确保已经关闭视频流
@@ -83,19 +83,18 @@ Uranus::~Uranus() {
 }
 
 void Uranus::AutoConnect() {
-
-	// 自动连接
-	while (!drone_control_->get_is_connected() && should_auto_connect_) {
-		emit connect_signal();
-		QThread::msleep(500);
+	while (should_auto_connect_) {
+		// 自动连接
+		if (!drone_control_->get_is_connected()) {
+			emit connect_signal();
+			QThread::msleep(500);
+		}
+		// 自动开启视频流
+		else if (!drone_control_->get_is_streaming()) {
+			emit stream_open_signal();
+			QThread::msleep(500);
+		}
 	}
-
-	// 自动开启视频流
-	while (!drone_control_->get_is_streaming() && should_auto_connect_) {
-		emit stream_open_signal();
-		QThread::msleep(500);
-	}
-
 }
 
 void Uranus::keyPressEvent(QKeyEvent* key_event) {

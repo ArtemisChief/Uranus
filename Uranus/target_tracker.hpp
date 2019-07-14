@@ -26,9 +26,8 @@ private:
 	// 限制编译器自动生成的拷贝构造函数和赋值构造函数
 	DISALLOW_COPY_AND_ASSIGN(TargetTracker);
 
-	// 构造与析构函数
+	// 构造函数
 	TargetTracker();
-	~TargetTracker();
 
 	// 单例
 	static TargetTracker* target_tracker_;

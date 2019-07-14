@@ -12,18 +12,12 @@ TargetTracker::TargetTracker() {
 	// 精度高，速度较慢
 	//tracker_ = cv::TrackerCSRT::create();
 
-	// 速度精度都一般，有遮挡效果不好
-	tracker_ = cv::TrackerKCF::create();
+	// 速度精度较为均衡
+	//tracker_ = cv::TrackerKCF::create();
 	
 	// 速度最快，精度不高
-	//tracker_ = cv::TrackerMOSSE::create();
+	tracker_ = cv::TrackerMOSSE::create();
 	is_selected_ = false;
-}
-
-
-TargetTracker::~TargetTracker() {
-	//delete tracker_;
-	delete target_tracker_;
 }
 
 void TargetTracker::SelectTarget(const cv::Mat frame, const double x, const double y, const double width, const double height) {
@@ -38,6 +32,7 @@ void TargetTracker::TrackTarget(const cv::Mat frame) {
 }
 
 void TargetTracker::ClearTarget() {
-	tracker_->clear();
+	tracker_.release();
+	tracker_ = cv::TrackerMOSSE::create();
 	is_selected_ = false;
 }

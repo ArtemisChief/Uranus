@@ -16,12 +16,6 @@ DroneStream::DroneStream() {
 	connect(socket_, SIGNAL(readyRead()), this, SLOT(ReceiveDatagram()));
 }
 
-DroneStream::~DroneStream() {
-	socket_->close();
-	delete socket_;
-	delete drone_stream_;
-}
-
 void DroneStream::ReceiveDatagram() {
 	while (socket_->hasPendingDatagrams()) {
 		const auto datagram_size = socket_->pendingDatagramSize();

@@ -16,12 +16,6 @@ DroneStatus::DroneStatus() {
 	connect(socket_, SIGNAL(readyRead()), this, SLOT(ReceiveStatus()));
 }
 
-DroneStatus::~DroneStatus() {
-	socket_->close();
-	delete socket_;
-	delete drone_status_;
-}
-
 void DroneStatus::ReceiveStatus() {
 	while (socket_->hasPendingDatagrams()) {
 		// 读取socket中收到的状态信息，放入messages中
