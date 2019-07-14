@@ -28,6 +28,7 @@ DroneControl::~DroneControl() {
 	socket_->close();
 	delete[] buffer_;
 	delete socket_;
+	delete drone_control_;
 }
 
 void DroneControl::Connect() {

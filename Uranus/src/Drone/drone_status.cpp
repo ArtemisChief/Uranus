@@ -19,6 +19,7 @@ DroneStatus::DroneStatus() {
 DroneStatus::~DroneStatus() {
 	socket_->close();
 	delete socket_;
+	delete drone_status_;
 }
 
 void DroneStatus::ReceiveStatus() {

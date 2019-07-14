@@ -19,6 +19,7 @@ DroneStream::DroneStream() {
 DroneStream::~DroneStream() {
 	socket_->close();
 	delete socket_;
+	delete drone_stream_;
 }
 
 void DroneStream::ReceiveDatagram() {

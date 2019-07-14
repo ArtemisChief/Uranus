@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QPainter>
 #include <QKeyEvent>
 #include <QThread>
 #include <QtConcurrent/QtConcurrent>
@@ -25,6 +26,9 @@ protected:
 
 	void keyPressEvent(QKeyEvent *key_event) override;
 	void keyReleaseEvent(QKeyEvent *key_event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
 
@@ -51,13 +55,16 @@ private:
 	int rc_[4] = { 0 };
 	int stick_ = 50;
 
+	bool is_mouse_down_;
+	QPoint mouse_start_point_;
+	QPoint mouse_end_point_;
+
 private slots:
 
 	void on_rc_factor_slider_valueChanged(const int value);
 	void on_speed_slider_valueChanged(const int value);
 	void show_frame(QImage frame) const;
 	void show_status(int* params_) const;
-	void set_frame_to_black() const;
 
 signals:
 
@@ -69,5 +76,6 @@ signals:
 	void rc_signal(const int roll, const int pitch, const int throttle, const int yaw);
 	void flip_signal(const char direction);
 	void speed_change_signal(const int value);
+	void target_select_signal(QPoint mouse_start_point, QPoint mouse_end_point);
 
 };

@@ -9,9 +9,9 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 								  "border-radius:4px;text-align:center;}"
 								  "QProgressBar::chunk{background-color:skyblue;"
 								  "width:8px;margin:0.5px;}");
-	
-	// 设置初始视频帧为纯黑单色图
-	set_frame_to_black();
+
+	// 鼠标变量初始化
+	is_mouse_down_ = false;
 
 	// 能获取键盘焦点
 	this->grabKeyboard();
@@ -45,6 +45,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	frame_processor_->moveToThread(&frame_processor_thread_);
 	connect(frame_processor_, &FrameProcessor::frame_ready_signal, this, &Uranus::show_frame);
 	connect(drone_stream_, &DroneStream::construct_frame_signal, frame_processor_, &FrameProcessor::ConsturctFrame);
+	connect(this, &Uranus::target_select_signal, frame_processor_, &FrameProcessor::ReadyToSelectTarget);
 	frame_processor_thread_.start();
 
 	should_auto_connect_ = true;
@@ -189,6 +190,27 @@ void Uranus::keyReleaseEvent(QKeyEvent* key_event) {
 	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
 }
 
+void Uranus::mousePressEvent(QMouseEvent* event) {
+	if (event->button() == Qt::LeftButton) {
+		is_mouse_down_ = true;
+		mouse_start_point_ = event->pos();
+		mouse_end_point_ = event->pos();
+	}
+}
+
+void Uranus::mouseMoveEvent(QMouseEvent* event) {
+	if (is_mouse_down_)
+		mouse_end_point_ = event->pos();
+}
+
+void Uranus::mouseReleaseEvent(QMouseEvent* event) {
+	if (is_mouse_down_) {
+		is_mouse_down_ = false;
+		mouse_end_point_ = event->pos();
+		emit target_select_signal(mouse_start_point_, mouse_end_point_);
+	}
+}
+
 void Uranus::on_rc_factor_slider_valueChanged(const int value) {
 	stick_ = value;
 }
@@ -197,7 +219,12 @@ void Uranus::on_speed_slider_valueChanged(const int value) {
 	emit speed_change_signal(value);
 }
 
-void Uranus::show_frame(const QImage image) const {
+void Uranus::show_frame(QImage image) const {
+	if (is_mouse_down_) {
+		QPainter painter(&image);
+		painter.setPen(QPen(Qt::green, 2));
+		painter.drawRect(QRect(mouse_start_point_, mouse_end_point_));
+	}
 	ui.frame_label->setPixmap(QPixmap::fromImage(image));
 }
 
@@ -234,11 +261,3 @@ void Uranus::show_status(int* params) const {
 	ui.agy_label->setText(QString("agy: %1 mg").arg(params[14]));
 	ui.agz_label->setText(QString("agz: %1 mg").arg(params[15]));
 }
-
-void Uranus::set_frame_to_black() const {
-	const auto black_image = cv::Mat(1280, 720, CV_8UC1, cv::Scalar(0));
-	const QImage image_rgb(static_cast<const uchar *>(black_image.data), black_image.cols, black_image.rows, black_image.step, QImage::Format_Grayscale8);
-	ui.frame_label->setPixmap(QPixmap::fromImage(image_rgb));
-}
-
-

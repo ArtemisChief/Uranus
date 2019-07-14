@@ -3,6 +3,7 @@
 #include <QImage>
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/types_c.h>
+#include "target_tracker.hpp"
 
 extern "C"
 {
@@ -35,6 +36,13 @@ private:
 	// µ¥Àý
 	static FrameProcessor* frame_processor_;
 
+	// Ä¿±ê¸ú×Ù
+	bool is_ready_to_select_target_;
+	bool is_ready_to_track_target_;
+	TargetTracker* target_tracker_;
+	QPoint mouse_start_point_;
+	QPoint mouse_end_point_;
+
 	// FFmpeg
 	AVCodec *codec_;
 	AVCodecContext *codec_context_;
@@ -47,6 +55,7 @@ private:
 public slots:
 
 	void ConsturctFrame(QByteArray& bytes);
+	void ReadyToSelectTarget(QPoint mouse_start_point, QPoint mouse_end_point);
 
 signals:
 

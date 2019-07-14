@@ -1,0 +1,41 @@
+#pragma once
+#include <QObject>
+#include <opencv2/opencv.hpp>
+#include <opencv2/tracking.hpp>
+
+#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
+    TypeName(const TypeName&);             \
+    TypeName& operator=(const TypeName&)
+
+class TargetTracker : public QObject {
+	Q_OBJECT
+
+public:
+
+	static TargetTracker* GetInstance();
+
+	// x, y 为矩形框左上角
+	void SelectTarget(const cv::Mat frame, const double x, const double y, const double width, const double height);
+
+	void TrackTarget(const cv::Mat frame);
+
+	void ClearTarget();
+
+private:
+
+	// 限制编译器自动生成的拷贝构造函数和赋值构造函数
+	DISALLOW_COPY_AND_ASSIGN(TargetTracker);
+
+	// 构造与析构函数
+	TargetTracker();
+	~TargetTracker();
+
+	// 单例
+	static TargetTracker* target_tracker_;
+
+	cv::Rect2d roi_;
+	cv::Ptr<cv::Tracker> tracker_;
+
+	bool is_selected_;
+
+};
