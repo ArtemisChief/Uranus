@@ -107,10 +107,10 @@ void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 				line(image_raw, cv::Point(285, 275), cv::Point(435, 275), cv::Scalar(0, 0, 255), 2);
 				line(image_raw, cv::Point(285, 325), cv::Point(435, 325), cv::Scalar(0, 0, 255), 2);
 
-				line(image_raw, cv::Point(585, 550), cv::Point(585, 700), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(535, 550), cv::Point(535, 700), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(485, 600), cv::Point(635, 600), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(485, 650), cv::Point(635, 650), cv::Scalar(0, 0, 255), 2);
+				line(image_raw, cv::Point(584, 549), cv::Point(584, 699), cv::Scalar(0, 0, 255), 2);
+				line(image_raw, cv::Point(534, 549), cv::Point(534, 699), cv::Scalar(0, 0, 255), 2);
+				line(image_raw, cv::Point(484, 599), cv::Point(634, 599), cv::Scalar(0, 0, 255), 2);
+				line(image_raw, cv::Point(484, 649), cv::Point(634, 649), cv::Scalar(0, 0, 255), 2);
 
 				// 从RGB数据中生成一张QImage图像
 				auto image_temp = QImage(static_cast<const uchar*>(image_raw.data), width, height, QImage::Format_RGB888);
