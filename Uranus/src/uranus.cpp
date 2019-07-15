@@ -50,7 +50,6 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(TargetTracker::GetInstance(), &TargetTracker::update_roi_signal, this, &Uranus::TrackTarget);
 	frame_processor_thread_.start();
 
-
 	should_auto_connect_ = true;
 
 	// 单独一个线程进行自动连接，防止启动时卡住界面
