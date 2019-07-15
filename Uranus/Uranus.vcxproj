@@ -136,6 +136,8 @@
     <QtMoc Include="src\Drone\drone_stream.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Tracker\fhog.cpp" />
+    <ClCompile Include="src\Tracker\kcftracker.cpp" />
     <ClCompile Include="target_tracker.cpp" />
     <ClCompile Include="src\Drone\drone_control.cpp" />
     <ClCompile Include="src\Drone\drone_status.cpp" />
@@ -152,6 +154,14 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="target_tracker.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Tracker\ffttools.hpp" />
+    <ClInclude Include="src\Tracker\fhog.hpp" />
+    <ClInclude Include="src\Tracker\kcftracker.hpp" />
+    <ClInclude Include="src\Tracker\labdata.hpp" />
+    <ClInclude Include="src\Tracker\recttools.hpp" />
+    <ClInclude Include="src\Tracker\tracker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

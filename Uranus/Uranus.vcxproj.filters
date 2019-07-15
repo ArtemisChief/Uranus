@@ -40,6 +40,12 @@
     <Filter Include="Source Files\ImageProcess">
       <UniqueIdentifier>{c08b1fe6-e503-41f3-baa2-a93214898dca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Tracker">
+      <UniqueIdentifier>{1f93e631-2257-4189-996d-0153946c183a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tracker">
+      <UniqueIdentifier>{8c44ef26-6773-4f97-b725-36a4a9c58d7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="uranus.ui">
@@ -93,5 +99,31 @@
     <ClCompile Include="target_tracker.cpp">
       <Filter>Source Files\ImageProcess</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tracker\fhog.cpp">
+      <Filter>Source Files\Tracker</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tracker\kcftracker.cpp">
+      <Filter>Source Files\Tracker</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Tracker\ffttools.hpp">
+      <Filter>Header Files\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tracker\fhog.hpp">
+      <Filter>Header Files\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tracker\kcftracker.hpp">
+      <Filter>Header Files\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tracker\labdata.hpp">
+      <Filter>Header Files\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tracker\recttools.hpp">
+      <Filter>Header Files\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tracker\tracker.h">
+      <Filter>Header Files\Tracker</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

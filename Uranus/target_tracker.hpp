@@ -2,6 +2,7 @@
 #include <QObject>
 #include <opencv2/opencv.hpp>
 #include <opencv2/tracking.hpp>
+#include "../../../Download/KCFcpp-master/src/kcftracker.hpp"
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
@@ -33,7 +34,7 @@ private:
 	static TargetTracker* target_tracker_;
 
 	cv::Rect2d roi_;
-	cv::Ptr<cv::Tracker> tracker_;
+	KCFTracker tracker_;
 
 	bool is_selected_;
 

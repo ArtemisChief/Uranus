@@ -104,6 +104,14 @@ void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 				if (is_ready_to_track_target_) 
 					target_tracker_->TrackTarget(image_raw);
 
+				// if (is_ready_to_track_target_) {
+				// 	frame_count += 1;
+				// 	if (frame_count == 2) {
+				// 		target_tracker_->TrackTarget(image_raw);
+				// 		frame_count = 0;
+				// 	}
+				// }
+
 				// 从RGB数据中生成一张QImage图像
 				auto image_temp = QImage(static_cast<const uchar*>(image_raw.data), width, height, QImage::Format_RGB888);
 
