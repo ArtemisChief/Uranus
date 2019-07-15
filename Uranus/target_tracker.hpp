@@ -1,8 +1,7 @@
 #pragma once
 #include <QObject>
 #include <opencv2/opencv.hpp>
-#include <opencv2/tracking.hpp>
-#include "../../../Download/KCFcpp-master/src/kcftracker.hpp"
+#include "src/Tracker/kcftracker.hpp"
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \

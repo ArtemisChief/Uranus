@@ -1,7 +1,5 @@
 #include "target_tracker.hpp"
 
-
-
 TargetTracker* TargetTracker::target_tracker_ = nullptr;
 
 TargetTracker* TargetTracker::GetInstance() {
