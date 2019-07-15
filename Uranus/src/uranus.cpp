@@ -47,7 +47,9 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(frame_processor_, &FrameProcessor::frame_ready_signal, this, &Uranus::ShowFrame);
 	connect(drone_stream_, &DroneStream::construct_frame_signal, frame_processor_, &FrameProcessor::ConsturctFrame);
 	connect(this, &Uranus::target_select_signal, frame_processor_, &FrameProcessor::ReadyToSelectTarget);
+	connect(TargetTracker::GetInstance(), &TargetTracker::update_roi_signal, this, &Uranus::TrackTarget);
 	frame_processor_thread_.start();
+
 
 	should_auto_connect_ = true;
 
