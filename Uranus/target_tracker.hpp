@@ -1,7 +1,7 @@
 #pragma once
 #include <QObject>
 #include <opencv2/opencv.hpp>
-#include "src/Tracker/kcftracker.hpp"
+#include "src/Utils/kcftracker.hpp"
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
     TypeName(const TypeName&);             \
@@ -15,7 +15,7 @@ public:
 	static TargetTracker* GetInstance();
 
 	// x, y Îª¾ØÐÎ¿ò×óÉÏ½Ç
-	void SelectTarget(const cv::Mat frame, const double x, const double y, const double width, const double height);
+	void SelectTarget(const cv::Mat frame, const cv::Rect2d roi);
 
 	void TrackTarget(const cv::Mat frame);
 
@@ -36,5 +36,9 @@ private:
 	KCFTracker tracker_;
 
 	bool is_selected_;
+
+signals:
+
+	void update_roi_signal(cv::Rect2d roi);
 
 };

@@ -82,35 +82,20 @@ void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 				rgb_frame_->width = width;
 				rgb_frame_->height = height;
 
-				auto image_raw = cv::Mat(height, width, CV_8UC3, out_buffer);
+				const auto image_raw = cv::Mat(height, width, CV_8UC3, out_buffer);
 
-				//cv::Mat image_resize;
-				//resize(image_raw, image_resize, cv::Size(width*0.5, height*0.5));
-
+				// 框选目标
 				if (is_ready_to_select_target_) {
-					double target_width = mouse_start_point_.x() - mouse_end_point_.x();
-					double target_height = mouse_start_point_.y() - mouse_end_point_.y();
-					target_width = target_width > 0 ? target_width : -target_width;
-					target_height = target_height > 0 ? target_height : -target_height;
-
 					if (is_ready_to_track_target_)
 						target_tracker_->ClearTarget();
-
-					target_tracker_->SelectTarget(image_raw, mouse_start_point_.x(), mouse_start_point_.y(), target_width, target_height);
+					target_tracker_->SelectTarget(image_raw, roi_);
 					is_ready_to_select_target_ = false;
 					is_ready_to_track_target_ = true;
 				}
 
+				// 跟踪
 				if (is_ready_to_track_target_) 
 					target_tracker_->TrackTarget(image_raw);
-
-				// if (is_ready_to_track_target_) {
-				// 	frame_count += 1;
-				// 	if (frame_count == 2) {
-				// 		target_tracker_->TrackTarget(image_raw);
-				// 		frame_count = 0;
-				// 	}
-				// }
 
 				// 从RGB数据中生成一张QImage图像
 				auto image_temp = QImage(static_cast<const uchar*>(image_raw.data), width, height, QImage::Format_RGB888);
@@ -133,8 +118,7 @@ void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 	av_packet_unref(packet_);
 }
 
-void FrameProcessor::ReadyToSelectTarget(QPoint mouse_start_point, QPoint mouse_end_point) {
+void FrameProcessor::ReadyToSelectTarget(const cv::Rect2d roi) {
 	is_ready_to_select_target_ = true;
-	mouse_start_point_ = mouse_start_point;
-	mouse_end_point_ = mouse_end_point;
+	roi_ = roi;
 }

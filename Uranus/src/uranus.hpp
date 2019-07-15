@@ -63,8 +63,9 @@ private slots:
 
 	void on_rc_factor_slider_valueChanged(const int value);
 	void on_speed_slider_valueChanged(const int value);
-	void show_frame(QImage frame) const;
-	void show_status(int* params_) const;
+	void ShowFrame(QImage frame) const;
+	void ShowStatus(int* params_) const;
+	void TrackTarget(cv::Rect2d roi);
 
 signals:
 
@@ -76,6 +77,6 @@ signals:
 	void rc_signal(const int roll, const int pitch, const int throttle, const int yaw);
 	void flip_signal(const char direction);
 	void speed_change_signal(const int value);
-	void target_select_signal(QPoint mouse_start_point, QPoint mouse_end_point);
+	void target_select_signal(cv::Rect2d roi);
 
 };

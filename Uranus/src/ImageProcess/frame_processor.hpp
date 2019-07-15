@@ -39,8 +39,7 @@ private:
 	bool is_ready_to_select_target_;
 	bool is_ready_to_track_target_;
 	TargetTracker* target_tracker_;
-	QPoint mouse_start_point_;
-	QPoint mouse_end_point_;
+	cv::Rect2d roi_;
 
 	// FFmpeg
 	AVCodec *codec_;
@@ -51,12 +50,10 @@ private:
 	SwsContext *sws_context_;
 	AVFrame *rgb_frame_;
 
-	int frame_count = 0;
-
 public slots:
 
 	void ConsturctFrame(QByteArray& bytes);
-	void ReadyToSelectTarget(QPoint mouse_start_point, QPoint mouse_end_point);
+	void ReadyToSelectTarget(const cv::Rect2d roi);
 
 signals:
 

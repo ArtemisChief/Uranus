@@ -33,7 +33,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	// 状态接收更新线程
 	drone_status_ = DroneStatus::GetInstance();
 	drone_status_->moveToThread(&drone_status_thread_);
-	connect(drone_status_, &DroneStatus::update_states_signal, this, &Uranus::show_status);
+	connect(drone_status_, &DroneStatus::update_states_signal, this, &Uranus::ShowStatus);
 	drone_status_thread_.start();
 
 	// 视频流接收线程
@@ -44,7 +44,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	// 帧处理线程
 	frame_processor_ = FrameProcessor::GetInstance();
 	frame_processor_->moveToThread(&frame_processor_thread_);
-	connect(frame_processor_, &FrameProcessor::frame_ready_signal, this, &Uranus::show_frame);
+	connect(frame_processor_, &FrameProcessor::frame_ready_signal, this, &Uranus::ShowFrame);
 	connect(drone_stream_, &DroneStream::construct_frame_signal, frame_processor_, &FrameProcessor::ConsturctFrame);
 	connect(this, &Uranus::target_select_signal, frame_processor_, &FrameProcessor::ReadyToSelectTarget);
 	frame_processor_thread_.start();
@@ -206,7 +206,12 @@ void Uranus::mouseReleaseEvent(QMouseEvent* event) {
 	if (is_mouse_down_) {
 		is_mouse_down_ = false;
 		mouse_end_point_ = event->pos();
-		emit target_select_signal(mouse_start_point_, mouse_end_point_);
+
+		double width = mouse_start_point_.x() - mouse_end_point_.x();
+		double height = mouse_start_point_.y() - mouse_end_point_.y();
+		width = width > 0 ? width : -width;
+		height = height > 0 ? height : -height;
+		emit target_select_signal(cv::Rect2d(mouse_start_point_.x(), mouse_start_point_.y(), width, height));
 	}
 }
 
@@ -218,7 +223,7 @@ void Uranus::on_speed_slider_valueChanged(const int value) {
 	emit speed_change_signal(value);
 }
 
-void Uranus::show_frame(QImage image) const {
+void Uranus::ShowFrame(QImage image) const {
 	if (is_mouse_down_) {
 		QPainter painter(&image);
 		painter.setPen(QPen(Qt::green, 2));
@@ -227,7 +232,7 @@ void Uranus::show_frame(QImage image) const {
 	ui.frame_label->setPixmap(QPixmap::fromImage(image));
 }
 
-void Uranus::show_status(int* params) const {
+void Uranus::ShowStatus(int* params) const {
 	// 计算合速度
 	const auto recent_speed = sqrt(params[3] * params[3] + params[4] * params[4] + params[5] * params[5]);
 
@@ -259,4 +264,8 @@ void Uranus::show_status(int* params) const {
 	ui.agx_label->setText(QString("agx: %1 mg").arg(params[13]));
 	ui.agy_label->setText(QString("agy: %1 mg").arg(params[14]));
 	ui.agz_label->setText(QString("agz: %1 mg").arg(params[15]));
+}
+
+void Uranus::TrackTarget(cv::Rect2d roi) {
+
 }
