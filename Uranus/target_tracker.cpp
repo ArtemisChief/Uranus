@@ -21,7 +21,8 @@ void TargetTracker::SelectTarget(const cv::Mat frame, const cv::Rect2d roi) {
 
 void TargetTracker::TrackTarget(const cv::Mat frame) {
 	roi_ = tracker_.update(frame);
-	rectangle(frame, roi_, cv::Scalar(0, 255, 0), 2, 1);
+	rectangle(frame, roi_, cv::Scalar(0, 255, 0), 2);
+	rectangle(frame, cv::Rect2d(roi_.x, roi_.y, 2, 2), cv::Scalar(0, 0, 255), 4);
 	emit update_roi_signal(roi_);
 }
 
