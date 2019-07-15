@@ -199,8 +199,21 @@ void Uranus::mousePressEvent(QMouseEvent* event) {
 }
 
 void Uranus::mouseMoveEvent(QMouseEvent* event) {
-	if (is_mouse_down_)
+	if (is_mouse_down_) {
 		mouse_end_point_ = event->pos();
+		int width = mouse_start_point_.x() - mouse_end_point_.x();
+		int height = mouse_start_point_.y() - mouse_end_point_.y();
+		width = width > 0 ? width : -width;
+		height = height > 0 ? height : -height;
+		if (2 * width > 3 * height) {
+			height = width * 1.5;
+			mouse_end_point_.setY(mouse_start_point_.y() - event->pos().y() > 0 ? mouse_start_point_.y() - height : mouse_start_point_.y() + height);
+		}
+		else{
+			width = height / 3 * 2;
+			mouse_end_point_.setX(mouse_start_point_.x() - event->pos().x() > 0 ? mouse_start_point_.x() - width : mouse_start_point_.x() + width);
+		}
+	}
 }
 
 void Uranus::mouseReleaseEvent(QMouseEvent* event) {
@@ -208,10 +221,19 @@ void Uranus::mouseReleaseEvent(QMouseEvent* event) {
 		is_mouse_down_ = false;
 		mouse_end_point_ = event->pos();
 
-		double width = mouse_start_point_.x() - mouse_end_point_.x();
-		double height = mouse_start_point_.y() - mouse_end_point_.y();
+		int width = mouse_start_point_.x() - mouse_end_point_.x();
+		int height = mouse_start_point_.y() - mouse_end_point_.y();
 		width = width > 0 ? width : -width;
 		height = height > 0 ? height : -height;
+		if (2 * width > 3 * height) {
+			height = width * 1.5;
+			mouse_end_point_.setY(mouse_start_point_.y() - event->pos().y() > 0 ? mouse_start_point_.y() - height : mouse_start_point_.y() + height);
+		}
+		else {
+			width = height / 3 * 2;
+			mouse_end_point_.setX(mouse_start_point_.x() - event->pos().x() > 0 ? mouse_start_point_.x() - width : mouse_start_point_.x() + width);
+		}
+
 		emit target_select_signal(cv::Rect2d(mouse_start_point_.x(), mouse_start_point_.y(), width, height));
 	}
 }
