@@ -226,6 +226,8 @@ void Uranus::mouseMoveEvent(QMouseEvent* event) {
 }
 
 void Uranus::mouseReleaseEvent(QMouseEvent* event) {
+	if(event->pos()== mouse_start_point_)
+		return;
 	if (is_mouse_down_) {
 		is_mouse_down_ = false;
 		mouse_end_point_ = event->pos();
@@ -259,7 +261,8 @@ void Uranus::ShowFrame(QImage image) const {
 	if (is_mouse_down_) {
 		QPainter painter(&image);
 		painter.setPen(QPen(Qt::green, 2));
-		painter.drawRect(QRect(mouse_start_point_, mouse_end_point_));
+		if(mouse_start_point_!=mouse_end_point_)
+			painter.drawRect(QRect(mouse_start_point_, mouse_end_point_));
 	}
 	ui.frame_label->setPixmap(QPixmap::fromImage(image));
 }
