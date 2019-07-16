@@ -59,6 +59,8 @@ private:
 	QPoint mouse_start_point_;
 	QPoint mouse_end_point_;
 
+	bool start_Tracking = false;
+
 private slots:
 
 	void on_rc_factor_slider_valueChanged(const int value);
