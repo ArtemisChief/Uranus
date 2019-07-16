@@ -57,7 +57,13 @@ private:
 	QPoint mouse_start_point_;
 	QPoint mouse_end_point_;
 
-	bool start_Tracking = false;
+	bool start_tracking_ = false;
+	const int goal_width_ = 190;
+	int last_error_width_ = 0;
+	int total_error_width_ = 0;
+	const int goal_x_ = 355;
+	int last_error_x_ = 0;
+	int total_error_x_ = 0;
 
 private slots:
 

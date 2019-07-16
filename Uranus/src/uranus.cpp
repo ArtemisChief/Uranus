@@ -129,7 +129,8 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 		break;
 	case Qt::Key_F1:
 		rc_[0] = rc_[1] = rc_[2] = rc_[3] = 0;
-		start_Tracking = !start_Tracking;
+		start_tracking_ = !start_tracking_;
+		total_error_width_ = total_error_x_ = last_error_width_ = last_error_x_ = 0;
 		break;
 	case Qt::Key_CapsLock:
 		if (drone_control_->get_is_takeoff())
@@ -290,7 +291,7 @@ void Uranus::ShowStatus(int* params) const {
 
 //Todo: Optimize with Switch Case
 void Uranus::TrackTarget(const cv::Rect2d roi) {
-	if (!start_Tracking) {
+	if (!start_tracking_) {
 		return;
 	}
 	const int x = roi.x;
@@ -299,44 +300,72 @@ void Uranus::TrackTarget(const cv::Rect2d roi) {
 	const int height = roi.height;
 
 	//通过矩形宽判断远近，调整前进或后退
-	if (width > 210) {
-		//目标框过大，距离过近,后退
-		if (width > 410)
-			rc_[1] = -stick_;
-		else
-			rc_[1] = static_cast<int>(-stick_ * static_cast<float>(width - 210) / 200);
-	}
-	else if (width < 170) {
-		//目标框过小，距离过远，前进
-		if (width < 120)
-			rc_[1] = stick_;
-		else
-			rc_[1] = static_cast<int>(stick_ * static_cast<float>(170 - width) / 100);
-	}
-	else {
-		//不动
-		rc_[1] = 0;
+	const int error_width = goal_width_ - width;
+	const int d_error_width = error_width - last_error_width_;
+	last_error_width_ = error_width;
+
+	if (abs(error_width) > 200)
+		rc_[1] = error_width / abs(error_width)*stick_;
+	else
+	{
+		total_error_width_ += error_width;
+		rc_[1] = static_cast<int>(stick_ * (static_cast<float>(error_width) / 200 + total_error_width_ * 0.00001 + d_error_width * 0.0001));
 	}
 
+	//if (width > 210) {
+	//	//目标框过大，距离过近,后退
+	//	if (width > 410)
+	//		rc_[1] = -stick_;
+	//	else
+	//	{
+	//		total_error_width_ += width - 210;
+	//		rc_[1] = static_cast<int>(-stick_ * (static_cast<float>(width - 210) / 200 + total_error_width_ * 0.001));
+	//	}
+
+	//}
+	//else if (width < 170) {
+	//	//目标框过小，距离过远，前进
+	//	if (width < 120)
+	//		rc_[1] = stick_;
+	//	else
+	//		rc_[1] = static_cast<int>(stick_ * static_cast<float>(170 - width) / 100);
+	//}
+	//else {
+	//	//不动
+	//	rc_[1] = 0;
+	//}
+
 	//通过顶点的横坐标x大小判断目标左右偏向
-	if (x < 335) {
-		//x在左，目标在左，往左偏航
-		if (x < 135)
-			rc_[0] = -stick_;
-		else
-			rc_[0] = static_cast<int>(-stick_ * static_cast<float>(335 - x) / 200);
+	const int error_x = goal_x_ - x;
+	const int d_error_x = x - last_error_x_;
+	last_error_x_ = error_x;
+
+	if (abs(error_x) > 200)
+		rc_[0] = -error_x / abs(error_x)*stick_;
+	else
+	{
+		total_error_x_ += error_x;
+		rc_[0] = static_cast<int>(-stick_ * (static_cast<float>(error_x) / 200 + total_error_x_ * 0.00001 + d_error_x * 0.0001));
 	}
-	else if (x > 375) {
-		//x在右，目标在右，往右偏航
-		if (x > 575)
-			rc_[0] = stick_;
-		else
-			rc_[0] = static_cast<int>(stick_ * static_cast<float>(x - 375) / 200);
-	}
-	else {
-		//不动
-		rc_[0] = 0;
-	}
+
+	//if (x < 335) {
+	//	//x在左，目标在左，往左偏航
+	//	if (x < 135)
+	//		rc_[0] = -stick_;
+	//	else
+	//		rc_[0] = static_cast<int>(-stick_ * static_cast<float>(335 - x) / 200);
+	//}
+	//else if (x > 375) {
+	//	//x在右，目标在右，往右偏航
+	//	if (x > 575)
+	//		rc_[0] = stick_;
+	//	else
+	//		rc_[0] = static_cast<int>(stick_ * static_cast<float>(x - 375) / 200);
+	//}
+	//else {
+	//	//不动
+	//	rc_[0] = 0;
+	//}
 
 	//通过顶点纵坐标y大小判断目标高低偏向
 	if (y < 275) {
