@@ -312,11 +312,17 @@ void Uranus::TrackTarget(cv::Rect2d roi) {
 	if(width > 210)
 	{
 		//目标框过大，距离过近,后退
-		rc_[1] = -stick_;
+		if (width > 410)
+			rc_[1] = -stick_;
+		else
+			rc_[1] = static_cast<int>(-stick_ * static_cast<float>(width - 210) / 200);
 	}else if (width < 170)
 	{
 		//目标框过小，距离过远，前进
-		rc_[1] = stick_;
+		if (width < 120)
+			rc_[1] = stick_;
+		else
+			rc_[1] = static_cast<int>(stick_ * static_cast<float>(170 - width) / 100);
 	}else
 	{
 		//不动
@@ -327,11 +333,17 @@ void Uranus::TrackTarget(cv::Rect2d roi) {
 	if(x<335)
 	{
 		//x在左，目标在左，往左偏航
-		rc_[0] = -stick_;
+		if (x < 135)
+			rc_[0] = -stick_;
+		else
+			rc_[0] = static_cast<int>(-stick_ * static_cast<float>(335 - x) / 200);
 	}else if(x>375)
 	{
 		//x在右，目标在右，往右偏航
-		rc_[0] = stick_;
+		if (x > 575)
+			rc_[0] = stick_;
+		else
+			rc_[0] = static_cast<int>(stick_ * static_cast<float>(x - 375) / 200);
 	}else
 	{
 		//不动
@@ -343,14 +355,19 @@ void Uranus::TrackTarget(cv::Rect2d roi) {
 	{
 		//y在上，目标在上方，无人机上升
 		rc_[2] = stick_ / 2;
+		if (drone_status_->get_tof() > 270)
+			rc_[2] = 0;
 	}else if(y>335)
 	{
 		//y在下，目标在下方，无人机下降
 		rc_[2] = -stick_ / 2;
+		if (drone_status_->get_tof() < 220)
+			rc_[2] = 0;
 	}else
 	{
 		rc_[2] = 0;
 	}
+
 
 	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
 }
