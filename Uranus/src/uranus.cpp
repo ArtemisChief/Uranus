@@ -50,21 +50,14 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(TargetTracker::GetInstance(), &TargetTracker::update_roi_signal, this, &Uranus::TrackTarget);
 	frame_processor_thread_.start();
 
-	should_auto_connect_ = true;
-
-	// 单独一个线程进行自动连接，防止启动时卡住界面
-	QtConcurrent::run(this, &Uranus::AutoConnect);
-
+	// UI主线程
+	connect(&timer_, SIGNAL(timeout()), this, SLOT(SendHeartBeat()));
+	timer_.start(1000);
 }
 
 Uranus::~Uranus() {
-	should_auto_connect_ = false;
-
-	// 确保已经关闭视频流
-	while (drone_control_->get_is_streaming()) {
-		emit stream_close_signal();
-		QThread::msleep(500);
-	}
+	// 关闭视频流
+	emit stream_close_signal();
 	
 	drone_control_->deleteLater();
 	drone_control_thread_.quit();
@@ -83,19 +76,13 @@ Uranus::~Uranus() {
 	frame_processor_thread_.wait();
 }
 
-void Uranus::AutoConnect() {
-	while (should_auto_connect_) {
-		// 自动连接
-		if (!drone_control_->get_is_connected()) {
-			emit connect_signal();
-			QThread::msleep(500);
-		}
-		// 自动开启视频流
-		else if (!drone_control_->get_is_streaming()) {
-			emit stream_open_signal();
-			QThread::msleep(500);
-		}
-	}
+void Uranus::SendHeartBeat() {
+	// 发送连接指令
+	emit connect_signal();
+
+	// 发送推流指令
+	if (drone_control_->get_is_connected() && !drone_control_->get_is_streaming())
+		emit stream_open_signal();
 }
 
 void Uranus::keyPressEvent(QKeyEvent* key_event) {

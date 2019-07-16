@@ -20,8 +20,6 @@ public:
 	Uranus(QWidget *parent = Q_NULLPTR);
 	~Uranus();
 
-	void AutoConnect();
-
 protected:
 
 	void keyPressEvent(QKeyEvent *key_event) override;
@@ -46,7 +44,7 @@ private:
 	FrameProcessor* frame_processor_;
 	QThread frame_processor_thread_;
 
-	bool should_auto_connect_;
+	QTimer timer_;
 
 	// 0 - roll
 	// 1 - pitch
@@ -65,6 +63,7 @@ private slots:
 
 	void on_rc_factor_slider_valueChanged(const int value);
 	void on_speed_slider_valueChanged(const int value);
+	void SendHeartBeat();
 	void ShowFrame(QImage frame) const;
 	void ShowStatus(int* params_) const;
 	void TrackTarget(cv::Rect2d roi);
