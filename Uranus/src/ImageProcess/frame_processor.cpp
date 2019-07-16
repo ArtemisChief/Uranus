@@ -100,17 +100,17 @@ void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 
 				// 绘制参考系
 				rectangle(image_raw, cv::Rect2d(335, 275, 250, 375), cv::Scalar(255, 0, 0), 2);
-				rectangle(image_raw, cv::Rect2d(385, 325, 150, 275), cv::Scalar(255, 0, 0), 2);
+				rectangle(image_raw, cv::Rect2d(375, 335, 170, 255), cv::Scalar(255, 0, 0), 2);
 
-				line(image_raw, cv::Point(335, 225), cv::Point(335, 375), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(385, 225), cv::Point(385, 375), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(285, 275), cv::Point(435, 275), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(285, 325), cv::Point(435, 325), cv::Scalar(0, 0, 255), 2);
+				line(image_raw, cv::Point(335, 235), cv::Point(335, 385), cv::Scalar(0, 0, 255), 2);
+				line(image_raw, cv::Point(375, 235), cv::Point(375, 385), cv::Scalar(0, 0, 255), 2);
+				line(image_raw, cv::Point(285, 275), cv::Point(425, 275), cv::Scalar(0, 0, 255), 2);
+				line(image_raw, cv::Point(285, 335), cv::Point(425, 335), cv::Scalar(0, 0, 255), 2);
 
-				line(image_raw, cv::Point(584, 549), cv::Point(584, 699), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(534, 549), cv::Point(534, 699), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(484, 599), cv::Point(634, 599), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(484, 649), cv::Point(634, 649), cv::Scalar(0, 0, 255), 2);
+				//line(image_raw, cv::Point(584, 549), cv::Point(584, 699), cv::Scalar(0, 0, 255), 2);
+				//line(image_raw, cv::Point(534, 549), cv::Point(534, 699), cv::Scalar(0, 0, 255), 2);
+				//line(image_raw, cv::Point(484, 599), cv::Point(634, 599), cv::Scalar(0, 0, 255), 2);
+				//line(image_raw, cv::Point(484, 649), cv::Point(634, 649), cv::Scalar(0, 0, 255), 2);
 
 				// 从RGB数据中生成一张QImage图像
 				auto image_temp = QImage(static_cast<const uchar*>(image_raw.data), width, height, QImage::Format_RGB888);
