@@ -288,9 +288,9 @@ void Uranus::ShowStatus(int* params) const {
 	ui.agz_label->setText(QString("agz: %1 mg").arg(params[15]));
 }
 
-void Uranus::TrackTarget(cv::Rect2d roi) {
-	if(!start_Tracking)
-	{
+//Todo: Optimize with Switch Case
+void Uranus::TrackTarget(const cv::Rect2d roi) {
+	if (!start_Tracking) {
 		return;
 	}
 	const int x = roi.x;
@@ -299,62 +299,59 @@ void Uranus::TrackTarget(cv::Rect2d roi) {
 	const int height = roi.height;
 
 	//通过矩形宽判断远近，调整前进或后退
-	if(width > 210)
-	{
+	if (width > 210) {
 		//目标框过大，距离过近,后退
 		if (width > 410)
 			rc_[1] = -stick_;
 		else
 			rc_[1] = static_cast<int>(-stick_ * static_cast<float>(width - 210) / 200);
-	}else if (width < 170)
-	{
+	}
+	else if (width < 170) {
 		//目标框过小，距离过远，前进
 		if (width < 120)
 			rc_[1] = stick_;
 		else
 			rc_[1] = static_cast<int>(stick_ * static_cast<float>(170 - width) / 100);
-	}else
-	{
+	}
+	else {
 		//不动
 		rc_[1] = 0;
 	}
 
 	//通过顶点的横坐标x大小判断目标左右偏向
-	if(x<335)
-	{
+	if (x < 335) {
 		//x在左，目标在左，往左偏航
 		if (x < 135)
 			rc_[0] = -stick_;
 		else
 			rc_[0] = static_cast<int>(-stick_ * static_cast<float>(335 - x) / 200);
-	}else if(x>375)
-	{
+	}
+	else if (x > 375) {
 		//x在右，目标在右，往右偏航
 		if (x > 575)
 			rc_[0] = stick_;
 		else
 			rc_[0] = static_cast<int>(stick_ * static_cast<float>(x - 375) / 200);
-	}else
-	{
+	}
+	else {
 		//不动
 		rc_[0] = 0;
 	}
 
 	//通过顶点纵坐标y大小判断目标高低偏向
-	if(y<275)
-	{
+	if (y < 275) {
 		//y在上，目标在上方，无人机上升
 		rc_[2] = stick_ / 2;
 		if (drone_status_->get_tof() > 270)
 			rc_[2] = 0;
-	}else if(y>335)
-	{
+	}
+	else if (y > 335) {
 		//y在下，目标在下方，无人机下降
 		rc_[2] = -stick_ / 2;
 		if (drone_status_->get_tof() < 220)
 			rc_[2] = 0;
-	}else
-	{
+	}
+	else {
 		rc_[2] = 0;
 	}
 

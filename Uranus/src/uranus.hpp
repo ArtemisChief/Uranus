@@ -66,7 +66,7 @@ private slots:
 	void SendHeartBeat();
 	void ShowFrame(QImage frame) const;
 	void ShowStatus(int* params_) const;
-	void TrackTarget(cv::Rect2d roi);
+	void TrackTarget(const cv::Rect2d roi);
 
 signals:
 
