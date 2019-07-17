@@ -370,14 +370,14 @@ void Uranus::TrackTarget(const cv::Rect2d roi) {
 	//通过顶点纵坐标y大小判断目标高低偏向
 	if (y < 275) {
 		//y在上，目标在上方，无人机上升
-		rc_[2] = stick_ / 2;
-		if (drone_status_->get_tof() > 270)
+		rc_[2] = stick_ / 5;
+		if (drone_status_->get_tof() > 350)
 			rc_[2] = 0;
 	}
 	else if (y > 335) {
 		//y在下，目标在下方，无人机下降
-		rc_[2] = -stick_ / 2;
-		if (drone_status_->get_tof() < 220)
+		rc_[2] = -stick_ / 5;
+		if (drone_status_->get_tof() < 150)
 			rc_[2] = 0;
 	}
 	else {
