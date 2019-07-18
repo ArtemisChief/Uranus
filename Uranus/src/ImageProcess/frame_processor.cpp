@@ -94,18 +94,21 @@ void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 				}
 
 				// 跟踪
-				if (is_ready_to_track_target_) 
+				if (is_ready_to_track_target_)
+				{
 					target_tracker_->TrackTarget(image_raw);
 
+					// 绘制参考系
+					rectangle(image_raw, cv::Rect2d(aim_rec_x_ - 10, aim_rec_y_ - 10, aim_rec_width_ + 20, aim_rec_height_ + 20), cv::Scalar(255, 0, 0), 2);
+					if (aim_rec_width_ > 20 && aim_rec_height_ > 20)
+						rectangle(image_raw, cv::Rect2d(aim_rec_x_ + 10, aim_rec_y_ + 10, aim_rec_width_ - 20, aim_rec_height_ - 20), cv::Scalar(255, 0, 0), 2);
 
-				// 绘制参考系
-				rectangle(image_raw, cv::Rect2d(335, 275, 250, 375), cv::Scalar(255, 0, 0), 2);
-				rectangle(image_raw, cv::Rect2d(375, 335, 170, 255), cv::Scalar(255, 0, 0), 2);
-
-				line(image_raw, cv::Point(335, 235), cv::Point(335, 385), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(375, 235), cv::Point(375, 385), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(285, 275), cv::Point(425, 275), cv::Scalar(0, 0, 255), 2);
-				line(image_raw, cv::Point(285, 335), cv::Point(425, 335), cv::Scalar(0, 0, 255), 2);
+					//line(image_raw, cv::Point(335, 235), cv::Point(335, 385), cv::Scalar(0, 0, 255), 2);
+					//line(image_raw, cv::Point(375, 235), cv::Point(375, 385), cv::Scalar(0, 0, 255), 2);
+					//line(image_raw, cv::Point(285, 275), cv::Point(425, 275), cv::Scalar(0, 0, 255), 2);
+					//line(image_raw, cv::Point(285, 335), cv::Point(425, 335), cv::Scalar(0, 0, 255), 2);
+				}
+					
 
 				//line(image_raw, cv::Point(584, 549), cv::Point(584, 699), cv::Scalar(0, 0, 255), 2);
 				//line(image_raw, cv::Point(534, 549), cv::Point(534, 699), cv::Scalar(0, 0, 255), 2);
@@ -136,4 +139,9 @@ void FrameProcessor::ConsturctFrame(QByteArray& bytes) {
 void FrameProcessor::ReadyToSelectTarget(const cv::Rect2d roi) {
 	is_ready_to_select_target_ = true;
 	roi_ = roi;
+	//初始化目标框
+	aim_rec_width_ = roi_.width;
+	aim_rec_height_ = roi_.height;
+	aim_rec_x_ = (960 - aim_rec_width_) / 2;
+	aim_rec_y_ = (720 - aim_rec_height_) / 2;
 }

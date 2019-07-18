@@ -50,6 +50,11 @@ private:
 	SwsContext *sws_context_;
 	AVFrame *rgb_frame_;
 
+	//
+	int aim_rec_width_;
+	int aim_rec_height_;
+	int aim_rec_x_;
+	int aim_rec_y_;
 public slots:
 
 	void ConsturctFrame(QByteArray& bytes);

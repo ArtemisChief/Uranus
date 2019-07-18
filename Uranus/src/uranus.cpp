@@ -130,7 +130,7 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 	case Qt::Key_F1:
 		rc_[0] = rc_[1] = rc_[2] = rc_[3] = 0;
 		start_tracking_ = !start_tracking_;
-		total_error_width_ = total_error_x_ = last_error_width_ = last_error_x_ = 0;
+		total_error_width_ = total_error_x_ = total_error_y_ = last_error_width_ = last_error_x_ = last_error_y_ = 0;
 		break;
 	case Qt::Key_CapsLock:
 		if (drone_control_->get_is_takeoff())
@@ -212,6 +212,9 @@ void Uranus::mouseReleaseEvent(QMouseEvent* event) {
 		int height = mouse_start_point_.y() - mouse_end_point_.y();
 		width = width > 0 ? width : -width;
 		height = height > 0 ? height : -height;
+		goal_x_ = (960 - width) / 2;
+		goal_y_ = (720 - height) / 2;
+		goal_width_ = width;
 		emit target_select_signal(cv::Rect2d(mouse_start_point_.x(), mouse_start_point_.y(), width, height));
 	}
 }
@@ -270,6 +273,7 @@ void Uranus::ShowStatus(int* params) const {
 
 //Todo: Optimize with Switch Case
 void Uranus::TrackTarget(const cv::Rect2d roi) {
+	//判断跟踪是否开始
 	if (!start_tracking_) {
 		return;
 	}
@@ -347,21 +351,34 @@ void Uranus::TrackTarget(const cv::Rect2d roi) {
 	//}
 
 	//通过顶点纵坐标y大小判断目标高低偏向
-	if (y < 275) {
-		//y在上，目标在上方，无人机上升
-		rc_[2] = stick_ / 5;
-		if (drone_status_->get_tof() > 350)
-			rc_[2] = 0;
+	const int error_y = goal_y_ - y;
+	const int d_error_y = y - last_error_y_;
+	last_error_y_ = error_y;
+
+	if (abs(error_y) > 200)
+		rc_[2] = error_y / abs(error_y)*stick_;
+	else
+	{
+		total_error_y_ += error_y;
+		rc_[2] = static_cast<int>(stick_ * (static_cast<float>(error_y) / 200 + total_error_y_ * 0.00001 + d_error_y * 0.0001));
 	}
-	else if (y > 335) {
-		//y在下，目标在下方，无人机下降
-		rc_[2] = -stick_ / 5;
-		if (drone_status_->get_tof() < 150)
-			rc_[2] = 0;
-	}
-	else {
-		rc_[2] = 0;
-	}
+
+
+	//if (y < 275) {
+	//	//y在上，目标在上方，无人机上升
+	//	rc_[2] = stick_ / 5;
+	//	if (drone_status_->get_tof() > 350)
+	//		rc_[2] = 0;
+	//}
+	//else if (y > 335) {
+	//	//y在下，目标在下方，无人机下降
+	//	rc_[2] = -stick_ / 5;
+	//	if (drone_status_->get_tof() < 150)
+	//		rc_[2] = 0;
+	//}
+	//else {
+	//	rc_[2] = 0;
+	//}
 
 
 	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
