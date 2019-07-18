@@ -130,7 +130,7 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 	case Qt::Key_F1:
 		rc_[0] = rc_[1] = rc_[2] = rc_[3] = 0;
 		start_tracking_ = !start_tracking_;
-		total_error_width_ = total_error_x_ = total_error_y_ = last_error_width_ = last_error_x_ = last_error_y_ = 0;
+		total_error_diagonal_ = total_error_x_ = total_error_y_ = last_error_diagonal_ = last_error_x_ = last_error_y_ = 0;
 		break;
 	case Qt::Key_CapsLock:
 		if (drone_control_->get_is_takeoff())
@@ -214,7 +214,7 @@ void Uranus::mouseReleaseEvent(QMouseEvent* event) {
 		height = height > 0 ? height : -height;
 		goal_x_ = (960 - width) / 2;
 		goal_y_ = (720 - height) / 2;
-		goal_width_ = width;
+		goal_diagonal_ = static_cast<int>(sqrt(width * width + height * height));
 		emit target_select_signal(cv::Rect2d(mouse_start_point_.x(), mouse_start_point_.y(), width, height));
 	}
 }
@@ -281,18 +281,19 @@ void Uranus::TrackTarget(const cv::Rect2d roi) {
 	const int y = roi.y;
 	const int width = roi.width;
 	const int height = roi.height;
+	const int diagonal = static_cast<int>(sqrt(width * width + height * height));
 
-	//通过矩形宽判断远近，调整前进或后退
-	const int error_width = goal_width_ - width;
-	const int d_error_width = error_width - last_error_width_;
-	last_error_width_ = error_width;
+	//通过矩形对角线长短判断远近，调整前进或后退
+	const int error_diagonal = goal_diagonal_ - diagonal;
+	const int d_error_diagonal = error_diagonal - last_error_diagonal_;
+	last_error_diagonal_ = error_diagonal;
 
-	if (abs(error_width) > 200)
-		rc_[1] = error_width / abs(error_width)*stick_;
+	if (abs(error_diagonal) > 200)
+		rc_[1] = error_diagonal / abs(error_diagonal)*stick_;
 	else
 	{
-		total_error_width_ += error_width;
-		rc_[1] = static_cast<int>(stick_ * (static_cast<float>(error_width) / 200 + total_error_width_ * 0.00001 + d_error_width * 0.0001));
+		total_error_diagonal_ += error_diagonal;
+		rc_[1] = static_cast<int>(stick_ * (static_cast<float>(error_diagonal) / 200 + total_error_diagonal_ * 0.00001 + d_error_diagonal * 0.0001));
 	}
 
 	//if (width > 210) {

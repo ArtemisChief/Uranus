@@ -64,9 +64,9 @@ private:
 	int goal_y_ = 355;
 	int last_error_y_ = 0;
 	int total_error_y_ = 0;
-	int goal_width_ = 190;
-	int last_error_width_ = 0;
-	int total_error_width_ = 0;
+	int goal_diagonal_ = 190;
+	int last_error_diagonal_ = 0;
+	int total_error_diagonal_ = 0;
 
 private slots:
 
