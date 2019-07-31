@@ -28,6 +28,7 @@ Uranus::Uranus(QWidget *parent) : QMainWindow(parent) {
 	connect(this, &Uranus::rc_signal, drone_control_, &DroneControl::SetRC);
 	connect(this, &Uranus::flip_signal, drone_control_, &DroneControl::Flip);
 	connect(this, &Uranus::speed_change_signal, drone_control_, &DroneControl::SetSpeed);
+	connect(this, &Uranus::emergency_signal, drone_control_, &DroneControl::Emergency);
 	drone_control_thread_.start();
 
 	// 状态接收更新线程
@@ -131,6 +132,9 @@ void Uranus::keyPressEvent(QKeyEvent* key_event) {
 		rc_[0] = rc_[1] = rc_[2] = rc_[3] = 0;
 		start_tracking_ = !start_tracking_;
 		total_error_diagonal_ = total_error_x_ = total_error_y_ = last_error_diagonal_ = last_error_x_ = last_error_y_ = 0;
+		break;
+	case Qt::Key_F10:
+		emit emergency_signal();
 		break;
 	case Qt::Key_CapsLock:
 		if (drone_control_->get_is_takeoff())
@@ -286,101 +290,66 @@ void Uranus::TrackTarget(const cv::Rect2d roi) {
 	//通过矩形对角线长短判断远近，调整前进或后退
 	const int error_diagonal = goal_diagonal_ - diagonal;
 	const int d_error_diagonal = error_diagonal - last_error_diagonal_;
+	const int sym_error_diagonal = error_diagonal == 0 ? 1 : error_diagonal / abs(error_diagonal);
 	last_error_diagonal_ = error_diagonal;
 
 	if (abs(error_diagonal) > 200)
-		rc_[1] = error_diagonal / abs(error_diagonal)*stick_;
+		rc_[1] = sym_error_diagonal*stick_;
 	else
 	{
 		total_error_diagonal_ += error_diagonal;
-		rc_[1] = static_cast<int>(stick_ * (static_cast<float>(error_diagonal) / 200 + total_error_diagonal_ * 0.00001 + d_error_diagonal * 0.0001));
+		rc_[1] = static_cast<int>(stick_ * (sym_error_diagonal*sqrt(abs(error_diagonal) / 200.0) + total_error_diagonal_ * 0.00001 + d_error_diagonal * 0.0001));
 	}
 
-	//if (width > 210) {
-	//	//目标框过大，距离过近,后退
-	//	if (width > 410)
-	//		rc_[1] = -stick_;
-	//	else
-	//	{
-	//		total_error_width_ += width - 210;
-	//		rc_[1] = static_cast<int>(-stick_ * (static_cast<float>(width - 210) / 200 + total_error_width_ * 0.001));
-	//	}
-
-	//}
-	//else if (width < 170) {
-	//	//目标框过小，距离过远，前进
-	//	if (width < 120)
-	//		rc_[1] = stick_;
-	//	else
-	//		rc_[1] = static_cast<int>(stick_ * static_cast<float>(170 - width) / 100);
-	//}
-	//else {
-	//	//不动
-	//	rc_[1] = 0;
-	//}
 
 	//通过顶点的横坐标x大小判断目标左右偏向
 	const int error_x = goal_x_ - x;
 	const int d_error_x = x - last_error_x_;
+	const int sym_error_x = error_x == 0 ? 1 : error_x / abs(error_x);
 	last_error_x_ = error_x;
 
 	if (abs(error_x) > 200)
-		rc_[0] = -error_x / abs(error_x)*stick_;
+		rc_[0] = -sym_error_x*stick_;
 	else
 	{
 		total_error_x_ += error_x;
-		rc_[0] = static_cast<int>(-stick_ * (static_cast<float>(error_x) / 200 + total_error_x_ * 0.00001 + d_error_x * 0.0001));
+		rc_[0] = static_cast<int>(-stick_ * (error_x / 200.0 + total_error_x_ * 0.00001 + d_error_x * 0.0001));
 	}
 
-	//if (x < 335) {
-	//	//x在左，目标在左，往左偏航
-	//	if (x < 135)
-	//		rc_[0] = -stick_;
-	//	else
-	//		rc_[0] = static_cast<int>(-stick_ * static_cast<float>(335 - x) / 200);
-	//}
-	//else if (x > 375) {
-	//	//x在右，目标在右，往右偏航
-	//	if (x > 575)
-	//		rc_[0] = stick_;
-	//	else
-	//		rc_[0] = static_cast<int>(stick_ * static_cast<float>(x - 375) / 200);
-	//}
-	//else {
-	//	//不动
-	//	rc_[0] = 0;
-	//}
+
 
 	//通过顶点纵坐标y大小判断目标高低偏向
 	const int error_y = goal_y_ - y;
 	const int d_error_y = y - last_error_y_;
+	const int sym_error_y = error_y == 0 ? 1 : error_y / abs(error_y);
 	last_error_y_ = error_y;
 
 	if (abs(error_y) > 200)
-		rc_[2] = error_y / abs(error_y)*stick_;
+	{
+		rc_[2] = sym_error_y *stick_;
+	}
 	else
 	{
 		total_error_y_ += error_y;
-		rc_[2] = static_cast<int>(stick_ * (static_cast<float>(error_y) / 200 + total_error_y_ * 0.00001 + d_error_y * 0.0001));
+		rc_[2] = static_cast<int>(stick_ * (error_y / 200.0 + total_error_y_ * 0.00001 + d_error_y * 0.0001));
 	}
 
-
-	//if (y < 275) {
-	//	//y在上，目标在上方，无人机上升
-	//	rc_[2] = stick_ / 5;
-	//	if (drone_status_->get_tof() > 350)
-	//		rc_[2] = 0;
+	////用中点判断目标是否快速横移，偏转摄像头方向
+	//const int mid_x = x + width / 2;
+	//if(mid_x<150)
+	//{
+	//	rc_[3] = -100;
 	//}
-	//else if (y > 335) {
-	//	//y在下，目标在下方，无人机下降
-	//	rc_[2] = -stick_ / 5;
-	//	if (drone_status_->get_tof() < 150)
-	//		rc_[2] = 0;
+	//else if(mid_x>570)
+	//{
+	//	rc_[3] = 100;
 	//}
-	//else {
-	//	rc_[2] = 0;
+	//else
+	//{
+	//	rc_[3] = 0;
 	//}
 
 
+	std::cout << "rc_[0]: " << rc_[0] << " ; rc_[1]: " << rc_[1] << " ; rc_[2]: " << rc_[2] << " ; rc_[3]: " << rc_[3] << std::endl;
 	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
 }

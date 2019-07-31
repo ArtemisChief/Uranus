@@ -88,5 +88,5 @@ signals:
 	void flip_signal(const char direction);
 	void speed_change_signal(const int value);
 	void target_select_signal(cv::Rect2d roi);
-
+	void emergency_signal();
 };

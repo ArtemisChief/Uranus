@@ -140,3 +140,10 @@ void DroneControl::CloseStream() {
 		is_streaming_ = false;
 	memset(buffer_, 0, 10);
 }
+
+void DroneControl::Emergency()
+{
+	socket_->writeDatagram("emergency", static_cast<QHostAddress>(IP_DRONE), REMOTE_PORT_CONTROL);
+	socket_->readDatagram(buffer_, sizeof buffer_);
+	memset(buffer_, 0, 10);
+}

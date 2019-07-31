@@ -77,4 +77,6 @@ public slots:
 	void OpenStream();
 	void CloseStream();
 
+	// ½ô¼±ÖÆ¶¯
+	void Emergency();
 };
