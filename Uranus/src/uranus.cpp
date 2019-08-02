@@ -200,9 +200,8 @@ void Uranus::mousePressEvent(QMouseEvent* event) {
 }
 
 void Uranus::mouseMoveEvent(QMouseEvent* event) {
-	if (is_mouse_down_) {
+	if (is_mouse_down_)
 		mouse_end_point_ = event->pos();
-	}
 }
 
 void Uranus::mouseReleaseEvent(QMouseEvent* event) {
@@ -212,8 +211,8 @@ void Uranus::mouseReleaseEvent(QMouseEvent* event) {
 		is_mouse_down_ = false;
 		mouse_end_point_ = event->pos();
 
-		int width = mouse_start_point_.x() - mouse_end_point_.x();
-		int height = mouse_start_point_.y() - mouse_end_point_.y();
+		auto width = mouse_start_point_.x() - mouse_end_point_.x();
+		auto height = mouse_start_point_.y() - mouse_end_point_.y();
 		width = width > 0 ? width : -width;
 		height = height > 0 ? height : -height;
 		goal_x_ = (960 - width) / 2;
@@ -275,81 +274,60 @@ void Uranus::ShowStatus(int* params) const {
 	ui.agz_label->setText(QString("agz: %1 mg").arg(params[15]));
 }
 
-//Todo: Optimize with Switch Case
 void Uranus::TrackTarget(const cv::Rect2d roi) {
-	//判断跟踪是否开始
-	if (!start_tracking_) {
+	// 判断跟踪是否开始
+	if (!start_tracking_)
 		return;
-	}
-	const int x = roi.x;
-	const int y = roi.y;
-	const int width = roi.width;
-	const int height = roi.height;
-	const int diagonal = static_cast<int>(sqrt(width * width + height * height));
 
-	//通过矩形对角线长短判断远近，调整前进或后退
-	const int error_diagonal = goal_diagonal_ - diagonal;
-	const int d_error_diagonal = error_diagonal - last_error_diagonal_;
-	const int sym_error_diagonal = error_diagonal == 0 ? 1 : error_diagonal / abs(error_diagonal);
+	// 对角线长度
+	const auto diagonal = static_cast<int>(sqrt(roi.width * roi.width + roi.height * roi.height));
+
+	// 通过矩形对角线长短判断远近，调整前进或后退
+	const auto error_diagonal = goal_diagonal_ - diagonal;
+	const auto d_error_diagonal = error_diagonal - last_error_diagonal_;
+	const auto sym_error_diagonal = error_diagonal == 0 ? 1 : error_diagonal / abs(error_diagonal);
 	last_error_diagonal_ = error_diagonal;
-
 	if (abs(error_diagonal) > 200)
-		rc_[1] = sym_error_diagonal*stick_;
-	else
-	{
+		rc_[1] = sym_error_diagonal * stick_;
+	else {
 		total_error_diagonal_ += error_diagonal;
 		rc_[1] = static_cast<int>(stick_ * (sym_error_diagonal*sqrt(abs(error_diagonal) / 200.0) + total_error_diagonal_ * 0.00001 + d_error_diagonal * 0.0001));
 	}
 
-
-	//通过顶点的横坐标x大小判断目标左右偏向
-	const int error_x = goal_x_ - x;
-	const int d_error_x = x - last_error_x_;
-	const int sym_error_x = error_x == 0 ? 1 : error_x / abs(error_x);
+	// 通过顶点的横坐标x大小判断目标左右偏向
+	const auto error_x = goal_x_ - roi.x;
+	const auto d_error_x = roi.x - last_error_x_;
+	const auto sym_error_x = error_x == 0 ? 1 : error_x / abs(error_x);
 	last_error_x_ = error_x;
-
 	if (abs(error_x) > 200)
-		rc_[0] = -sym_error_x*stick_;
-	else
-	{
+		rc_[0] = -sym_error_x * stick_;
+	else {
 		total_error_x_ += error_x;
 		rc_[0] = static_cast<int>(-stick_ * (error_x / 200.0 + total_error_x_ * 0.00001 + d_error_x * 0.0001));
 	}
 
-
-
-	//通过顶点纵坐标y大小判断目标高低偏向
-	const int error_y = goal_y_ - y;
-	const int d_error_y = y - last_error_y_;
-	const int sym_error_y = error_y == 0 ? 1 : error_y / abs(error_y);
+	// 通过顶点纵坐标y大小判断目标高低偏向
+	const auto error_y = goal_y_ - roi.y;
+	const auto d_error_y = roi.y - last_error_y_;
+	const auto sym_error_y = error_y == 0 ? 1 : error_y / abs(error_y);
 	last_error_y_ = error_y;
-
-	if (abs(error_y) > 200)
-	{
-		rc_[2] = sym_error_y *stick_;
-	}
-	else
-	{
+	if (abs(error_y) > 200) 
+		rc_[2] = sym_error_y * stick_;
+	else {
 		total_error_y_ += error_y;
 		rc_[2] = static_cast<int>(stick_ * (error_y / 200.0 + total_error_y_ * 0.00001 + d_error_y * 0.0001));
 	}
 
-	////用中点判断目标是否快速横移，偏转摄像头方向
-	//const int mid_x = x + width / 2;
-	//if(mid_x<150)
-	//{
-	//	rc_[3] = -100;
-	//}
-	//else if(mid_x>570)
-	//{
-	//	rc_[3] = 100;
-	//}
-	//else
-	//{
-	//	rc_[3] = 0;
-	//}
+	// 用中点判断目标是否快速横移，偏转摄像头方向
+	const auto mid_x = roi.x + roi.width / 2;
+	if (mid_x < 150)
+		rc_[3] = -100;
+	else if (mid_x > 570)
+		rc_[3] = 100;
+	else
+		rc_[3] = 0;
 
-
-	std::cout << "rc_[0]: " << rc_[0] << " ; rc_[1]: " << rc_[1] << " ; rc_[2]: " << rc_[2] << " ; rc_[3]: " << rc_[3] << std::endl;
+	// 发送杆量信号
+	//std::cout << "rc_[0]: " << rc_[0] << " ; rc_[1]: " << rc_[1] << " ; rc_[2]: " << rc_[2] << " ; rc_[3]: " << rc_[3] << std::endl;
 	emit rc_signal(rc_[0], rc_[1], rc_[2], rc_[3]);
 }
