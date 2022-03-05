@@ -73,7 +73,7 @@
     <QtMoc Include="src\ImageProcess\frame_processor.hpp">
       <Filter>Header Files\ImageProcess</Filter>
     </QtMoc>
-    <QtMoc Include="target_tracker.hpp">
+    <QtMoc Include="src\ImageProcess\target_tracker.hpp">
       <Filter>Header Files\ImageProcess</Filter>
     </QtMoc>
   </ItemGroup>
@@ -96,14 +96,14 @@
     <ClCompile Include="src\ImageProcess\frame_processor.cpp">
       <Filter>Source Files\ImageProcess</Filter>
     </ClCompile>
-    <ClCompile Include="target_tracker.cpp">
-      <Filter>Source Files\ImageProcess</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utils\fhog.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils\kcftracker.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImageProcess\target_tracker.cpp">
+      <Filter>Source Files\ImageProcess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

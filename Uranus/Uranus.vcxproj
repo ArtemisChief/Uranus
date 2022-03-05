@@ -136,9 +136,9 @@
     <QtMoc Include="src\Drone\drone_stream.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ImageProcess\target_tracker.cpp" />
     <ClCompile Include="src\Utils\fhog.cpp" />
     <ClCompile Include="src\Utils\kcftracker.cpp" />
-    <ClCompile Include="target_tracker.cpp" />
     <ClCompile Include="src\Drone\drone_control.cpp" />
     <ClCompile Include="src\Drone\drone_status.cpp" />
     <ClCompile Include="src\Drone\drone_stream.cpp" />
@@ -153,9 +153,7 @@
     <QtMoc Include="src\ImageProcess\frame_processor.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="target_tracker.hpp" />
-  </ItemGroup>
-  <ItemGroup>
+    <QtMoc Include="src\ImageProcess\target_tracker.hpp" />
     <ClInclude Include="src\Utils\ffttools.hpp" />
     <ClInclude Include="src\Utils\fhog.hpp" />
     <ClInclude Include="src\Utils\kcftracker.hpp" />
